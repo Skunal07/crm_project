@@ -11,7 +11,6 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\HasMany $Categories
  * @property \App\Model\Table\CompaniesTable&\Cake\ORM\Association\HasMany $Companies
  * @property \App\Model\Table\ContactUsReplyTable&\Cake\ORM\Association\HasMany $ContactUsReply
@@ -19,7 +18,6 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\LeadsTable&\Cake\ORM\Association\HasMany $Leads
  * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\HasMany $Products
  * @property \App\Model\Table\UserProfileTable&\Cake\ORM\Association\HasMany $UserProfile
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\HasMany $Users
  *
  * @method \App\Model\Entity\User newEmptyEntity()
  * @method \App\Model\Entity\User newEntity(array $data, array $options = [])
@@ -51,9 +49,6 @@ class UsersTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
-        ]);
         $this->hasMany('Categories', [
             'foreignKey' => 'user_id',
         ]);
@@ -75,9 +70,6 @@ class UsersTable extends Table
         $this->hasMany('UserProfile', [
             'foreignKey' => 'user_id',
         ]);
-        $this->hasMany('Users', [
-            'foreignKey' => 'user_id',
-        ]);
     }
 
     /**
@@ -88,10 +80,6 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('user_id')
-            ->allowEmptyString('user_id');
-
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
@@ -133,7 +121,6 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
-        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
     }

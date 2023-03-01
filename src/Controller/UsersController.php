@@ -14,7 +14,7 @@ class UsersController extends AppController
     public function beforeFilter($event)
     {
         parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout("dashbord");
+        $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('UserProfile');
     }
 
@@ -23,7 +23,7 @@ class UsersController extends AppController
         // $this->viewBuilder()->setLayout("home");
     }
 
-    public function dashbord()
+    public function dashboard()
     {
     }
 

@@ -62,27 +62,12 @@ class CompaniesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('user_id')
-            ->notEmptyString('user_id');
-
-        $validator
             ->scalar('company_name')
             ->maxLength('company_name', 50)
             ->requirePresence('company_name', 'create')
             ->notEmptyString('company_name');
 
-        $validator
-            ->scalar('status')
-            ->notEmptyString('status');
-
-        $validator
-            ->dateTime('created_date')
-            ->notEmptyDateTime('created_date');
-
-        $validator
-            ->dateTime('modified_date')
-            ->allowEmptyDateTime('modified_date');
-
+     
         return $validator;
     }
 

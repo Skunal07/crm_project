@@ -16,10 +16,16 @@ class ContactsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+
+     public function beforeFilter($event)
+     {
+         parent::beforeFilter($event);
+         $this->viewBuilder()->setLayout("dashboard");
+     }
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Companies', 'Users'],
+            'contain' => ['Companies', 'Users.UserProfile'],
         ];
         $contacts = $this->paginate($this->Contacts);
 

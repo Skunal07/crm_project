@@ -62,54 +62,43 @@ class ProductsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('user_id')
-            ->notEmptyString('user_id');
+        // $validator
+        //     ->integer('user_id')
+        //     ->notEmptyString('user_id');
 
-        $validator
-            ->integer('category_id')
-            ->notEmptyString('category_id');
+        // $validator
+        //     ->integer('category_id')
+        //     ->notEmptyString('category_id');
 
-        $validator
-            ->scalar('product_name')
-            ->maxLength('product_name', 255)
-            ->requirePresence('product_name', 'create')
-            ->notEmptyString('product_name');
+        // $validator
+        //     ->scalar('product_name')
+        //     ->maxLength('product_name', 255)
+        //     ->requirePresence('product_name', 'create')
+        //     ->notEmptyString('product_name');
 
-        $validator
-            ->scalar('short_discription')
-            ->maxLength('short_discription', 255)
-            ->requirePresence('short_discription', 'create')
-            ->notEmptyString('short_discription');
+        // $validator
+        //     ->scalar('short_discription')
+        //     ->maxLength('short_discription', 255)
+        //     ->requirePresence('short_discription', 'create')
+        //     ->notEmptyString('short_discription');
 
-        $validator
-            ->scalar('description')
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
+        // $validator
+        //     ->scalar('description')
+        //     ->requirePresence('description', 'create')
+        //     ->notEmptyString('description');
 
-        $validator
-            ->scalar('product_tags')
-            ->requirePresence('product_tags', 'create')
-            ->notEmptyString('product_tags');
+        // $validator
+        //     ->scalar('product_tags')
+        //     ->requirePresence('product_tags', 'create')
+        //     ->notEmptyString('product_tags');
 
-        $validator
-            ->scalar('product_image')
-            ->maxLength('product_image', 255)
-            ->requirePresence('product_image', 'create')
-            ->notEmptyFile('product_image');
+        // $validator
+        //     ->scalar('product_image')
+        //     ->maxLength('product_image', 255)
+        //     ->requirePresence('product_image', 'create')
+        //     ->notEmptyFile('product_image');
 
-        $validator
-            ->scalar('status')
-            ->notEmptyString('status');
-
-        $validator
-            ->dateTime('created_date')
-            ->notEmptyDateTime('created_date');
-
-        $validator
-            ->dateTime('modified_date')
-            ->allowEmptyDateTime('modified_date');
-
+       
         return $validator;
     }
 

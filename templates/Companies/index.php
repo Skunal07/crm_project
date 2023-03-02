@@ -33,7 +33,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0"><?= ($company->user->user_profile['0']['first_name']) ?> <?= ($company->user->user_profile['0']['last_name']) ?></p>
+                                            <p class="text-xs font-weight-bold mb-0"><?= ($company->user->user_profile['first_name']) ?> <?= ($company->user->user_profile['last_name']) ?></p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($company->created_date) ?></span>
@@ -87,7 +87,6 @@
         <?php
       echo $this->Form->input('company_name',['class'=>'form-control']);
       ?>
-      <input type="hidden" name="user_id" id="user_id" value="1"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

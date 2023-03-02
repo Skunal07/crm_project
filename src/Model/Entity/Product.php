@@ -35,17 +35,17 @@ class Product extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'user_id' => true,
-        'category_id' => true,
-        'product_name' => true,
-        'short_discription' => true,
-        'description' => true,
-        'product_tags' => true,
-        'product_image' => true,
-        'status' => true,
-        'created_date' => true,
-        'modified_date' => true,
-        'user' => true,
-        'category' => true,
+        '*' => true,
+        // 'category_id' => true,
+        // 'product_name' => true,
+        // 'short_discription' => true,
+        // 'description' => true,
+        // 'product_tags' => true,
+        // 'product_image' => true,
+        // 'status' => true,
+        // 'created_date' => true,
+        // 'modified_date' => true,
+        // 'user' => true,
+        // 'category' => true,
     ];
 }

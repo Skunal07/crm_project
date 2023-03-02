@@ -22,15 +22,13 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('UserProfile');
+
         $this->Authentication->addUnauthenticatedActions(['login','index']);
     }
 
     public function index()
     {
         $this->viewBuilder()->setLayout("home");
-        $users = $this->paginate($this->Users);
-
-        $this->set(compact('users'));
     }
 
     public function dashboard()
@@ -41,6 +39,7 @@ class UsersController extends AppController
 
     public function usersList()
     {
+
             $result = $this->Authentication->getIdentity();
             // pr($result);
             // die;
@@ -66,6 +65,7 @@ else{
         $uid = $result->id;
         // die;
         $this->viewBuilder()->setLayout("home");
+
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('ajax')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -86,13 +86,13 @@ else{
                     die;
             }
         }
-
     }
-     //----------------------------------------------Login--------------------------------------------//
+    //----------------------------------------------Login--------------------------------------------//
 
-     public function login(){
+    public function login()
+    {
         $this->viewBuilder()->setLayout("login");
-        
+
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
 
@@ -104,18 +104,14 @@ else{
             $session = $this->getRequest()->getSession();
             $session->write('users_details', $data);
             $result = $this->Authentication->getIdentity();
-            if ($result['status']=='1') {
+            if ($result['status'] == '1') {
                 $this->Flash->error(__('Your Account Deactivate Please Contact Us Customer Care'));
-                $redirect = $this->request->getQuery('redirect',['controller' => 'users','action' => 'logout',]);
-
-
-            }
-            else{
+                $redirect = $this->request->getQuery('redirect', ['controller' => 'users', 'action' => 'logout',]);
+            } else {
                 if ($result->role == '1') {
-                $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
-                }else{
-                 $redirect = $this->request->getQuery('redirect', ['controller' => 'products','action' => 'producthome',]);
-
+                    $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
+                } else {
+                    $redirect = $this->request->getQuery('redirect', ['controller' => 'products', 'action' => 'producthome',]);
                 }
             }
 
@@ -124,26 +120,25 @@ else{
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid username or password'));
         }
-    
-
-
     }
 
 
-     //----------------------------------------------Logout--------------------------------------------//
+    //----------------------------------------------Logout--------------------------------------------//
 
     public function logout()
-    {         
-     $this->viewBuilder()->setLayout("home");
+    {
+        $this->viewBuilder()->setLayout("home");
 
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
+
                 $this->Authentication->logout();
                 $session = $this->request->getSession();
                 $session->destroy();
                 return $this->redirect(['action' => 'index']);
             }
-            }
+      }
+
 
 
 

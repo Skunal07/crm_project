@@ -21,7 +21,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
-        $this->loadModel('Users');
+        // $this->loadModel('Users');
         $this->loadModel('UserProfile');
         $this->Authentication->addUnauthenticatedActions(['login']);
     }

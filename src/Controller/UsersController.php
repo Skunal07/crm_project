@@ -139,7 +139,7 @@ dd('ghbhvb');
      //----------------------------------------------Login--------------------------------------------//
 
      public function login(){
-        $this->viewBuilder()->setLayout("home");
+        $this->viewBuilder()->setLayout("login");
         
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();

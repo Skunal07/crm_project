@@ -22,6 +22,8 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('UserProfile');
+        $this->loadModel('Products');
+        $this->loadModel('Categories');
 
         $this->Authentication->addUnauthenticatedActions(['login','index']);
     }
@@ -29,6 +31,8 @@ class UsersController extends AppController
     public function index()
     {
         $this->viewBuilder()->setLayout("home");
+        $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
+        $this->set(compact('products'));
     }
 
     public function dashboard()

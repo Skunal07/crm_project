@@ -1,253 +1,86 @@
-<!-- <?php
-        /**
-         * @var \App\View\AppView $this
-         * @var iterable<\App\Model\Entity\User> $users
-         */
-        ?>
-<div class="users index content">
-    <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Users') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('user_id') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('added_by') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('created_date') ?></th>
-                    <th><?= $this->Paginator->sort('modified_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user) : ?>
-                <tr>
-                    <td><?= $this->Number->format($user->id) ?></td>
-                    <td><?= $user->user_id === null ? '' : $this->Number->format($user->user_id) ?></td>
-                    <td><?= h($user->email) ?></td>
-                    <td><?= $user->added_by === null ? '' : $this->Number->format($user->added_by) ?></td>
-                    <td><?= h($user->status) ?></td>
-                    <td><?= h($user->created_date) ?></td>
-                    <td><?= h($user->modified_date) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div> -->
+<div class="site-section">
 
-
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="/font/icomoon/style.css">
-
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- Style -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <title>Sidebar #3</title>
-</head>
-
-<body>
-
-
-    <aside class="sidebar">
-        <div class="toggle">
-            <a href="#" class="js-menu-toggle menu-toggle">
-                <span class="icon-mode_comment text-black"></span>
-            </a>
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="side-inner">
-
-            <div class="share">
-                <h2>Get in touch</h2>
-                <?= $this->Form->create() ?>
-                <?php echo $this->Form->control('name', ['class' => 'form-control', 'placeholder' => 'Enter your name']); ?>
-                <?php echo $this->Form->control('email', ['class' => 'form-control', 'placeholder' => 'Enter your email']); ?>
-                <?php echo $this->Form->control('phone', ['class' => 'form-control', 'placeholder' => 'Enter your Mobile Number']); ?>
-                <select class="form-select form-control" aria-label="Default select">
-                    <option class="bg-secondary" value="Doors" selected>Doors</option>
-                    <option class="bg-secondary" value="Windows">Windows</option>
-                    <option class="bg-secondary" value="Doors and Windows">Doors and Windows</option>
-                    <option class="bg-secondary" value="Others">Others</option>
-                </select>
-                <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="Write your message"></textarea>
-                <input type="submit" class="btn btn-primary btn-block" value="Send">
-                <?= $this->Form->end() ?>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+                <img src="/img/carousel-1.jpg" class="d-block w-100 carousel-img" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5></h5>
+                    <p></p>
+                </div>
             </div>
-
-        </div>
-
-    </aside>
-
-
-    <main>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand text-white fw-bold" href="#">DoorDekho.com</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto float-end">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact Us</a>
-                    </li>
-                </ul>
-                <!-- <a class="btn btn-outline-light text-light fw-bold" type="button" href="/users/login">Login</a> -->
-                <?= $this->Html->link("Login", ['controller' => 'users', 'action' => 'login'], ['class' => 'btn btn-outline-light fw-bold']) ?>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="/img/carousel-2.jpg" class="d-block w-100 carousel-img" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5></h5>
+                    <p></p>
+                </div>
             </div>
-        </nav>
-
-        <div class="site-section">
-            <div class="container">
-                <div class="row justify-content-center">
-
-
-
-
-
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_1.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_2.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_3.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_4.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_1.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_2.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_3.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex post-entry">
-                                    <div class="custom-thumbnail">
-                                        <img src="/img/person_4.jpg" alt="Image" class="img-fluid">
-                                    </div>
-                                    <div class="post-content">
-                                        <h3>How the gut microbes you're born with affect your lifelong health</h3>
-                                        <div class="post-meta"><span>Posted:</span> Dec 17, 2019</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
+            <div class="carousel-item">
+                <img src="/img/carousel-3.jpg" class="d-block w-100 carousel-img" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5></h5>
+                    <p></p>
                 </div>
             </div>
         </div>
-    </main>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="container my-3" id="myHeader">
+        <button class=" btn btn-light mx-1">All</button>
+        <button class=" btn btn-light mx-1">Doors</button>
+        <button class=" btn btn-light mx-1">Windows</button>
+    </div>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="/img/person_1.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <img src="/img/person_1.jpg" class="img-fluid rounded-start" alt="...">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
-
-</html>
+</div>

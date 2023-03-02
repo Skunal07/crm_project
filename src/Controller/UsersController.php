@@ -21,10 +21,6 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
-<<<<<<< HEAD
-        // $this->loadModel('Users');
-=======
->>>>>>> 73ba184fb9935caec42d1b61dc212bf7a179bd67
         $this->loadModel('UserProfile');
         $this->Authentication->addUnauthenticatedActions(['login']);
     }
@@ -143,7 +139,7 @@ dd('ghbhvb');
      //----------------------------------------------Login--------------------------------------------//
 
      public function login(){
-        $this->viewBuilder()->setLayout("home");
+        $this->viewBuilder()->setLayout("login");
         
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();

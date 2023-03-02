@@ -14,16 +14,19 @@ class UsersController extends AppController
     public function beforeFilter($event)
     {
         parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout("dashbord");
+        $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('UserProfile');
     }
 
     public function index()
     {
-        // $this->viewBuilder()->setLayout("home");
+        $this->viewBuilder()->setLayout("home");
+        $users = $this->paginate($this->Users);
+
+        $this->set(compact('users'));
     }
 
-    public function dashbord()
+    public function dashboard()
     {
     }
 

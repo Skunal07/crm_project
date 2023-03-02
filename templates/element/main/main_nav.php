@@ -17,6 +17,6 @@
                     <a class="nav-link text-light nav-menu mx-3" href="#">Contact Us</a>
                 </li>
             </ul>
-            <?= $this->Html->link("Login", ['controller' => 'users', 'action' => 'login'], ['class' => 'btn btn-outline-light fw-bold py-1 mx-3']) ?>
+            <a class='btn btn-outline-light fw-bold py-1 mx-3' href="/users/login">Login</a>
         </div>
     </nav>

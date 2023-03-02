@@ -68,7 +68,8 @@ class ProductsController extends AppController
                 $data["product_image"] = $fileName;
                 $data["user_id"] = $uid;
                 $product = $this->Products->patchEntity($product, $data);
-                // dd($product);
+                $response =$this->Products->saveMany($product);
+                dd($response);
                 if ($this->Products->save($product)) {
                     $hasFileError = $productImage->getError();
     

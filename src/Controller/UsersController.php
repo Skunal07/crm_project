@@ -11,7 +11,6 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Utility\Security;
 use App\Controller\View;
-// use Cake\View\View;
 
 
 class UsersController extends AppController
@@ -22,13 +21,17 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('UserProfile');
+        $this->loadModel('Products');
+        $this->loadModel('Categories');
 
-        $this->Authentication->addUnauthenticatedActions(['login','index']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'index']);
     }
 
     public function index()
     {
         $this->viewBuilder()->setLayout("home");
+        $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
+        $this->set(compact('products'));
     }
 
     public function dashboard()
@@ -40,21 +43,17 @@ class UsersController extends AppController
     public function usersList()
     {
 
-            $result = $this->Authentication->getIdentity();
-            // pr($result);
-            // die;
-            if ($result->role == '1') {
-        $users = $this->paginate($this->Users, [
-            'contain' => ['UserProfile']
-        ]);
-       
-        $this->set(compact('users'));
-}
-else{  
-    return $this->redirect(['controller'=>'Users','action'=>'dashboard']);
-   
-}
-}
+        $result = $this->Authentication->getIdentity();
+        // pr($result);
+        // die;
+        if ($result->role == '1') {
+            $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0]));
+
+            $this->set(compact('users'));
+        } else {
+            return $this->redirect(['controller' => 'Users', 'action' => 'dashboard']);
+        }
+    }
 
     //----------------------------------------------Admin---Add---Staff--------------------------------------------//
 
@@ -69,21 +68,20 @@ else{
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('ajax')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $user->added_by=$uid;
-            $user->users_id=$uid;
-                if ($this->Users->save($user)) {
+            $user->added_by = $uid;
+            $user->users_id = $uid;
+            if ($this->Users->save($user)) {
                 echo json_encode(array(
                     "status" => 1,
                     "message" => "staff has been created"
                 ));
                 die;
-
-                }else{
-                    echo json_encode(array(
-                        "status" => 0,
-                        "message" => "Failed to create"
-                    ));
-                    die;
+            } else {
+                echo json_encode(array(
+                    "status" => 0,
+                    "message" => "Failed to create"
+                ));
+                die;
             }
         }
     }
@@ -132,12 +130,12 @@ else{
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
 
-                $this->Authentication->logout();
-                $session = $this->request->getSession();
-                $session->destroy();
-                return $this->redirect(['action' => 'index']);
-            }
-      }
+            $this->Authentication->logout();
+            $session = $this->request->getSession();
+            $session->destroy();
+            return $this->redirect(['action' => 'index']);
+        }
+    }
 
 
 
@@ -146,161 +144,157 @@ else{
 
     //-----------------------------------------DeleteStatus--------------------------------------//
 
-    public function deletestatus($id=null,$delete_status=null){
+    public function deletestatus($id = null, $delete_status = null)
+    {
         if ($this->request->is('ajax')) {
-          $user =$this->Users->get($id);
-          if ($delete_status==1) 
-              $user->delete_status =0;
-          else
-              $user->delete_status=1;
-          
-          if ($this->Users->save($user)) {
-              echo json_encode(array(
-                  "status" => 1,
-                  "message" => "The Users has been deleted."
-              )); 
-              exit;
-          }
-  
-      else{
-          echo json_encode(array(
-              "status" => 0,
-              "message" => "The User could not be deleted. Please, try again."
-          )); 
-          exit;
-          }
-          
-        }  
-          
-      }
+            $user = $this->Users->get($id);
+            if ($delete_status == 1)
+                $user->delete_status = 0;
+            else
+                $user->delete_status = 1;
 
-
-
-//--------------------------------------Modal Fetch User Detail During Edit----------------------------------//
-
-                public function updateProfile($id = null)
-                {
-                    // $this->Model = $this->loadModel('UserProfile');
-                    $id = $_GET['id'];
-                    $user = $this->Users->get($id, [
-                        'contain' => ['UserProfile']
-                    ]);
-                    echo json_encode($user);
-                    exit;
-                }
-//---------------------------------------------Modal Edit Details-------------------------------------------//
-
-            public function editProfile($id = null)
-            {
-                if ($this->request->is('ajax')) {
-                    $data=$this->request->getData();
-                    $id=$this->request->getData('iddd');
-                    // dd($id);
-                     $user = $this->Users->get($id, [
-                        'contain' => ['UserProfile'],
-                    ]);
-
-                        $user = $this->Users->patchEntity($user,$data);
-                        if ($this->Users->save($user)) {
-                            echo json_encode(array(
-                                "status" => 1,
-                                "message" => "The User has been saved.",
-                            ));
-                            exit;
-
-                            // return $this->redirect(['action' => 'index']);
-                        }
-                        else{echo json_encode(array(
-                            "status" => 0,
-                            "message" => "The User  could not be saved. Please, try again.",
-                        ));
-                        exit;}
-                        $this->set(compact('user'));
-                    }
+            if ($this->Users->save($user)) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "The Users has been deleted."
+                ));
+                exit;
+            } else {
+                echo json_encode(array(
+                    "status" => 0,
+                    "message" => "The User could not be deleted. Please, try again."
+                ));
+                exit;
             }
+        }
+    }
 
-//---------------------------------------------Profile Edit Details-------------------------------------------//
 
-            public function profileEdit($id = null)
-            { 
-                $result = $this->Authentication->getIdentity();
-                $uid = $result->id;
-                 if ($this->request->is(['patch', 'post', 'put'])) {
-                $data = $this->request->getData();
-                $fileName2 = $this->request->getData("imageddd");
-                $user = $this->Users->get($uid, [
-                    'contain' => ['UserProfile'],
-                ]);
-                $productImage = $this->request->getData('user_profile.profile_image');
-                $fileName = $productImage->getClientFilename();
-                if ($fileName == '') {
-                    $fileName = $fileName2;
-                }
-                $fileSize = $productImage->getSize();
-                $data['user_profile']["profile_image"] = $fileName;
-                $user = $this->Users->patchEntity($user, $data);
-                // print_r($user);
-                // die;
-                // pr($user);
-                // die;
-                if ($this->Users->save($user)) {
-                    $hasFileError = $productImage->getError();
-    
-                    if ($hasFileError > 0) {
-                        $data['user_profile']["profile_image"] = "";
-                    } else {
-                        $fileType = $productImage->getClientMediaType();
-    
-                        if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
-                            $imagePath = WWW_ROOT . "upload/" . $fileName;
-                            $productImage->moveTo($imagePath);
-                            $data['user_profile']["profile_image"] = $fileName;
-                        }
-                    }
-                    echo json_encode(array(
-                        "status" => 1,
-                        "message" => "The User has been saved.",
-                    ));
-                    exit;
-                }
+
+    //--------------------------------------Modal Fetch User Detail During Edit----------------------------------//
+
+    public function updateProfile($id = null)
+    {
+        // $this->Model = $this->loadModel('UserProfile');
+        $id = $_GET['id'];
+        $user = $this->Users->get($id, [
+            'contain' => ['UserProfile']
+        ]);
+        echo json_encode($user);
+        exit;
+    }
+    //---------------------------------------------Modal Edit Details-------------------------------------------//
+
+    public function editProfile($id = null)
+    {
+        if ($this->request->is('ajax')) {
+            $data = $this->request->getData();
+            $id = $this->request->getData('iddd');
+            // dd($id);
+            $user = $this->Users->get($id, [
+                'contain' => ['UserProfile'],
+            ]);
+
+            $user = $this->Users->patchEntity($user, $data);
+            if ($this->Users->save($user)) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "The User has been saved.",
+                ));
+                exit;
+
+                // return $this->redirect(['action' => 'index']);
+            } else {
                 echo json_encode(array(
                     "status" => 0,
                     "message" => "The User  could not be saved. Please, try again.",
                 ));
                 exit;
             }
-            $users = $this->Users->UserProfile->find('list', ['limit' => 200])->all()->toArray();
-            $this->set(compact('user', 'users'));
+            $this->set(compact('user'));
+        }
+    }
+
+    //---------------------------------------------Profile Edit Details-------------------------------------------//
+
+    public function profileEdit($id = null)
+    {
+        $result = $this->Authentication->getIdentity();
+        $uid = $result->id;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $fileName2 = $this->request->getData("imageddd");
+            $user = $this->Users->get($uid, [
+                'contain' => ['UserProfile'],
+            ]);
+            $productImage = $this->request->getData('user_profile.profile_image');
+            $fileName = $productImage->getClientFilename();
+            if ($fileName == '') {
+                $fileName = $fileName2;
             }
+            $fileSize = $productImage->getSize();
+            $data['user_profile']["profile_image"] = $fileName;
+            $user = $this->Users->patchEntity($user, $data);
+            // print_r($user);
+            // die;
+            // pr($user);
+            // die;
+            if ($this->Users->save($user)) {
+                $hasFileError = $productImage->getError();
 
-                   
-     //--------------------------------------Loged-In-User-View-Profile----------------------------------//
+                if ($hasFileError > 0) {
+                    $data['user_profile']["profile_image"] = "";
+                } else {
+                    $fileType = $productImage->getClientMediaType();
 
-     public function userProfile($id = null)
-     {
+                    if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                        $imagePath = WWW_ROOT . "upload/" . $fileName;
+                        $productImage->moveTo($imagePath);
+                        $data['user_profile']["profile_image"] = $fileName;
+                    }
+                }
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "The User has been saved.",
+                ));
+                exit;
+            }
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The User  could not be saved. Please, try again.",
+            ));
+            exit;
+        }
+        $users = $this->Users->UserProfile->find('list', ['limit' => 200])->all()->toArray();
+        $this->set(compact('user', 'users'));
+    }
+
+
+    //--------------------------------------Loged-In-User-View-Profile----------------------------------//
+
+    public function userProfile($id = null)
+    {
         // $this->viewBuilder()->setLayout(null);
 
         $user = $this->Authentication->getResult();
-       
+
         if ($user && $user->isValid()) {
-            
+
             $user = $this->Authentication->getIdentity();
-            $id =$user->id;
+            $id = $user->id;
             $user = $this->Users->get($id, [
                 'contain' => ['UserProfile'],
             ]);
             $users = $this->request->getData();
-            
-            $users['id']=$id;
+
+            $users['id'] = $id;
             // pr($id);
             // die;
-            
 
-        $this->set(compact('user'));
-    }else{
-        echo "fdgdf";
+
+            $this->set(compact('user'));
+        } else {
+            echo "fdgdf";
+        }
     }
-     }
-
 }
-

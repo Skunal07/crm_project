@@ -19,13 +19,15 @@ class CompaniesController extends AppController
         $this->loadModel('UserProfile');
     }
 
+    public $paginate = ['limit' => 1];
+
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users'],
+            'contain' => ['Users.UserProfile'],
         ];
         $companies = $this->paginate($this->Companies);
-
+        // echo '<pre>';print_r($companies);die;
         $this->set(compact('companies'));
     }
 
@@ -39,7 +41,7 @@ class CompaniesController extends AppController
     public function view($id = null)
     {
         $company = $this->Companies->get($id, [
-            'contain' => ['Users', 'Contacts'],
+            'contain' => ['Users.UserProfile', 'Contacts'],
         ]);
 
         $this->set(compact('company'));
@@ -50,20 +52,32 @@ class CompaniesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function addcompany()
     {
         $company = $this->Companies->newEmptyEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('ajax')) {
             $company = $this->Companies->patchEntity($company, $this->request->getData());
-            if ($this->Companies->save($company)) {
-                $this->Flash->success(__('The company has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+            if ($this->Companies->save($company)) {
+
+
+                $this->Flash->success(__('company has been created'));
+
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "company name has been created"
+                ));
+                die;
             }
-            $this->Flash->error(__('The company could not be saved. Please, try again.'));
+
+            $this->Flash->error(__('Failed to save company name'));
+
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "Failed to create"
+            ));
+            die;
         }
-        $users = $this->Companies->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('company', 'users'));
     }
 
     /**

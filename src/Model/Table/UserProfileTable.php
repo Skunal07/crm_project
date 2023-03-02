@@ -57,46 +57,46 @@ class UserProfileTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('user_id')
-            ->notEmptyString('user_id');
+        // $validator
+        //     ->integer('user_id')
+        //     ->notEmptyString('user_id');
 
-        $validator
-            ->scalar('first_name')
-            ->maxLength('first_name', 50)
-            ->requirePresence('first_name', 'create')
-            ->notEmptyString('first_name');
+        // $validator
+        //     ->scalar('first_name')
+        //     ->maxLength('first_name', 50)
+        //     ->requirePresence('first_name', 'create')
+        //     ->notEmptyString('first_name');
 
-        $validator
-            ->scalar('last_name')
-            ->maxLength('last_name', 50)
-            ->requirePresence('last_name', 'create')
-            ->notEmptyString('last_name');
+        // $validator
+        //     ->scalar('last_name')
+        //     ->maxLength('last_name', 50)
+        //     ->requirePresence('last_name', 'create')
+        //     ->notEmptyString('last_name');
 
-        $validator
-            ->scalar('address')
-            ->maxLength('address', 100)
-            ->requirePresence('address', 'create')
-            ->notEmptyString('address');
+        // $validator
+        //     ->scalar('address')
+        //     ->maxLength('address', 100)
+        //     ->requirePresence('address', 'create')
+        //     ->notEmptyString('address');
 
-        $validator
-            ->scalar('contact')
-            ->maxLength('contact', 10)
-            ->requirePresence('contact', 'create')
-            ->notEmptyString('contact');
+        // $validator
+        //     ->scalar('contact')
+        //     ->maxLength('contact', 10)
+        //     ->requirePresence('contact', 'create')
+        //     ->notEmptyString('contact');
 
-        $validator
-            ->dateTime('created_date')
-            ->notEmptyDateTime('created_date');
+        // $validator
+        //     ->dateTime('created_date')
+        //     ->notEmptyDateTime('created_date');
 
-        $validator
-            ->dateTime('modified_date')
-            ->allowEmptyDateTime('modified_date');
+        // $validator
+        //     ->dateTime('modified_date')
+        //     ->allowEmptyDateTime('modified_date');
 
-        $validator
-            ->scalar('profile_image')
-            ->maxLength('profile_image', 255)
-            ->allowEmptyFile('profile_image');
+        // $validator
+        //     ->scalar('profile_image')
+        //     ->maxLength('profile_image', 255)
+        //     ->allowEmptyFile('profile_image');
 
         return $validator;
     }

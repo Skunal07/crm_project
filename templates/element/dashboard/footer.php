@@ -110,7 +110,6 @@
     <?php echo $this->Html->script('perfect-scrollbar.min.js'); ?>
     <?php echo $this->Html->script('smooth-scrollbar.min.js'); ?>
     <?php echo $this->Html->script('chartjs.min.js'); ?>
-
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -122,7 +121,6 @@
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <?php echo $this->Html->script('argon-dashboard.min.js'); ?>
     </body>

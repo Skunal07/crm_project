@@ -161,7 +161,7 @@
                      <?php
                      endforeach; ?>                    
                      
-                      </td>
+                      
                   </tbody>
                 </table>
               </div>

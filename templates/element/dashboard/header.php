@@ -25,11 +25,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <?php echo $this->Html->css('nucleo-svg'); ?>
-    <!-- CSS Files -->
-    <?php echo $this->Html->css('argon-dashboard'); ?>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <?php echo $this->Html->script('custom'); ?>
+    <?php echo $this->Html->css('nucleo-svg'); ?>
+    <?php echo $this->Html->css('argon-dashboard'); ?>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">

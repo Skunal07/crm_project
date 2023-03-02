@@ -21,14 +21,16 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
-        $this->loadModel('Users');
         $this->loadModel('UserProfile');
         $this->Authentication->addUnauthenticatedActions(['login']);
     }
 
     public function index()
     {
-        // $this->viewBuilder()->setLayout("home");
+        $this->viewBuilder()->setLayout("home");
+        $users = $this->paginate($this->Users);
+
+        $this->set(compact('users'));
     }
 
     public function dashboard()

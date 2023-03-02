@@ -33,7 +33,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0"><?= ($company->user->user_profile['0']['first_name']) ?> <?= ($company->user->user_profile['0']['last_name']) ?></p>
+                                            <p class="text-xs font-weight-bold mb-0"><?= ($company->user->user_profile['first_name']) ?> <?= ($company->user->user_profile['last_name']) ?></p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($company->created_date) ?></span>

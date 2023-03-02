@@ -1,11 +1,11 @@
    
-   <!-- modal for Add Staff -->
+   <!-- modal for Add Staff --> 
 
 <div class="modal fade" id="addstaff" tabindex="-1" role="dialog" aria-labelledby="addstaffTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addstaff">Add Staff</h5>
+        <h5 class="modal-title" id="addstaff" >Add Staff</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -57,7 +57,7 @@
               <h6>Users List</h6>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
+              <div class="table-responsive p-0 staff" id="staff_update">
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
@@ -73,7 +73,11 @@
                      <?php foreach ($users as $user):
                          if ($user->delete_status == 1) {
                              continue;
-                         } ?>
+                         } 
+                         if ($user->role == 1) {
+                             continue;
+                         } 
+                         ?>
                     <tr id='data<?= $user->id ?>'>
                       <td>
                         <div class="d-flex px-2 py-1">
@@ -144,8 +148,10 @@
                     
                       <td class="align-middle text-center">
                         <!-- <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-secondary editUser" data-id="<?= $user->id ?>">View</a> -->
-                           <?= $this->Html->link(__("View"), ["action" => "view",$user->id],['class'=>'btn btn-secondary']) ?>
-                           <a href="javascript:void(0)" data-toggle="modal" data-target="#editstaff" class="btn btn-primary editUser" data-id="<?= $user->id ?>">Edit</a>
+                        <!-- Button trigger modal -->
+
+                           <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success editUser" data-id="<?= $user->id ?>">View</a>
+                           <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary editUser" data-id="<?= $user->id ?>">Edit</a>
                            <a href="javascript:void(0)" class="btn-delete-student btn btn-danger" data-id="<?= $user->id ?>">Delete</a>
                         </td>
                      </tr>
@@ -153,12 +159,6 @@
                      endforeach; ?>                    
                      
                       </td>
-                    </tr>
-                   
-                   
-                   
-                   
-                    
                   </tbody>
                 </table>
               </div>
@@ -170,10 +170,84 @@
 
 
 
+<!----------------------------------View Profile With Modal------------------------------>
 
 
-<!--Edit Profile Modal -->
-<div class="modal fade" id="editstaff" tabindex="-1" role="dialog" aria-labelledby="editstaffTitle" aria-hidden="true">
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+  <div class="container py-5 h-100">    
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-12 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+              <h5><?= ($user->user_profile['first_name']) ?> <?= ($user->user_profile['last_name']) ?></h5>
+              <p class="text-secondary">
+                <?php 
+                if($user->role == 0){
+                  echo 'Staff Member';
+                }
+                 ?>
+              </p>
+           
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted"><?= h($user->email) ?></p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Phone</h6>
+                    <p class="text-muted"><?= h($user->user_profile->contact) ?></p>
+                  </div>
+                </div>
+                
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Address</h6>
+                    
+              <?= h($user->user_profile->address) ?>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Most Viewed</h6>
+                    <p class="text-muted">Dolor sit amet</p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!----------------------------------Edit Profile With Modal------------------------------>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
@@ -183,11 +257,7 @@
                                  </button>
                               </div>
                               <div class="modal-body">
-
-                                 <!--============= hidden image and id if image is not updated ============ -->
-
                                  <?php echo $this->Form->create(null, ["type" => "file","id" => "useredit",]); ?>
-                                 <input type="hidden" id="imagedd" name="imagedd">
                                  <input type="hidden" id="iddd" name="iddd">
                                  <div class="input-group input-group-outline mb-3">
                                     <?php echo $this->Form->control(
@@ -222,18 +292,11 @@
                                             "id" => "address",
                                         ]
                                     ); ?>
-                                    <?php echo $this->Form->control(
-                                        "user_profile.profile_image",
-                                        [
-                                            "type" => "file",
-                                            "class" => "form-control",
-                                        ]
-                                    ); ?> 
-                                    <img src=""id="showimg" width="100px" alt=""> 
+                                    
                                     <?php echo $this->Form->control("email", [
                                         "type" => "email",
-                                        "class" => "form-control",
-                                        "id" => "email",
+                                        "class" => "form-control",  
+                                        "id" => "editemail",
                                     ]); ?>  
                                  </div>
                                  <div class="modal-footer">
@@ -249,65 +312,16 @@
 
 
 
+<style>.gradient-custom {
+/* fallback for old browsers */
+background: #f6d365;
 
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
 
-<script>
-
-
- //====================== Add Staff using ajax =================
-
- 
- $(document).ready(function(){
- $("#staffAdd").validate({
-    rules: {
-        email: {
-            required: true,
-        },
-        // last_name: {
-        //     required: true,
-        // },
-    },
-    messages: {
-        email: {
-            required: " Please enter your car company name",
-        },
-        // last_name: {
-        //     required: "Please enter your car description",
-        // },
-    },
-    submitHandler: function (form) {
-        // alert("dddd");
-        var formData =$(form).serialize();
-        // var modal = 
-        // alert(formData);
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            url: "/users/staffAdd",
-            type: "JSON",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                // console.log(response);
-                // alert(response);
-
-                var data = JSON.parse(response);               
-                    
-                // $(".table-responsive").load("/users/index .table-responsive");
-                //     swal("Good job!", "User details Has been updated!", "success");
-                    $('#exampleModalCenter').hide();
-                    $('.modal-backdrop').hide();
-                    
-            },
-        });
-        return false;
-    },
-});
-});
-
-
-</script>
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}</style>
 
 
 

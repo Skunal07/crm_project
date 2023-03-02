@@ -32,14 +32,14 @@ class UserProfile extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'user_id' => true,
-        'first_name' => true,
-        'last_name' => true,
-        'address' => true,
-        'contact' => true,
-        'created_date' => true,
-        'modified_date' => true,
-        'profile_image' => true,
-        'user' => true,
+        '*' => true,
+        // 'first_name' => true,
+        // 'last_name' => true,
+        // 'address' => true,
+        // 'contact' => true,
+        // 'created_date' => true,
+        // 'modified_date' => true,
+        // 'profile_image' => true,
+        // 'user' => true,
     ];
 }

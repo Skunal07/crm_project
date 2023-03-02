@@ -72,7 +72,7 @@ class UsersTable extends Table
         $this->hasMany('Products', [
             'foreignKey' => 'user_id',
         ]);
-        $this->hasMany('UserProfile', [
+        $this->hasOne('UserProfile', [
             'foreignKey' => 'user_id',
         ]);
         $this->hasMany('Users', [
@@ -88,37 +88,37 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('user_id')
-            ->allowEmptyString('user_id');
+        // $validator
+        //     ->integer('user_id')
+        //     ->allowEmptyString('user_id');
 
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email')
-            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+        // $validator
+        //     ->email('email')
+        //     ->requirePresence('email', 'create')
+        //     ->notEmptyString('email')
+        //     ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
-        $validator
-            ->scalar('password')
-            ->maxLength('password', 255)
-            ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+        // $validator
+        //     ->scalar('password')
+        //     ->maxLength('password', 255)
+        //     ->requirePresence('password', 'create')
+        //     ->notEmptyString('password');
 
-        $validator
-            ->integer('added_by')
-            ->allowEmptyString('added_by');
+        // $validator
+        //     ->integer('added_by')
+        //     ->allowEmptyString('added_by');
 
-        $validator
-            ->scalar('status')
-            ->notEmptyString('status');
+        // $validator
+        //     ->scalar('status')
+        //     ->notEmptyString('status');
 
-        $validator
-            ->dateTime('created_date')
-            ->notEmptyDateTime('created_date');
+        // $validator
+        //     ->dateTime('created_date')
+        //     ->notEmptyDateTime('created_date');
 
-        $validator
-            ->dateTime('modified_date')
-            ->allowEmptyDateTime('modified_date');
+        // $validator
+        //     ->dateTime('modified_date')
+        //     ->allowEmptyDateTime('modified_date');
 
         return $validator;
     }

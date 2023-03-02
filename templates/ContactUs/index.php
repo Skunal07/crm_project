@@ -1,56 +1,68 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\ContactU> $contactUs
- */
-?>
-<div class="contactUs index content">
-    <?= $this->Html->link(__('New Contact U'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Contact Us') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('phone') ?></th>
-                    <th><?= $this->Paginator->sort('query_type') ?></th>
-                    <th><?= $this->Paginator->sort('message') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('created_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($contactUs as $contactU): ?>
-                <tr>
-                    <td><?= $this->Number->format($contactU->id) ?></td>
-                    <td><?= h($contactU->name) ?></td>
-                    <td><?= h($contactU->email) ?></td>
-                    <td><?= h($contactU->phone) ?></td>
-                    <td><?= h($contactU->query_type) ?></td>
-                    <td><?= h($contactU->message) ?></td>
-                    <td><?= h($contactU->status) ?></td>
-                    <td><?= h($contactU->created_date) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $contactU->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $contactU->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $contactU->id], ['confirm' => __('Are you sure you want to delete # {0}?', $contactU->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h5>Contact Us Request</h5>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0 product">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone No</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Query</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Message</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <pre> -->
+                                <?php foreach ($contactUs as $contactU): ?>
+                                    <tr>
+                                    <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->email) ?></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->phone) ?></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->query_type) ?></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->message) ?></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <?= $this->Html->link(__('Respond'), ['action' => 'view', $contactU->id]) ?>
+                                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $contactU->id], ['confirm' => __('Are you sure you want to delete # {0}?', $contactU->id)]) ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="paginator">
+                        <ul class="pagination">
+                            <?= $this->Paginator->first('<< ' . __('first')) ?>
+                            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+                            <?= $this->Paginator->numbers() ?>
+                            <?= $this->Paginator->next(__('next') . ' >') ?>
+                            <?= $this->Paginator->last(__('last') . ' >>') ?>
+                        </ul>
+                        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

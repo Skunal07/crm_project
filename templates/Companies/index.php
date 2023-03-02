@@ -87,7 +87,6 @@
         <?php
       echo $this->Form->input('company_name',['class'=>'form-control']);
       ?>
-      <input type="hidden" name="user_id" id="user_id" value="1"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

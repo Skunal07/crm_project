@@ -16,14 +16,21 @@ class ProductsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setLayout("dashboard");
+        $this->loadModel('Categories');
+    }
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users', 'Categories'],
+            'contain' => ['Users.UserProfile', 'Categories'],
         ];
         $products = $this->paginate($this->Products);
-
-        $this->set(compact('products'));
+        $categories = $this->Categories->find('all')->where(['status'=>0]);
+      
+        $this->set(compact('products','categories'));
     }
 
     /**
@@ -47,22 +54,49 @@ class ProductsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function addproduct()
     {
+        $user = $this->Authentication->getIdentity();
+        $uid=$user->id ;
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
-            $product = $this->Products->patchEntity($product, $this->request->getData());
-            if ($this->Products->save($product)) {
-                $this->Flash->success(__('The product has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $data = $this->request->getData();
+                $productImage = $this->request->getData('product_image');
+                $fileName = $productImage->getClientFilename();
+                
+                $fileSize = $productImage->getSize();
+                $data["product_image"] = $fileName;
+                $data["user_id"] = $uid;
+                $product = $this->Products->patchEntity($product, $data);
+                // dd($product);
+                if ($this->Products->save($product)) {
+                    $hasFileError = $productImage->getError();
+    
+                    if ($hasFileError > 0) {
+                        $data["product_image"] = "";
+                    } else {
+                        $fileType = $productImage->getClientMediaType();
+    
+                        if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                            $imagePath = WWW_ROOT . "img/" . $fileName;
+                            $productImage->moveTo($imagePath);
+                            $data["product_image"] = $fileName;
+                        }
+                    }
+                    echo json_encode(array(
+                        "status" => 1,
+                        "message" => "The User has been saved.",
+                    ));
+                    exit;
+                }
+                echo json_encode(array(
+                    "status" => 0,
+                    "message" => "The User  could not be saved. Please, try again.",
+                ));
+                exit;
             }
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            $this->set(compact('user'));
         }
-        $users = $this->Products->Users->find('list', ['limit' => 200])->all();
-        $categories = $this->Products->Categories->find('list', ['limit' => 200])->all();
-        $this->set(compact('product', 'users', 'categories'));
-    }
 
     /**
      * Edit method

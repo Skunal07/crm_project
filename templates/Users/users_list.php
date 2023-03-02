@@ -1,3 +1,4 @@
+
    
    <!-- modal for Add Staff --> 
 
@@ -105,42 +106,43 @@
                       <?php if ($user->status == 2): ?>
                         <td class="align-middle text-center text-sm">
                            <?= $this->Form->postLink(
-                               __("InActive"),
-                               [
-                                   "action" => "userstatus",
-                                   $user->id,
-                                   $user->status,
-                               ],
-                               ["class" => "badge badge-sm bg-gradient-danger"],
-                               [
-                                   "confirm" => __(
-                                       "Are you sure you want to Active # {0}?",
-                                       $user->id
-                                   ),
-                               ]
-                           ) ?>
-                        </td>
-                        <?php else: ?>
-                        <td class="align-middle text-center text-sm"><?= $this->Form->postLink(
-                            __("Active"),
-                            [
+                              __("InActive"),
+                              [
                                 "action" => "userstatus",
                                 $user->id,
                                 $user->status,
-                            ],
-                            ["class" => "badge badge-sm bg-gradient-success"],
-                            [
+                              ],
+                              ["class" => "badge badge-sm bg-gradient-danger"],
+                              [
                                 "confirm" => __(
+                                  "Are you sure you want to Active # {0}?",
+                                  $user->id
+                                ),
+                              ]
+                            ) ?>
+                         </td>
+                       <?php else : ?>
+                         <td class="align-middle text-center text-sm"><?= $this->Form->postLink(
+                                __("Active"),
+                                [
+                                  "action" => "userstatus",
+                                  $user->id,
+                                  $user->status,
+                                ],
+                                ["class" => "badge badge-sm bg-gradient-success"],
+                                [
+                                  "confirm" => __(
                                     "Are you sure you want to InActive # {0}?",
                                     $user->id
-                                ),
-                            ]
-                        ) ?>
-                           <?php endif; ?>
-                        </td>
-                    
-                        <td class="align-middle text-center">
+                                  ),
+                                ]
+                              ) ?>
+                         <?php endif; ?>
+                         </td>
+
+                         <td class="align-middle text-center">
                            <span class="text-secondary text-xs font-weight-bold"><?= h(
+
                                $user->created_date
                            ) ?></span>
                         </td>
@@ -152,8 +154,9 @@
 
                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success editUser" data-id="<?= $user->id ?>">View</a>
                            <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary editUser" data-id="<?= $user->id ?>">Edit</a>
+
                            <a href="javascript:void(0)" class="btn-delete-student btn btn-danger" data-id="<?= $user->id ?>">Delete</a>
-                        </td>
+                         </td>
                      </tr>
                      <?php
                      endforeach; ?>                    
@@ -322,26 +325,4 @@ background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgb
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
 }</style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

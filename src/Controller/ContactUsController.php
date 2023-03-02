@@ -16,6 +16,12 @@ class ContactUsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setLayout("dashboard");
+        $this->loadModel('Users');
+    }
     public function index()
     {
         $contactUs = $this->paginate($this->ContactUs);

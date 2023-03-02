@@ -19,7 +19,6 @@ class CompaniesController extends AppController
         $this->loadModel('UserProfile');
     }
 
-    public $paginate = ['limit' => 1];
 
     public function index()
     {
@@ -54,10 +53,12 @@ class CompaniesController extends AppController
      */
     public function addcompany()
     {
+        $user = $this->Authentication->getIdentity();
+        $uid=$user->id ;
         $company = $this->Companies->newEmptyEntity();
         if ($this->request->is('ajax')) {
             $company = $this->Companies->patchEntity($company, $this->request->getData());
-
+            $company->user_id=$uid;
             if ($this->Companies->save($company)) {
 
 

@@ -90,6 +90,7 @@
                         <td class="align-middle text-center text-sm">
                           <?= $this->Form->postLink(__("InActive"), ["action" => "userstatus", $user->id, $user->status,], ["class" => "badge badge-sm bg-gradient-danger"], ["confirm" => __("Are you sure you want to Active # {0}?", $user->id),]) ?>
                         </td>
+
                       <?php else : ?>
                         <td class="align-middle text-center text-sm"><?= $this->Form->postLink(__("Active"), ["action" => "userstatus", $user->id, $user->status,], ["class" => "badge badge-sm bg-gradient-success"], ["confirm" => __("Are you sure you want to InActive # {0}?", $user->id),]) ?>
                         <?php endif; ?>
@@ -120,6 +121,7 @@
 
               </tbody>
             </table>
+
           </div>
         </div>
       </div>

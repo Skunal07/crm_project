@@ -1,6 +1,8 @@
+
+//----------------------------------- Add Company Using ajax -------------------------//
+
 $(document).ready(function () {
     // alert('nhjhbncjhsjknc');
-    //====================== add company in modal through ajax =================
     $("#newcompany").validate({
         rules: {
             company_name: {
@@ -41,9 +43,11 @@ $(document).ready(function () {
         },
     });
 });
+
+//----------------------------------- Add Category Using ajax -------------------------//
+
 $(document).ready(function () {
     // alert('nhjhbncjhsjknc');
-    //====================== add company in modal through ajax =================
     $("#newcategory").validate({
         rules: {
             category_name: {
@@ -83,8 +87,10 @@ $(document).ready(function () {
         },
     });
 });
+
+//----------------------------------- Add Product Using ajax -------------------------//
+
 $(document).ready(function () {
-    //====================== add company in modal through ajax =================
     $("#newproduct").validate({
         rules: {
             product_name: {
@@ -133,42 +139,26 @@ $(document).ready(function () {
 });
 
 
-
-
-
-
-
-//====================== Add Staff using ajax =================
-
-
-
+//----------------------------------- Add Staff using ajax -------------------------//
 
 $(document).ready(function () {
-   // alert('nhjhbncjhsjknc');
-   //====================== add company in modal through ajax =================
+
+  
    $("#staffAdd").validate({
      ules: {
        email: {
            required: true,
        },
-       // last_name: {
-       //     required: true,
-       // },
+      
    },
    messages: {
        email: {
            required: " Please enter your Email",
        },
-       // last_name: {
-       //     required: "Please enter your car description",
-       // },
+       
    },
        submitHandler: function (form) {
-           // alert("dddd");
            var formData = $(form).serialize();
-           // alert("ddddddg");
-           // console.log(formData);
-           // return false;
            $.ajax({
                headers: {
                    "X-CSRF-TOKEN": csrfToken,
@@ -180,13 +170,6 @@ $(document).ready(function () {
                success: function (response) {
                  console.log(response);
                  var data = JSON.parse(response);
-                   // if (data["status"] == 0) {
-                   //     alert(data["message"]);
-                   //   } else {
-                   //     $('#addstaff').hide();
-                   //     $('.modal-backdrop').remove();
-                   //     $('#staff_update').load('/users/users_list  #staff_update');
-                   //     }
                    if(data['status'] == '1'){
                      $('#addstaff').hide();
                      $('.modal-backdrop').remove();
@@ -200,7 +183,8 @@ $(document).ready(function () {
 });
 
 
-//====================== Delete Staff using ajax =================
+//------------------------------------- Delete Staff using ajax ---------------------------------------//
+
 
 $(document).on("click", ".btn-delete-student", function(){
    // alert('dgkhdfhg');
@@ -279,55 +263,45 @@ $(document).on("click", ".editUser", function () {
 
  //---------------------------update data in modal through ajax-----------------------//
 
- $(document).ready(function(){
-    $("#useredit").validate({
-       rules: {
-           email: {
-               required: true,
-           },
-     
-       },
-       messages: {
-           email: {
-               required: " Please enter your Email",
-           },
-        
-       },
-       submitHandler: function (form) {
-        // var user_id = $(this).data("id");
-        // var postdata = $(this).attr("id");
-        // console.log( postdata);
-           var formData = $(form).serialize();
-        //    alert(formData);
-        //    var modal =   
-        // console.log(formData);
-
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            url: "/users/editProfile",
-            type: "JSON",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                //    alert("ddddddg");
-                //    console.log(response);
-                   // alert(response);
-   
-                   var data = JSON.parse(response);               
-                       
-                   $(".table-responsive").load("/users/users_list .table-responsive");
-                       swal("Good job!", "User details Has been updated!", "success");
-                       $('#exampleModalCenter').hide();
-                       $('.modal-backdrop').hide();
-                       
-               },
-           });
-           return false;
-       },
-   });
-   });
+                $(document).ready(function(){
+                    $("#useredit").validate({
+                    rules: {
+                        email: {
+                            required: true,
+                        },
+                    
+                    },
+                    messages: {
+                        email: {
+                            required: " Please enter your Email",
+                        },
+                        
+                    },
+                    submitHandler: function (form) {
+                        var formData = $(form).serialize();
+                    
+                        $.ajax({
+                            headers: {
+                                "X-CSRF-TOKEN": csrfToken,
+                            },
+                            url: "/users/editProfile",
+                            type: "JSON",
+                            method: "POST",
+                            data: formData,
+                            success: function (response) {
+                                var data = JSON.parse(response);               
+                                    
+                                $(".table-responsive").load("/users/users_list .table-responsive");
+                                    swal("Good job!", "User details Has been updated!", "success");
+                                    $('#exampleModalCenter').hide();
+                                    $('.modal-backdrop').hide();
+                                    
+                            },
+                        });
+                        return false;
+                    },
+                });
+                });
 
 
 
@@ -348,14 +322,7 @@ $(document).on("click", ".editUser", function () {
         
        },
        submitHandler: function (form) {
-        // var user_id = $(this).data("id");
-        // var postdata = $(this).attr("id");
-        // console.log( postdata);
            var formData = $(form).serialize();
-        //    alert(formData);
-        //    var modal =   
-        // console.log(formData);
-
         $.ajax({
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
@@ -365,12 +332,7 @@ $(document).on("click", ".editUser", function () {
             method: "POST",
             data: formData,
             success: function (response) {
-                //    alert("ddddddg");
-                //    console.log(response);
-                   // alert(response);
-   
                    var data = JSON.parse(response);               
-                       
                    $(".table-responsive").load("/users/users_list .table-responsive");
                        swal("Good job!", "User details Has been updated!", "success");
                        $('#exampleModalCenter').hide();
@@ -382,4 +344,48 @@ $(document).on("click", ".editUser", function () {
        },
    });
    });
+
+   //----------------------------------- Add Contact Using ajax -------------------------//
+
+$(document).ready(function () {
+    // alert('nhjhbncjhsjknc');
+    $("#newcontact").validate({
+        rules: {
+            email: {
+                required: true,
+            },
+        },
+        messages: {
+            email: {
+                required: "Please enter category name ",
+            },
+        },
+        submitHandler: function (form) {
+            // alert("dddd");
+            var formData = $(form).serialize();
+            // console.log(formData);
+            // return false;
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/contacts/addcontact",
+                type: "JSON",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+
+                    var data = JSON.parse(response);
+                    if (data["status"] == 0) {
+                        alert(data["message"]);
+                    } else {
+                        $('#AddContact').modal('hide');
+                        $('.contact').load('/contacts/index .contact')
+                    }
+                },
+            });
+            return false;
+        },
+    });
+});
 

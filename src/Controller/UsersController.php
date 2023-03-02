@@ -20,7 +20,10 @@ class UsersController extends AppController
 
     public function index()
     {
-        // $this->viewBuilder()->setLayout("home");
+        $this->viewBuilder()->setLayout("home");
+        $users = $this->paginate($this->Users);
+
+        $this->set(compact('users'));
     }
 
     public function dashboard()

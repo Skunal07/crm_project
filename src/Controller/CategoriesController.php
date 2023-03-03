@@ -17,6 +17,22 @@ class CategoriesController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function initialize(): void
+    {
+        $this->loadComponent('Authentication.Authentication');
+
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Flash');
+        $this->loadModel('ContactUs');
+        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
+        $i=0;
+        foreach($contactus as $a){
+            $i++;
+        }
+        $count=$i;
+        $this->set(compact('contactus','count'));
+       
+    }
     public function beforeFilter($event)
     {
         parent::beforeFilter($event);

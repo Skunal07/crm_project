@@ -15,7 +15,22 @@ use App\Controller\View;
 
 class UsersController extends AppController
 {
+    public function initialize(): void
+    {
+        $this->loadComponent('Authentication.Authentication');
 
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Flash');
+        $this->loadModel('ContactUs');
+        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
+        $i=0;
+        foreach($contactus as $a){
+            $i++;
+        }
+        $count=$i;
+        $this->set(compact('contactus','count'));
+       
+    }
     public function beforeFilter($event)
     {
         parent::beforeFilter($event);
@@ -25,8 +40,9 @@ class UsersController extends AppController
         $this->loadModel('ContactUs');
         $this->loadModel('Categories');
         $this->loadModel('Leads');
-
-        $this->Authentication->addUnauthenticatedActions(['login', 'index']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'index','viewProduct']);
+       
+        
     }
 
     public function index($id = null)
@@ -57,9 +73,9 @@ class UsersController extends AppController
         }
         $productc=$this->Categories->find('all')->where(['status'=>0]);
         if($id != null){
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0,'category_id'=>$id]);
+            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0,'category_id'=>$id]);
         }else{
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
+            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0]);
         }
         $this->set(compact('products','productc','id','contactU'));
 
@@ -105,7 +121,7 @@ class UsersController extends AppController
 }
     public function usersList()
     {
-
+     
         $result = $this->Authentication->getIdentity();
         // pr($result);
         // die;

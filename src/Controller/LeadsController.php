@@ -3,36 +3,30 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Leads Controller
- *
- * @property \App\Model\Table\LeadsTable $Leads
- * @method \App\Model\Entity\Lead[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
+
 class LeadsController extends AppController
-{
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+{ 
+     public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setLayout("dashboard");
+        $this->loadModel('LeadContacts');
+        $this->loadModel('Companies');
+
+    }
+
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users'],
+            'contain' => ['Users','LeadContacts'],
         ];
         $leads = $this->paginate($this->Leads);
-
+        // pr($leads->lead_contacts);
+        // die;
         $this->set(compact('leads'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Lead id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+   
     public function view($id = null)
     {
         $lead = $this->Leads->get($id, [
@@ -42,69 +36,106 @@ class LeadsController extends AppController
         $this->set(compact('lead'));
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
+//------------------------------------------------------Add Lead-------------------------------------------------------//
+   
+    public function addLead()
     {
+        $user = $this->Authentication->getIdentity();
+        $uid=$user->id;
         $lead = $this->Leads->newEmptyEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('ajax')) {
+            $lead = $this->Leads->patchEntity($lead, $this->request->getData());
+            // pr($lead);
+            // die;
+            $lead->user_id=$uid;
+            if ($this->Leads->save($lead)) {
+                $this->Flash->success(__('The Lead has been saved.'));
+
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Lead has been created"
+                ));
+                die;
+            }
+
+            $this->Flash->error(__('Failed to save Lead'));
+
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "Failed to create Lead"
+            ));
+            die;
+        }
+    }
+  
+    //--------------------------------------Modal Fetch Lead Detail During Edit----------------------------------//
+
+   public function editLead($id = null)
+   {
+       // $this->Model = $this->loadModel('UserProfile');
+       $id = $_GET['id'];
+       $lead = $this->Leads->get($id, [
+           'contain' => ['LeadContacts']
+       ]);
+       echo json_encode($lead);
+       exit;
+   }
+
+    //--------------------------------------Edit Lead Modal----------------------------------//
+    public function leadEdit($id = null)
+    {
+        if ($this->request->is('ajax')) {
+            $data = $this->request->getData();
+            $id = $this->request->getData('leadid');
+            // dd($data);
+            $lead = $this->Leads->get($id, [
+                'contain' => ['LeadContacts'],
+            ]);
             $lead = $this->Leads->patchEntity($lead, $this->request->getData());
             if ($this->Leads->save($lead)) {
-                $this->Flash->success(__('The lead has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The lead could not be saved. Please, try again.'));
+               
+                    echo json_encode(array(
+                        "status" => 1,
+                        "message" => "The Lead has been saved.",
+                    ));
+                    exit;
+            }else{
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The Lead could not be saved. Please, try again.",
+            ));
+            exit;
         }
-        $users = $this->Leads->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('lead', 'users'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Lead id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $lead = $this->Leads->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $lead = $this->Leads->patchEntity($lead, $this->request->getData());
-            if ($this->Leads->save($lead)) {
-                $this->Flash->success(__('The lead has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The lead could not be saved. Please, try again.'));
+        $this->set(compact('lead'));
         }
-        $users = $this->Leads->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('lead', 'users'));
     }
+   
+  
+      //-----------------------------------------DeleteStatus--------------------------------------//
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Lead id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $lead = $this->Leads->get($id);
-        if ($this->Leads->delete($lead)) {
-            $this->Flash->success(__('The lead has been deleted.'));
-        } else {
-            $this->Flash->error(__('The lead could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
+      public function deleteStatus($id = null, $delete_status = null)
+      {
+          if ($this->request->is('ajax')) {
+              $user = $this->Leads->get($id);
+              if ($delete_status == 1)
+                  $user->delete_status = 0;
+              else
+                  $user->delete_status = 1;
+  
+              if ($this->Leads->save($user)) {
+                  echo json_encode(array(
+                      "status" => 1,
+                      "message" => "The Lead has been deleted."
+                  ));
+                  exit;
+              } else {
+                  echo json_encode(array(
+                      "status" => 0,
+                      "message" => "The User could not be deleted. Please, try again."
+                  ));
+                  exit;
+              }
+          }
+      }
+  
 }

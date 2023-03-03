@@ -33,15 +33,15 @@ class Lead extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'user_id' => true,
-        'name' => true,
-        'price' => true,
-        'work_title' => true,
-        'status' => true,
-        'stages' => true,
-        'created_date' => true,
-        'modified_date' => true,
-        'user' => true,
-        'lead_contacts' => true,
+        '*' => true,
+        // 'name' => true,
+        // 'price' => true,
+        // 'work_title' => true,
+        // 'status' => true,
+        // 'stages' => true,
+        // 'created_date' => true,
+        // 'modified_date' => true,
+        // 'user' => true,
+        // 'lead_contacts' => true,
     ];
 }

@@ -22,8 +22,10 @@ class ProductsController extends AppController
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('Categories');
+
         $this->loadModel('Users');
         $this->loadModel('UserProfile');
+
     }
     public function index()
     {
@@ -31,9 +33,11 @@ class ProductsController extends AppController
             'contain' => ['Users.UserProfile', 'Categories'],
         ];
         $products = $this->paginate($this->Products);
+
         $categories = $this->Categories->find('all')->where(['status' => 0]);
 
         $this->set(compact('products', 'categories'));
+
     }
 
     /**

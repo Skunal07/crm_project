@@ -1,179 +1,137 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Lead> $leads
- */
-?>
-<div class="leads index content">
-    <?= $this->Html->link(__('New Lead'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Leads') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('user_id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('price') ?></th>
-                    <th><?= $this->Paginator->sort('work_title') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('stages') ?></th>
-                    <th><?= $this->Paginator->sort('created_date') ?></th>
-                    <th><?= $this->Paginator->sort('modified_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($leads as $lead): ?>
-                <tr>
-                    <td><?= $this->Number->format($lead->id) ?></td>
-                    <td><?= $lead->has('user') ? $this->Html->link($lead->user->id, ['controller' => 'Users', 'action' => 'view', $lead->user->id]) : '' ?></td>
-                    <td><?= h($lead->name) ?></td>
-                    <td><?= $this->Number->format($lead->price) ?></td>
-                    <td><?= h($lead->work_title) ?></td>
-                    <td><?= h($lead->status) ?></td>
-                    <td><?= h($lead->stages) ?></td>
-                    <td><?= h($lead->created_date) ?></td>
-                    <td><?= h($lead->modified_date) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $lead->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $lead->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $lead->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lead->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+
+
+<!------------------------------------------ Add-----Lead----Modal ------------------------------------->
+
+<div class="modal fade" id="AddLeadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <?= $this->Form->create(null, ['type'=>'file','id' => 'newlead']) ?>
+            <div class="modal-body">
+                <label for="name" class="form-label">Name <span>*</span></label>
+                <?php
+                echo $this->Form->input('name', ['class' => 'form-control']);
+                ?> 
+                <br>
+               
+                
+                <label for="price" class="form-label">Price</label>
+                <?php
+                echo $this->Form->input('price', ['class' => 'form-control']);
+                ?>
+                <br>
+                <label for="work_title" class="form-label">Work Title</label>
+                <?php
+                echo $this->Form->input('work_title', ['class' => 'form-control']);
+                ?>
+                <br>
+                <!-- <label for="lead_contacts.contact" class="form-label">Contact</label> -->
+                <?php
+                echo $this->Form->control('lead_contact.contact', ['class' => 'form-control']);
+                ?>
+                <br>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
     </div>
 </div>
+
+<!--------------------------------------------------------- Start Form ----------------------------------------->
 
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Products</h6>
-                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddProductModal" style='float: right;margin-top: -35px;'>New Product</button>
+                    <h6>Leads</h6>
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;margin-top: -35px;'>New Lead</button>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0 product">
+                    <div class="table-responsive p-0 lead">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User Name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category Name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Short Discription</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">modified at</th>
-                                    <th class="text-secondary opacity-7"></th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User id</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price($)</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Work Title</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stages</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created Date</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modified Date</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <!-- <pre> -->
                                 <?php
                                 // print_r($products);die;
-                                foreach ($products as $product) : ?>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <?= $this->Html->image($product->product_image, ['class' => "avatar avatar-sm me-3"]); ?>
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm"><?= h($product->product_name) ?></h6>
-                                                </div>
-                                            </div>
+                               foreach ($leads as $lead): 
+                                if ($lead->delete_status == 1) {
+                                    continue;
+                                }
+                               
+                               ?>
+                                    <tr id="data<?= $lead->id ?>">
+                                    <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($lead->id) ?></span>
                                         </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0"><?= ($product->user->user_profile['first_name']) ?> <?= ($product->user->user_profile['last_name']) ?></p>
+                                            
+                                    <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($lead->user_id) ?></span>
+                                        </td>
+                                    <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($lead->name) ?></span>
+                                        </td>
+                                            
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= ($lead->price) ?></span>
+                                        </td>
+                                       
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($lead->work_title) ?></span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($product->category->category_name) ?></span>
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($lead->stages) ?></span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($product->short_discription) ?></span>
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($lead->lead_contact->contact) ?></span>
                                         </td>
-                                        <?php if ($product->status == 1) : ?>
-                                            <td class="align-middle text-center text-sm">
-                                                <?= $this->Form->postLink(
-                                                    __("InActive"),
-                                                    [
-                                                        "action" => "productstatus",
-                                                        $product->id,
-                                                        $product->status,
-                                                    ],
-                                                    ["class" => "badge badge-sm bg-gradient-danger"],
-                                                    [
-                                                        "confirm" => __(
-                                                            "Are you sure you want to Active # {0}?",
-                                                            $product->id
-                                                        ),
-                                                    ]
-                                                ) ?>
-                                            </td>
-                                        <?php else : ?>
-                                            <td class="align-middle text-center text-sm"><?= $this->Form->postLink(
-                                                                                                __("Active"),
-                                                                                                [
-                                                                                                    "action" => "productstatus",
-                                                                                                    $product->id,
-                                                                                                    $product->status,
-                                                                                                ],
-                                                                                                ["class" => "badge badge-sm bg-gradient-success"],
-                                                                                                [
-                                                                                                    "confirm" => __(
-                                                                                                        "Are you sure you want to InActive # {0}?",
-                                                                                                        $product->id
-                                                                                                    ),
-                                                                                                ]
-                                                                                            ) ?>
-                                            </td>
-                                        <?php endif; ?>
+                                       
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($product->created_date) ?></span>
+                                            <span class="text-secondary text-xs font-weight-bold"><?= h($lead->created_date) ?></span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?php
-                                                                                                    if ($product->modified_date == null) {
+                                                                                                    if ($lead->modified_date == null) {
                                                                                                         echo '--';
                                                                                                     } else {
-                                                                                                        echo h($product->modified_date);
+                                                                                                        echo h($lead->modified_date);
                                                                                                     }
 
                                                                                                     ?></span>
                                         </td>
-                                        <td class="align-middle">
-                                            <?= $this->Html->link(__('View'), ['action' => 'view', $product->id]) ?>
-                                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $product->id]) ?>
-                                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $product->id], ['confirm' => __('Are you sure you want to delete # {0}?', $product->id)]) ?>
-                                        </td>
+                                         <td class="align-middle text-center">
+                          <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success editLead" data-id="<?= $lead->id ?>">View</a>
+                          <a href="javascript:void(0)" data-toggle="modal" data-target="#editLeadModal" class="btn btn-primary editLead" data-id="<?= $lead->id ?>">Edit</a>
+
+                          <a href="javascript:void(0)" class="btn-delete-lead btn btn-danger" data-id="<?= $lead->id ?>">Delete</a>
+                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <div class="paginator">
-                        <ul class="pagination">
-                            <?= $this->Paginator->first('<< ' . __('first')) ?>
-                            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                            <?= $this->Paginator->numbers() ?>
-                            <?= $this->Paginator->next(__('next') . ' >') ?>
-                            <?= $this->Paginator->last(__('last') . ' >>') ?>
-                        </ul>
-                        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-                    </div>
+                 
                 </div>
             </div>
         </div>
@@ -184,58 +142,126 @@
         color:red;
     }
 </style>
-<!-- Modal -->
-<div class="modal fade" id="AddProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <?= $this->Form->create(null, ['type'=>'file','id' => 'newproduct']) ?>
-            <div class="modal-body">
-                <label for="Product_name" class="form-label">Product Name <span>*</span></label>
-                <?php
-                echo $this->Form->input('product_name', ['class' => 'form-control']);
-                ?> 
-                <br>
-                <label for="category_id" class="form-label">Category Name</label>
-                <select name="category_id" id="category_id" class="form-control">
-                    <option value="-1" disabled selected>--Choose Category--</option>
-                    <?php
-                    foreach ($categories as $cat) {
-                        echo "<option value='$cat->id' >$cat->category_name</option>";
-                    } ?>
-                </select>
-                <br>
-                
-                <label for="Product_tags" class="form-label">Product Tags</label>
-                <?php
-                echo $this->Form->textarea('product_tags', ['class' => 'form-control']);
-                ?>
-                <br>
-                <label for="short_discription" class="form-label">Product Short Discription</label>
-                <?php
-                echo $this->Form->textarea('short_discription', ['class' => 'form-control']);
-                ?>
-                <br>
-                <label for="discription" class="form-label">Product Discription</label>
-                <?php
-                echo $this->Form->textarea('discription', ['class' => 'form-control']);
-                ?>
-                <br>
-                <label for="product_image" class="form-label">Product Images </label>
-                <?php
-                echo $this->Form->input('product_image', array('type' => 'file','multiple' ,'class'=>'form-control'));
-                ?>
-                <small style="font-size:14px ;color:black;">Note:-(Press ctrl to select multipal images)</small>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
-                <?= $this->Form->end() ?>
-            </div>
+<!---------------------------------------------------------- End Form -------------------------------------------------------->
+
+<!---------------------------------------------------------- View Form Modal -------------------------------------------------------->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Lead</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col col-lg-12 mb-4 mb-lg-0">
+                <div class="card mb-3" style="border-radius: .5rem;">
+                  <div class="row g-0">
+                   
+                    <div class="col-md-8">
+                      <div class="card-body p-4">
+                        <h6>Lead Information</h6>
+                        <hr class="mt-0 mb-4">
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>Name</h6>
+                            <p class="text-muted"><?= h($lead->name) ?></p>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Contact</h6>
+                            <p class="text-muted"><?= h($lead->lead_contact->contact) ?></p>
+                          </div>
+                        </div>
+
+                       
+                        <div class="row pt-1">
+                          <div class="col-6 mb-3">
+                            <h6>Price</h6>
+
+                            <?= h($lead->price) ?>
+                          </div>
+                          <div class="col-6 mb-3">
+                            <h6>Work Title</h6>
+                            <p class="text-muted"><?= h($lead->work_title)?></p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </section>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+ 
+
+
+  <!--------------------------------------------------------Edit Lead With Modal------------------------------------------------------>
+
+  
+  <div class="modal fade" id="editLeadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <?php echo $this->Form->create(null, ["type" => "file", "id" => "editLead",]); ?>
+          <input type="hidden" id="leadid" name="leadid">
+          <div class="input-group input-group-outline mb-3">
+            <?php echo $this->Form->control(
+              "name",
+              [
+                "required" => false,
+                "class" => "form-control",
+                "id" => "name",
+              ]
+            ); ?>
+            <?php echo $this->Form->control(
+              "price",
+              [
+                "required" => false,
+                "class" => "form-control",
+                "id" => "price",
+              ]
+            ); ?>
+            <?php echo $this->Form->control(
+              "work_title",
+              [
+                "required" => false,
+                "class" => "form-control",
+                "id" => "work_title",
+              ]
+            ); ?>
+            <?php echo $this->Form->control(
+              "lead_contact.contact",
+              [
+                "required" => false,
+                "class" => "form-control",
+                "id" => "contacts",
+              ]
+            ); ?>
+          </div>
+          <div class="modal-footer">
+            <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+          <?= $this->Form->end() ?>
+        </div>
+      </div>
+    </div>
+

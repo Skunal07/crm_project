@@ -131,6 +131,7 @@
 
 
 
+
   <!--==================================== View users Profile With Modal =============================-->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -252,3 +253,4 @@
         background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
       }
     </style>
+

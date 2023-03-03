@@ -57,19 +57,19 @@ class LeadContactsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('lead_id')
-            ->notEmptyString('lead_id');
+        // $validator
+        //     ->integer('lead_id')
+        //     ->notEmptyString('lead_id');
 
-        $validator
-            ->scalar('contact')
-            ->maxLength('contact', 50)
-            ->requirePresence('contact', 'create')
-            ->notEmptyString('contact');
+        // $validator
+        //     ->scalar('contact')
+        //     ->maxLength('contact', 50)
+        //     ->requirePresence('contact', 'create')
+        //     ->notEmptyString('contact');
 
-        $validator
-            ->dateTime('created_date')
-            ->notEmptyDateTime('created_date');
+        // $validator
+        //     ->dateTime('created_date')
+        //     ->notEmptyDateTime('created_date');
 
         return $validator;
     }

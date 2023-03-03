@@ -32,6 +32,7 @@ class UsersController extends AppController
     public function index($id = null)
     {
         $this->viewBuilder()->setLayout("home");
+
         $contactU = $this->ContactUs->newEmptyEntity();
         if ($this->request->is('post')) {
             $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
@@ -60,6 +61,7 @@ class UsersController extends AppController
             $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
         }
         $this->set(compact('products','productc','id','contactU'));
+
     }
 
     public function dashboard()
@@ -366,8 +368,6 @@ class UsersController extends AppController
 
 
             $this->set(compact('user'));
-        } else {
-            echo "fdgdf";
-        }
+        } 
     }
 }

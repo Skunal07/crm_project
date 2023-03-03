@@ -22,24 +22,84 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('UserProfile');
         $this->loadModel('Products');
+        $this->loadModel('ContactUs');
         $this->loadModel('Categories');
+        $this->loadModel('Leads');
 
         $this->Authentication->addUnauthenticatedActions(['login', 'index']);
     }
 
-    public function index()
+    public function index($id = null)
     {
         $this->viewBuilder()->setLayout("home");
-        $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
-        $this->set(compact('products'));
+        $contactU = $this->ContactUs->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
+            $email=$contactU->email;
+            $name=$contactU->name;
+            if ($this->ContactUs->save($contactU)) {
+                $mailer = new Mailer('default');
+                $mailer->setTransport('gmail'); //your email configuration name
+                $mailer->setFrom(['kunal02chd@gmail.com' => 'Code The Pixel']);
+                $mailer->setTo($email);
+                $mailer->setEmailFormat('html');
+                $mailer->setSubject('Team DoorDekho.com');
+                $mailer->deliver("<h3>Thanks Mr/Mrs $name for Contact Us.</h3>
+                <p>Your Message has been Submitted Successfully.</p>
+                <p>Our Team Contact you Soon.</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
+                ");
+                $this->Flash->success(__('The contact u has been saved.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
+        }
+        $productc=$this->Categories->find('all')->where(['status'=>0]);
+        if($id != null){
+            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0,'category_id'=>$id]);
+        }else{
+            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
+        }
+        $this->set(compact('products','productc','id','contactU'));
     }
 
     public function dashboard()
     {
+        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
+        $totalcontact=$this->ContactUs->find('all')->where(['delete_status'=> 0]);
+        $totalwon=$this->Leads->find('all')->where(['stages'=>4,'delete_status'=> 0]);
+        $totallost=$this->Leads->find('all')->where(['stages'=>0,'delete_status'=> 0]);
+        $totallead=$this->Leads->find('all')->where(['delete_status'=> 0]);
+        $i=0;
+        foreach($contactus as $a){
+            $i++;
+        }
+        $count=$i;
+        $this->set(compact('contactus','count','totalcontact','totallead','totalwon','totallost'));
     }
 
     //-----------------------------Admin----Index--------------------------//
 
+    public function notification($id = null)
+    {
+
+        if ($this->request->is('ajax')) {
+            $contactus=$this->ContactUs->find('all')->where(['delete_status'=>'0','id'=>$id])->first();
+            $contactus->notification=1;
+            if ($this->ContactUs->save($contactus)) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "The User has been saved.",
+                ));
+                exit;
+            }
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The User  could not be saved. Please, try again.",
+            ));
+            exit;
+            
+    }
+}
     public function usersList()
     {
 
@@ -122,19 +182,32 @@ class UsersController extends AppController
 
 
     //----------------------------------------------Logout--------------------------------------------//
-
+    
     public function logout()
     {
         $this->viewBuilder()->setLayout("home");
-
+        
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
-
+            
             $this->Authentication->logout();
             $session = $this->request->getSession();
             $session->destroy();
             return $this->redirect(['action' => 'index']);
         }
+    }
+  
+    //----------------------------------------------view product-------------------------------------------//
+
+    public function viewProduct($id = null)
+    {
+        $this->viewBuilder()->setLayout("home");
+        $product = $this->Products->get($id, [
+            'contain' => ['Users', 'Categories'],
+        ]);
+        // $totalbuyer=$this->ContactUs->find('all')->where(['Products.status'=>0 ,'delete_status'=> 0,'category_id'=>$id]);
+
+        $this->set(compact('product'));
     }
 
 

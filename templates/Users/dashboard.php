@@ -6,9 +6,13 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Contact Us Request</p>
                                 <h5 class="font-weight-bolder">
-                                    $53,000
+                                    <?php $i=0; 
+                                    foreach($totalcontact as $total){
+                                        $i++;
+                                    } 
+                                    echo $i ;?>
                                 </h5>
                                 <p class="mb-0">
                                     <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -31,11 +35,15 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's approved</p>
                                 <h5 class="font-weight-bolder">
-                                    2,300
-                                </h5>
-                                <p class="mb-0">
+                                    <?php $j=0; 
+                                    foreach($totallead as $lead){
+                                        $j++;
+                                    } 
+                                    echo $j ;?>
+                            </h5>
+                            <p class="mb-0">
                                     <span class="text-success text-sm font-weight-bolder">+3%</span>
                                     since last week
                                 </p>
@@ -56,11 +64,15 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Lost</p>
                                 <h5 class="font-weight-bolder">
-                                    +3,462
-                                </h5>
-                                <p class="mb-0">
+                                    <?php $k=0; 
+                                    foreach($totallost as $lost){
+                                        $k++;
+                                    } 
+                                    echo $k ;?>
+                            </h5>
+                            <p class="mb-0">
                                     <span class="text-danger text-sm font-weight-bolder">-2%</span>
                                     since last quarter
                                 </p>
@@ -81,9 +93,13 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Won</p>
                                 <h5 class="font-weight-bolder">
-                                    $103,430
+                                    <?php $l=0; 
+                                    foreach($totalwon as $won){
+                                        $l++;
+                                    } 
+                                    echo $l ;?>
                                 </h5>
                                 <p class="mb-0">
                                     <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -111,9 +127,7 @@
                     </p>
                 </div>
                 <div class="card-body p-3">
-                    <div class="chart">
-                        <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
-                    </div>
+                <div id="donutchart" style="width: 800px; height: 500px;"></div>
                 </div>
             </div>
         </div>
@@ -372,3 +386,29 @@
             </div>
         </div>
     </div>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['sales', 'Hours per Day'],
+          ['ContactUs', <?= $i ?>],
+          ['Lost ', <?= $l ?>],
+          ['Approved',<?= $j ?>],
+          ['Won',  <?= $k ?>],
+         
+        ]);
+
+        var options = {
+          title: 'Daily Activities',
+          pieHole: 0.4,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+    }
+})
+    </script>

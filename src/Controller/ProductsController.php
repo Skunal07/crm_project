@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -22,6 +23,9 @@ class ProductsController extends AppController
         $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('Categories');
 
+        $this->loadModel('Users');
+        $this->loadModel('UserProfile');
+
     }
     public function index()
     {
@@ -29,9 +33,11 @@ class ProductsController extends AppController
             'contain' => ['Users.UserProfile', 'Categories'],
         ];
         $products = $this->paginate($this->Products);
-        $categories = $this->Categories->find('all')->where(['Categories.status'=>0]);
-      
-        $this->set(compact('products','categories'));
+
+        $categories = $this->Categories->find('all')->where(['status' => 0]);
+
+        $this->set(compact('products', 'categories'));
+
     }
 
     /**
@@ -58,47 +64,81 @@ class ProductsController extends AppController
     public function addproduct()
     {
         $user = $this->Authentication->getIdentity();
-        $uid=$user->id ;
-        $product = $this->Products->newEmptyEntity();
+        $uid = $user->id;
+        // $product = $this->Products->newEmptyEntity();
+        // if ($this->request->is('post')) {
+        //     $data = $this->request->getData();
+        //     $productImage = $this->request->getData('product_image');
+        //     $fileName = $productImage->getClientFilename();
+
+        //     $fileSize = $productImage->getSize();
+        //     $data["product_image"] = $fileName;
+        //     $data["user_id"] = $uid;
+        //     $product = $this->Products->patchEntity($product, $data);
+        //     $response = $this->Products->save($product);
+        //     dd($response);
+        //     if ($this->Products->save($product)) {
+        //         $hasFileError = $productImage->getError();
+
+        //         if ($hasFileError > 0) {
+        //             $data["product_image"] = "";
+        //         } else {
+        //             $fileType = $productImage->getClientMediaType();
+
+        //             if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+        //                 $imagePath = WWW_ROOT . "img/" . $fileName;
+        //                 $productImage->moveTo($imagePath);
+        //                 $data["product_image"] = $fileName;
+        //             }
+        //         }
+        //         echo json_encode(array(
+        //             "status" => 1,
+        //             "message" => "The User has been saved.",
+        //         ));
+        //         exit;
+        //     }
+        //     echo json_encode(array(
+        //         "status" => 0,
+        //         "message" => "The User  could not be saved. Please, try again.",
+        //     ));
+        //     exit;
+        // }
+        // $this->set(compact('user'));
+
+        $addproduct = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
-                $data = $this->request->getData();
-                $productImage = $this->request->getData('product_image');
-                $fileName = $productImage->getClientFilename();
-                
-                $fileSize = $productImage->getSize();
-                $data["product_image"] = $fileName;
-                $data["user_id"] = $uid;
-                $product = $this->Products->patchEntity($product, $data);
-                $response =$this->Products->saveMany($product);
-                dd($response);
-                if ($this->Products->save($product)) {
-                    $hasFileError = $productImage->getError();
-    
-                    if ($hasFileError > 0) {
-                        $data["product_image"] = "";
-                    } else {
-                        $fileType = $productImage->getClientMediaType();
-    
-                        if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
-                            $imagePath = WWW_ROOT . "img/" . $fileName;
-                            $productImage->moveTo($imagePath);
-                            $data["product_image"] = $fileName;
-                        }
+            $data = $this->request->getData();
+            $picture = $this->request->getData('product_image');
+            $filename = $picture->getClientFilename();
+            $data['product_image'] = $filename;
+            $addproduct = $this->Products->patchEntity($addproduct, $data);
+            // dd($addproduct);
+            $addproduct['user_id'] = $uid;
+            if ($this->Products->save($addproduct)) {
+                $hasfileerror = $picture->getError();
+                if ($hasfileerror > 0) {
+                    $data['product_image'] = '';
+                } else {
+                    $filetype = $picture->getClientMediaType();
+                    if ($filetype == 'image/png' || $filetype == 'image/jpeg' || $filetype == 'image/jpg') {
+                        $imagepath = WWW_ROOT . 'img/' . $filename;
+                        $picture->moveTo($imagepath);
+                        $data['product_image'] = $filename;
                     }
-                    echo json_encode(array(
-                        "status" => 1,
-                        "message" => "The User has been saved.",
-                    ));
-                    exit;
                 }
                 echo json_encode(array(
-                    "status" => 0,
-                    "message" => "The User  could not be saved. Please, try again.",
+                    "status" => 1,
+                    "message" => "The Product has been saved.",
                 ));
                 exit;
             }
-            $this->set(compact('user'));
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The Product  could not be saved. Please, try again.",
+            ));
+            exit;
         }
+    }
 
     /**
      * Edit method

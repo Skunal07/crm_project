@@ -1,5 +1,4 @@
-$(function() {
-
+$(document).ready(function() {
   'use strict';
 
   $('.js-menu-toggle').click(function(e) {

@@ -30,7 +30,7 @@ class UsersController extends AppController
     public function index()
     {
         $this->viewBuilder()->setLayout("home");
-        $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
+        $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0]);
         $this->set(compact('products'));
     }
 
@@ -293,8 +293,6 @@ class UsersController extends AppController
 
 
             $this->set(compact('user'));
-        } else {
-            echo "fdgdf";
-        }
+        } 
     }
 }

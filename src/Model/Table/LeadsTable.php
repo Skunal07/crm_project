@@ -48,7 +48,11 @@ class LeadsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
-        $this->hasMany('LeadContacts', [
+        $this->belongsTo('Companies', [
+            'foreignKey' => 'company_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->hasOne('LeadContacts', [
             'foreignKey' => 'lead_id',
         ]);
     }
@@ -61,40 +65,40 @@ class LeadsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('user_id')
-            ->notEmptyString('user_id');
+        // $validator
+        //     ->integer('user_id')
+        //     ->notEmptyString('user_id');
 
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 50)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+        // $validator
+        //     ->scalar('name')
+        //     ->maxLength('name', 50)
+        //     ->requirePresence('name', 'create')
+        //     ->notEmptyString('name');
 
-        $validator
-            ->numeric('price')
-            ->notEmptyString('price');
+        // $validator
+        //     ->numeric('price')
+        //     ->notEmptyString('price');
 
-        $validator
-            ->scalar('work_title')
-            ->maxLength('work_title', 250)
-            ->allowEmptyString('work_title');
+        // $validator
+        //     ->scalar('work_title')
+        //     ->maxLength('work_title', 250)
+        //     ->allowEmptyString('work_title');
 
-        $validator
-            ->scalar('status')
-            ->notEmptyString('status');
+        // $validator
+        //     ->scalar('status')
+        //     ->notEmptyString('status');
 
-        $validator
-            ->scalar('stages')
-            ->notEmptyString('stages');
+        // $validator
+        //     ->scalar('stages')
+        //     ->notEmptyString('stages');
 
-        $validator
-            ->dateTime('created_date')
-            ->notEmptyDateTime('created_date');
+        // $validator
+        //     ->dateTime('created_date')
+        //     ->notEmptyDateTime('created_date');
 
-        $validator
-            ->dateTime('modified_date')
-            ->allowEmptyDateTime('modified_date');
+        // $validator
+        //     ->dateTime('modified_date')
+        //     ->allowEmptyDateTime('modified_date');
 
         return $validator;
     }

@@ -1,3 +1,5 @@
+<?php $page = substr( $_SERVER['REQUEST_URI'],strrpos($_SERVER['REQUEST_URI'],"/")+1); ?>
+<?=$page=="dashboard"?'active bg-gradient-primary':''; ?>
 <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
@@ -7,19 +9,22 @@
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
                 </ol>
-                <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+                <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php echo $page ?></h6>
+                
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                     <div class="input-group">
                         <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control" placeholder="Type here...">
+                        <input type="text" class="form-control"id="key" placeholder="Type here...">
                     </div>
+                
                 </div>
                 <ul class="navbar-nav  justify-content-end">
                     <li class="nav-item d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
+                            
                             <span class="d-sm-inline d-none">Sign In</span>
                         </a>
                     </li>

@@ -3,20 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Contacts Controller
- *
- * @property \App\Model\Table\ContactsTable $Contacts
- * @method \App\Model\Entity\Contact[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
+
 class ContactsController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-
+   
      public function beforeFilter($event)
      {
          parent::beforeFilter($event);
@@ -37,13 +27,7 @@ class ContactsController extends AppController
         $this->set(compact('contacts','companies'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Contact id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+   
     public function view($id = null)
     {
         $contact = $this->Contacts->get($id, [
@@ -54,22 +38,52 @@ class ContactsController extends AppController
     }
 
     
-    // public function add()
-    // {
-    //     $contact = $this->Contacts->newEmptyEntity();
-    //     if ($this->request->is('post')) {
-    //         $contact = $this->Contacts->patchEntity($contact, $this->request->getData());
-    //         if ($this->Contacts->save($contact)) {
-    //             $this->Flash->success(__('The contact has been saved.'));
+     //--------------------------------------Modal Fetch User Detail During Edit----------------------------------//
 
-    //             return $this->redirect(['action' => 'index']);
-    //         }
-    //         $this->Flash->error(__('The contact could not be saved. Please, try again.'));
-    //     }
-    //     $companies = $this->Contacts->Companies->find('list', ['limit' => 200])->all();
-    //     $users = $this->Contacts->Users->find('list', ['limit' => 200])->all();
-    //     $this->set(compact('contact', 'companies', 'users'));
-    // }
+     public function editContact($id = null)
+     {
+         // $this->Model = $this->loadModel('UserProfile');
+         $id = $_GET['id'];
+         $user = $this->Contacts->get($id, [
+             'contain' => ['Companies']
+         ]);
+         echo json_encode($user);
+         exit;
+     }
+
+
+//---------------------------------------------Modal Edit Details-------------------------------------------//
+
+public function contactEdit($id = null)
+{
+    if ($this->request->is('ajax')) {
+        $data = $this->request->getData();
+        $id = $this->request->getData('contiddd');
+        // dd($id);
+        $contact = $this->Contacts->get($id, [
+            'contain' => [],
+        ]);
+
+        $contact = $this->Contacts->patchEntity($contact, $data);
+        if ($this->Contacts->save($contact)) {
+            echo json_encode(array(
+                "status" => 1,
+                "message" => "Contact has been saved.",
+            ));
+            exit;
+
+            // return $this->redirect(['action' => 'index']);
+        } else {
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "Contact  could not be saved. Please, try again.",
+            ));
+            exit;
+        }
+    }
+}
+
+     //---------------------------------------------Add Modal Using Ajax----------------------------------------//
 
     public function addcontact()
     {
@@ -101,42 +115,30 @@ class ContactsController extends AppController
         }
     }
  
-    public function edit($id = null)
-    {
-        $contact = $this->Contacts->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $contact = $this->Contacts->patchEntity($contact, $this->request->getData());
-            if ($this->Contacts->save($contact)) {
-                $this->Flash->success(__('The contact has been saved.'));
+   //-----------------------------------------DeleteStatus--------------------------------------//
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The contact could not be saved. Please, try again.'));
-        }
-        $companies = $this->Contacts->Companies->find('list', ['limit' => 200])->all();
-        $users = $this->Contacts->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('contact', 'companies', 'users'));
-    }
+   public function deleteContact($id = null, $delete_status = null)
+   {
+       if ($this->request->is('ajax')) {
+           $user = $this->Contacts->get($id);
+           if ($delete_status == 1)
+               $user->delete_status = 0;
+           else
+               $user->delete_status = 1;
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Contact id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $contact = $this->Contacts->get($id);
-        if ($this->Contacts->delete($contact)) {
-            $this->Flash->success(__('The contact has been deleted.'));
-        } else {
-            $this->Flash->error(__('The contact could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
+           if ($this->Contacts->save($user)) {
+               echo json_encode(array(
+                   "status" => 1,
+                   "message" => "The Contact has been deleted."
+               ));
+               exit;
+           } else {
+               echo json_encode(array(
+                   "status" => 0,
+                   "message" => "The Contact could not be deleted. Please, try again."
+               ));
+               exit;
+           }
+       }
+   }
 }

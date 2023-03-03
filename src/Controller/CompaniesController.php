@@ -17,10 +17,12 @@ class CompaniesController extends AppController
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout("dashboard");
         $this->loadModel('UserProfile');
+        
+
     }
 
-
-    public function index()
+  //--------------------------------------Company List----------------------------------//
+  public function index()
     {
         $this->paginate = [
             'contain' => ['Users.UserProfile'],
@@ -30,28 +32,11 @@ class CompaniesController extends AppController
         $this->set(compact('companies'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Company id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $company = $this->Companies->get($id, [
-            'contain' => ['Users.UserProfile', 'Contacts'],
-        ]);
+ 
 
-        $this->set(compact('company'));
-    }
+  //--------------------------------------Add Company Using Ajax----------------------------------//
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function addcompany()
+  public function addcompany()
     {
         $user = $this->Authentication->getIdentity();
         $uid=$user->id ;
@@ -81,48 +66,72 @@ class CompaniesController extends AppController
         }
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Company id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $company = $this->Companies->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $company = $this->Companies->patchEntity($company, $this->request->getData());
-            if ($this->Companies->save($company)) {
-                $this->Flash->success(__('The company has been saved.'));
+  //--------------------------------------Modal Fetch Company Detail During Edit----------------------------------//
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The company could not be saved. Please, try again.'));
-        }
-        $users = $this->Companies->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('company', 'users'));
-    }
+  public function editCompany($id = null)
+  {
+      // $this->Model = $this->loadModel('UserProfile');
+      $id = $_GET['id'];
+      $company = $this->Companies->get($id, [
+          'contain' => []
+      ]);
+      echo json_encode($company);
+      exit;
+  }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Company id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $company = $this->Companies->get($id);
-        if ($this->Companies->delete($company)) {
-            $this->Flash->success(__('The company has been deleted.'));
+   //--------------------------------------Edit Company Modal----------------------------------//
+
+   public function companyEdit($id = null)
+   {
+       if ($this->request->is('ajax')) {
+           $data = $this->request->getData();
+           $id = $this->request->getData('companyiddd');
+           // dd($data);
+           $company = $this->Companies->get($id, [
+               'contain' => [],
+           ]);
+           $company = $this->Companies->patchEntity($company, $this->request->getData());
+           if ($this->Companies->save($company)) {
+              
+                   echo json_encode(array(
+                       "status" => 1,
+                       "message" => "The Comapny has been saved.",
+                   ));
+                   exit;
+           }else{
+           echo json_encode(array(
+               "status" => 0,
+               "message" => "The  Comapny not be saved. Please, try again.",
+           ));
+           exit;
+       }
+       }
+   }
+  
+//-----------------------------------------DeleteStatus--------------------------------------//
+
+public function deleteCompany($id = null, $delete_status = null)
+{
+    if ($this->request->is('ajax')) {
+        $user = $this->Companies->get($id);
+        if ($delete_status == 1)
+            $user->delete_status = 0;
+        else
+            $user->delete_status = 1;
+
+        if ($this->Companies->save($user)) {
+            echo json_encode(array(
+                "status" => 1,
+                "message" => "The Company has been deleted."
+            ));
+            exit;
         } else {
-            $this->Flash->error(__('The company could not be deleted. Please, try again.'));
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The Company could not be deleted. Please, try again."
+            ));
+            exit;
         }
-
-        return $this->redirect(['action' => 'index']);
     }
+}
 }

@@ -61,27 +61,27 @@ class CategoriesTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('user_id')
-            ->notEmptyString('user_id');
+        // $validator
+        //     ->integer('user_id')
+        //     ->notEmptyString('user_id');
 
-        $validator
-            ->scalar('category_name')
-            ->maxLength('category_name', 50)
-            ->requirePresence('category_name', 'create')
-            ->notEmptyString('category_name');
+        // $validator
+        //     ->scalar('category_name')
+        //     ->maxLength('category_name', 50)
+        //     ->requirePresence('category_name', 'create')
+        //     ->notEmptyString('category_name');
 
-        $validator
-            ->scalar('status')
-            ->notEmptyString('status');
+        // $validator
+        //     ->scalar('status')
+        //     ->notEmptyString('status');
 
-        $validator
-            ->dateTime('created_date')
-            ->notEmptyDateTime('created_date');
+        // $validator
+        //     ->dateTime('created_date')
+        //     ->notEmptyDateTime('created_date');
 
-        $validator
-            ->dateTime('modified_date')
-            ->allowEmptyDateTime('modified_date');
+        // $validator
+        //     ->dateTime('modified_date')
+        //     ->allowEmptyDateTime('modified_date');
 
         return $validator;
     }

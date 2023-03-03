@@ -27,9 +27,9 @@ class LeadContact extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'lead_id' => true,
-        'contact' => true,
-        'created_date' => true,
-        'lead' => true,
+        '*' => true,
+        // 'contact' => true,
+        // 'created_date' => true,
+        // 'lead' => true,
     ];
 }

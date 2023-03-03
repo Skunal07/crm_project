@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/img/favicon.png">
     <title>
-        Argon Dashboard 2 by Creative Tim
+        DoorDekho.com
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -29,11 +29,11 @@
     <?php echo $this->Html->script('custom'); ?>
     <?php echo $this->Html->css('nucleo-svg'); ?>
     <?php echo $this->Html->css('argon-dashboard'); ?>
+    <?php echo $this->Html->script('script'); ?>
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
-<?php echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
+    <?php echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
     <script>
         var csrfToken = $('meta[name="csrfToken"]').attr('content');
     </script>
-

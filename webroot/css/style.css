@@ -285,3 +285,7 @@ nav.navbar-expand-lg.navbar-light.bg-light {
 .carousel-img {
   height: 550px !important;
 }
+
+.error {
+  color: #ff0d0d !important;
+}

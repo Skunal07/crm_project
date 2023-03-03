@@ -26933,4 +26933,8 @@ pre[class*="language-"] {
   }
 }
 
+.error {
+  color: #ff0d0d !important;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

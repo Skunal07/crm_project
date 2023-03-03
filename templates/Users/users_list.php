@@ -131,16 +131,12 @@
 
 
 
-  <!----------------------------------View Profile With Modal------------------------------>
-
-
-
+  <!--==================================== View users Profile With Modal =============================-->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="py-4 text-center bg-dark text-white">
+          <h5 class="modal-title text-white" id="exampleModalLabel">Details of <?= ($user->user_profile['first_name']) ?>'s Profile</h5>
         </div>
         <div class="modal-body">
           <div class="container py-5 h-100">
@@ -151,7 +147,7 @@
                     <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                       <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                       <h5><?= ($user->user_profile['first_name']) ?> <?= ($user->user_profile['last_name']) ?></h5>
-                      <p class="text-secondary">
+                      <p class="text-white fw-bold">
                         <?php
                         if ($user->role == 0) {
                           echo 'Staff Member';
@@ -198,7 +194,6 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
@@ -209,54 +204,32 @@
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="py-4 text-center bg-dark text-white">
+          <h5 class="modal-title text-white" id="exampleModalLongTitle">Update Details of <?= ($user->user_profile['first_name']) ?>'s Profile</h5>
         </div>
-        <div class="modal-body">
-          <?php echo $this->Form->create(null, ["type" => "file", "id" => "useredit",]); ?>
+        <?php echo $this->Form->create(null, ["type" => "file", "id" => "useredit",]); ?>
+        <div class="modal-body mx-5">
           <input type="hidden" id="iddd" name="iddd">
           <div class="input-group input-group-outline mb-3">
-            <?php echo $this->Form->control(
-              "user_profile.first_name",
-              [
-                "required" => false,
-                "class" => "form-control",
-                "id" => "firstname",
-              ]
-            ); ?>
-            <?php echo $this->Form->control(
-              "user_profile.last_name",
-              [
-                "required" => false,
-                "class" => "form-control",
-                "id" => "lastname",
-              ]
-            ); ?>
-            <?php echo $this->Form->control(
-              "user_profile.contact",
-              [
-                "required" => false,
-                "class" => "form-control",
-                "id" => "contact",
-              ]
-            ); ?>
-            <?php echo $this->Form->control(
-              "user_profile.address",
-              [
-                "required" => false,
-                "class" => "form-control",
-                "id" => "address",
-              ]
-            ); ?>
+            <div class="col-12 mx-3">
+              <?php echo $this->Form->control("user_profile.first_name", ["required" => false, "class" => "form-control px-3", "id" => "firstname"]); ?>
+            </div>
 
-            <?php echo $this->Form->control("email", [
-              "type" => "email",
-              "class" => "form-control",
-              "id" => "editemail",
-            ]); ?>
+            <div class="col-12 mx-3">
+              <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control px-3', "id" => "lastname"]); ?>
+            </div>
+
+            <div class="col-12 mx-3">
+              <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'class' => 'form-control px-3', "id" => "contact"]); ?>
+            </div>
+
+            <div class="col-12 mx-3">
+              <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => 'form-control px-3', "id" => "address"]); ?>
+            </div>
+
+            <div class="col-12 mx-3">
+              <?php echo $this->Form->control('email', ["type" => "email", 'required' => false, 'class' => 'form-control px-3', "id" => "editemail"]); ?>
+            </div>
           </div>
           <div class="modal-footer">
             <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
@@ -266,10 +239,6 @@
         </div>
       </div>
     </div>
-
-
-
-
 
     <style>
       .gradient-custom {

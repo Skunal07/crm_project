@@ -30,7 +30,7 @@ class UsersController extends AppController
     public function index()
     {
         $this->viewBuilder()->setLayout("home");
-        $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
+        $products = $this->Products->find('all')->contain('Categories')->where(['Products.status' => 0, 'delete_status' => 0]);
         $this->set(compact('products'));
     }
 
@@ -293,8 +293,74 @@ class UsersController extends AppController
 
 
             $this->set(compact('user'));
-        } else {
-            echo "fdgdf";
+        }
+    }
+
+    //========================== update user image in modal using ajax ====================
+    public function updateImage()
+    {
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $id = $this->request->getData("iddd");
+            $user = $this->Users->get($id, [
+                'contain' => ['UserProfile'],
+            ]);
+            $productImage = $this->request->getData('user_profile.profile_image');
+            $fileName = $productImage->getClientFilename();
+            $data['user_profile']["profile_image"] = $fileName;
+            $user = $this->Users->patchEntity($user, $data);
+            if ($this->Users->save($user)) {
+                $hasFileError = $productImage->getError();
+
+                if ($hasFileError > 0) {
+                    $data["image"] = "";
+                } else {
+                    $fileType = $productImage->getClientMediaType();
+
+                    if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                        $imagePath = WWW_ROOT . "img/" . $fileName;
+                        $productImage->moveTo($imagePath);
+                        $data["image"] = $fileName;
+                    }
+                }
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Image Updated Successfully.",
+                ));
+                exit;
+            }
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "There Is Some Problem Image Is not Updated",
+            ));
+            exit;
+        }
+    }
+
+    public function updateInfo($id = null)
+    {
+        if ($this->request->is('ajax')) {
+            $data = $this->request->getData();
+            $id = $this->request->getData('userpid');
+            $user = $this->Users->get($id, [
+                'contain' => ['UserProfile'],
+            ]);
+
+            $user = $this->Users->patchEntity($user, $data);
+            if ($this->Users->save($user)) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "The User has been saved.",
+                ));
+                exit;
+            } else {
+                echo json_encode(array(
+                    "status" => 0,
+                    "message" => "The User  could not be saved. Please, try again.",
+                ));
+                exit;
+            }
+            $this->set(compact('user'));
         }
     }
 }

@@ -24,13 +24,22 @@ class ProductsController extends AppController
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
-        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
-        $i = 0;
-        foreach ($contactus as $a) {
+
+        $this->loadModel('UserProfile');
+        $this->loadModel('Users');
+        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
+        $i=0;
+        foreach($contactus as $a){
             $i++;
         }
-        $count = $i;
-        $this->set(compact('contactus', 'count'));
+        $count=$i;
+        $result = $this->Authentication->getIdentity();
+        $uid=$result->id;
+        $user = $this->Users->get($uid, [
+            'contain' => ['UserProfile']
+        ]);
+        $this->set(compact('contactus', 'count','user'));
+
     }
     public function beforeFilter($event)
     {

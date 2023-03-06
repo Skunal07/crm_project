@@ -112,7 +112,8 @@
                   endforeach;
                 } else { ?>
                   <tr>
-                    <td colspan="5" class="text-center fw-bold">No Results To Show</td>
+                    <td colspan="5" class="text-center fw-bold"
+>No Results To Show</td>
                   </tr>
                 <?php
                 }

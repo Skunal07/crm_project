@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Contact Us Request</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Contact Us Request</p>
                                 <h5 class="font-weight-bolder">
                                     <?php $i = 0;
                                     foreach ($totalcontact as $total) {
@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's approved</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Approved</p>
                                 <h5 class="font-weight-bolder">
                                     <?php $j = 0;
                                     foreach ($totallead as $lead) {
@@ -135,7 +135,9 @@
             <div class="card card-carousel overflow-hidden h-100 p-0">
                 <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
                     <div class="carousel-inner border-radius-lg h-100">
+
                         <div class="carousel-item h-100 active" style="background-image: url('/img/b1.jpg');
+
       background-size: cover;">
                             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                 <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
@@ -183,136 +185,46 @@
             <div class="card ">
                 <div class="card-header pb-0 p-3">
                     <div class="d-flex justify-content-between">
-                        <h6 class="mb-2">Sales by Country</h6>
+                        <h6 class="mb-2">Recently Complete Projects</h6>
                     </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-items-center ">
                         <tbody>
+                            <?php foreach($leads as $lead){ 
+                                ?>
                             <tr>
                                 <td class="w-30">
                                     <div class="d-flex px-2 py-1 align-items-center">
                                         <div>
-                                            <img src="/img/icons/flags/US.png" alt="Country flag">
+                                            <img src="/img/yoo.jpg" width='50px' alt="Country flag">
                                         </div>
                                         <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Country:</p>
-                                            <h6 class="text-sm mb-0">United States</h6>
+                                            <p class="text-xs font-weight-bold mb-0">Name:</p>
+                                            <h6 class="text-sm mb-0"><?= $lead->name ?></h6>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Sales:</p>
-                                        <h6 class="text-sm mb-0">2500</h6>
+                                        <p class="text-xs font-weight-bold mb-0">Work Title:</p>
+                                        <h6 class="text-sm mb-0"><?= $lead->work_title ?></h6>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Value:</p>
-                                        <h6 class="text-sm mb-0">$230,900</h6>
+                                        <p class="text-xs font-weight-bold mb-0">Price:</p>
+                                        <h6 class="text-sm mb-0"><?= $lead->price ?></h6>
                                     </div>
                                 </td>
                                 <td class="align-middle text-sm">
                                     <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Bounce:</p>
-                                        <h6 class="text-sm mb-0">29.9%</h6>
+                                        <p class="text-xs font-weight-bold mb-0">Created At:</p>
+                                        <h6 class="text-sm mb-0"><?= $lead->created_date?></h6>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="/img/icons/flags/DE.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Country:</p>
-                                            <h6 class="text-sm mb-0">Germany</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Sales:</p>
-                                        <h6 class="text-sm mb-0">3.900</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Value:</p>
-                                        <h6 class="text-sm mb-0">$440,000</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Bounce:</p>
-                                        <h6 class="text-sm mb-0">40.22%</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="/img/icons/flags/GB.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Country:</p>
-                                            <h6 class="text-sm mb-0">Great Britain</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Sales:</p>
-                                        <h6 class="text-sm mb-0">1.400</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Value:</p>
-                                        <h6 class="text-sm mb-0">$190,700</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Bounce:</p>
-                                        <h6 class="text-sm mb-0">23.44%</h6>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="/img/icons/flags/BR.png" alt="Country flag">
-                                        </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Country:</p>
-                                            <h6 class="text-sm mb-0">Brasil</h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Sales:</p>
-                                        <h6 class="text-sm mb-0">562</h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Value:</p>
-                                        <h6 class="text-sm mb-0">$143,960</h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Bounce:</p>
-                                        <h6 class="text-sm mb-0">32.14%</h6>
-                                    </div>
-                                </td>
-                            </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -325,62 +237,28 @@
                 </div>
                 <div class="card-body p-3">
                     <ul class="list-group">
+                        <?php foreach($category as $cat){ ?>
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
                                     <i class="ni ni-mobile-button text-dark opacity-10"></i>
                                 </div>
                                 <div class="d-flex flex-column">
-                                    <h6 class="mb-1 text-dark text-sm">Devices</h6>
-                                    <span class="text-xs">250 in stock, <span class="font-weight-bold">346+ sold</span></span>
+
+                                    <h6 class="mb-1 text-dark text-sm"><?= $cat->category_name ?></h6>
+                                    <?php $i=0 ;
+                                    foreach($cat->products as $p){
+                                        $i++;
+                                    } ?>
+                                    <span class="text-xs"><?= $i ?> in stock</span>
+
                                 </div>
                             </div>
                             <div class="d-flex">
                                 <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
                             </div>
                         </li>
-                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                            <div class="d-flex align-items-center">
-                                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-tag text-dark opacity-10"></i>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <h6 class="mb-1 text-dark text-sm">Tickets</h6>
-                                    <span class="text-xs">123 closed, <span class="font-weight-bold">15 open</span></span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
-                            </div>
-                        </li>
-                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                            <div class="d-flex align-items-center">
-                                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-box-2 text-dark opacity-10"></i>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <h6 class="mb-1 text-dark text-sm">Error logs</h6>
-                                    <span class="text-xs">1 is active, <span class="font-weight-bold">40 closed</span></span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
-                            </div>
-                        </li>
-                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-                            <div class="d-flex align-items-center">
-                                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-satisfied text-dark opacity-10"></i>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <h6 class="mb-1 text-dark text-sm">Happy users</h6>
-                                    <span class="text-xs font-weight-bold">+ 430</span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
-                            </div>
-                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -390,22 +268,19 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            google.charts.load("current", {
-                packages: ["corechart"]
-            });
-            google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['sales', 'Hours per Day'],
-                    ['ContactUs', <?= $i ?>],
-                    ['Lost ', <?= $l ?>],
-                    ['Approved', <?= $j ?>],
-                    ['Won', <?= $k ?>],
-
-                ]);
-
+        $(document).ready(function(){
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['sales', 'Hours per Day'],
+          ['ContactUs', <?= $i ?>],
+          ['Lost ', <?= $k ?>],
+          ['Approved',<?= $j ?>],
+          ['Won',  <?= $l ?>],
+         
+        ]);
                 var options = {
                     title: 'Daily Activities',
                     pieHole: 0.4,

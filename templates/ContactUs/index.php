@@ -1,4 +1,3 @@
-
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
@@ -7,7 +6,7 @@
                     <h5>Contact Us Request</h5>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0 product">
+                    <div class="table-responsive p-0 productss">
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
@@ -22,9 +21,13 @@
                             </thead>
                             <tbody>
                                 <!-- <pre> -->
-                                <?php foreach ($contactUs as $contactU): ?>
+                                <?php foreach ($contactUs as $contactU) :
+                                    if ($contactU->delete_status == 1) {
+                                        continue;
+                                    }
+                                ?>
                                     <tr>
-                                    <td class="align-middle text-center">
+                                        <td class="align-middle text-center">
                                             <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
                                         </td>
                                         <td class="align-middle text-center">
@@ -42,27 +45,25 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>
                                         </td>
-                                        <td class="align-middle">
-                            <!-- <a href="javascript:void(0)" class="btn-delete-student btn btn-danger" data-id="<?= $contactU->id ?>">Respond</a>
-                            <a href="javascript:void(0)" class="btn-delete-student btn btn-danger" data-id="<?= $contactU->id ?>">Delete</a> -->
-                                            <?= $this->Html->link(__('Respond'), ['action' => 'view', $contactU->id]) ?>
-                                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $contactU->id], ['confirm' => __('Are you sure you want to delete # {0}?', $contactU->id)]) ?>
+                                        <td class="align-middle"><?php
+                                                                    if ($contactU->work_status == 1) {
+                                                                        echo '<span class="btn btn-success">Approval</span>';
+                                                                        echo '<a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="' . $contactU->id . '">Delete</a>';
+                                                                    } else if ($contactU->work_status == 2) {
+                                                                        echo '<span class="btn btn-danger">Reject</span>';
+                                                                        echo '<a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="' . $contactU->id . '">Delete</a>';
+                                                                    } else { ?>
+                                                <a href="javascript:void(0)" class="response btn btn-info" data-id="<?= $contactU->id ?>">Respond</a>
+                                                <a href="javascript:void(0)" class="reject btn btn-info ml-3" data-id="<?= $contactU->id ?>">Reject</a>
+                                            <?php } ?>
+
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <div class="paginator">
-                        <ul class="pagination">
-                            <?= $this->Paginator->first('<< ' . __('first')) ?>
-                            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                            <?= $this->Paginator->numbers() ?>
-                            <?= $this->Paginator->next(__('next') . ' >') ?>
-                            <?= $this->Paginator->last(__('last') . ' >>') ?>
-                        </ul>
-                        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-                    </div>
+
                 </div>
             </div>
         </div>

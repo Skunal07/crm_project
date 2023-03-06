@@ -22,18 +22,15 @@ class UsersController extends AppController
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
+        $this->loadModel('UserProfile');
+
         $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
         $i = 0;
         foreach ($contactus as $a) {
             $i++;
         }
         $count = $i;
-        $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
-        $user = $this->Users->get($uid, [
-            'contain' => ['UserProfile']
-        ]);
-        $this->set(compact('contactus', 'count','user'));
+        $this->set(compact('contactus', 'count'));
     }
     public function beforeFilter($event)
     {
@@ -100,7 +97,12 @@ class UsersController extends AppController
             $i++;
         }
         $count = $i;
-        $this->set(compact('contactus', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost','category','leads'));
+        $result = $this->Authentication->getIdentity();
+        $uid=$result->id;
+        $user = $this->Users->get($uid, [
+            'contain' => ['UserProfile']
+        ]);
+        $this->set(compact('contactus','user', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost','category','leads'));
     }
 
     //-----------------------------Admin----Index--------------------------//
@@ -127,14 +129,18 @@ class UsersController extends AppController
     }
     public function usersList()
     {
-
+        $result = $this->Authentication->getIdentity();
+        $uid=$result->id;
+        $user = $this->Users->get($uid, [
+            'contain' => ['UserProfile']
+        ]);
         $result = $this->Authentication->getIdentity();
         // pr($result);
         // die;
         if ($result->role == '1') {
             $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0]));
 
-            $this->set(compact('users'));
+            $this->set(compact('users','user'));
         } else {
             return $this->redirect(['controller' => 'Users', 'action' => 'dashboard']);
         }

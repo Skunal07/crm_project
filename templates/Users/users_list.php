@@ -43,7 +43,7 @@
   </div>
 </div>
 <div class="container-fluid py-4">
-  <div class="row">
+  <div class="row" id="staff_update">
     <div class="col-12">
       <div class="card mb-4">
 
@@ -54,7 +54,7 @@
           <h6>Users List</h6>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
-          <div class="table-responsive p-0 staff" id="staff_update">
+          <div class="table-responsive p-0 staff" >
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
@@ -233,8 +233,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
           </div>
           <?= $this->Form->end() ?>
         </div>

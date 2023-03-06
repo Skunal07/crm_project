@@ -18,6 +18,8 @@ class CompaniesController extends AppController
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadModel('UserProfile');
+        $this->loadModel('Users');
         $this->loadModel('ContactUs');
         $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
         $i=0;
@@ -25,7 +27,12 @@ class CompaniesController extends AppController
             $i++;
         }
         $count=$i;
-        $this->set(compact('contactus','count'));
+        $result = $this->Authentication->getIdentity();
+        $uid=$result->id;
+        $user = $this->Users->get($uid, [
+            'contain' => ['UserProfile']
+        ]);
+        $this->set(compact('contactus', 'count','user'));;
        
     }
     public function beforeFilter($event)

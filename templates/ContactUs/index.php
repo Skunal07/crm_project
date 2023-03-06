@@ -43,6 +43,8 @@
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>
                                         </td>
                                         <td class="align-middle">
+                            <!-- <a href="javascript:void(0)" class="btn-delete-student btn btn-danger" data-id="<?= $contactU->id ?>">Respond</a>
+                            <a href="javascript:void(0)" class="btn-delete-student btn btn-danger" data-id="<?= $contactU->id ?>">Delete</a> -->
                                             <?= $this->Html->link(__('Respond'), ['action' => 'view', $contactU->id]) ?>
                                             <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $contactU->id], ['confirm' => __('Are you sure you want to delete # {0}?', $contactU->id)]) ?>
                                         </td>

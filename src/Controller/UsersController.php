@@ -22,14 +22,13 @@ class UsersController extends AppController
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $i = 0;
+        foreach ($contactus as $a) {
             $i++;
         }
-        $count=$i;
-        $this->set(compact('contactus','count'));
-       
+        $count = $i;
+        $this->set(compact('contactus', 'count'));
     }
     public function beforeFilter($event)
     {
@@ -40,10 +39,7 @@ class UsersController extends AppController
         $this->loadModel('ContactUs');
         $this->loadModel('Categories');
         $this->loadModel('Leads');
-
-
         $this->Authentication->addUnauthenticatedActions(['login', 'index', 'viewProduct']);
-
     }
 
     public function index($id = null)
@@ -73,12 +69,11 @@ class UsersController extends AppController
             $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
         }
 
-        $productc=$this->Categories->find('all')->where(['status'=>0]);
-        if($id != null){
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0,'category_id'=>$id]);
-        }else{
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0]);
-
+        $productc = $this->Categories->find('all')->where(['status' => 0]);
+        if ($id != null) {
+            $products = $this->Products->find('all')->contain('Categories')->where(['Products.status' => 0, 'Products.delete_status' => 0, 'category_id' => $id]);
+        } else {
+            $products = $this->Products->find('all')->contain('Categories')->where(['Products.status' => 0, 'Products.delete_status' => 0]);
         }
         $this->set(compact('products', 'productc', 'id', 'contactU'));
     }
@@ -122,7 +117,7 @@ class UsersController extends AppController
     }
     public function usersList()
     {
-     
+
         $result = $this->Authentication->getIdentity();
         // pr($result);
         // die;
@@ -222,18 +217,35 @@ class UsersController extends AppController
     public function viewProduct($id = null)
     {
         $this->viewBuilder()->setLayout("home");
+        $contactU = $this->ContactUs->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
+            $email = $contactU->email;
+            $name = $contactU->name;
+            if ($this->ContactUs->save($contactU)) {
+                $mailer = new Mailer('default');
+                $mailer->setTransport('gmail'); //your email configuration name
+                $mailer->setFrom(['kunal02chd@gmail.com' => 'Code The Pixel']);
+                $mailer->setTo($email);
+                $mailer->setEmailFormat('html');
+                $mailer->setSubject('Team DoorDekho.com');
+                $mailer->deliver("<h3>Thanks Mr/Mrs $name for Contact Us.</h3>
+                <p>Your Message has been Submitted Successfully.</p>
+                <p>Our Team Contact you Soon.</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
+                ");
+                $this->Flash->success(__('The contact u has been saved.'));
+                return $this->redirect(['action' => 'viewProduct', $id]);
+            }
+            $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
+        }
+
         $product = $this->Products->get($id, [
             'contain' => ['Users', 'Categories'],
         ]);
         // $totalbuyer=$this->ContactUs->find('all')->where(['Products.status'=>0 ,'delete_status'=> 0,'category_id'=>$id]);
 
-        $this->set(compact('product'));
+        $this->set(compact('product', 'contactU'));
     }
-
-
-
-
-
 
     //-----------------------------------------DeleteStatus--------------------------------------//
 

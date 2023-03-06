@@ -27,7 +27,8 @@
                                     }
                                 ?>
                                     <tr>
-                                        <td class="align-middle text-center">
+                           
+                                    <td class="align-middle text-center">
                                             <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
                                         </td>
                                         <td class="align-middle text-center">
@@ -47,10 +48,10 @@
                                         </td>
                                         <td class="align-middle"><?php
                                                                     if ($contactU->work_status == 1) {
-                                                                        echo '<span class="btn btn-success">Approval</span>';
+                                                                        echo '<span class="btn btn-success ml-3">Approval</span>';
                                                                         echo '<a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="' . $contactU->id . '">Delete</a>';
                                                                     } else if ($contactU->work_status == 2) {
-                                                                        echo '<span class="btn btn-danger">Reject</span>';
+                                                                        echo '<span class="btn btn-danger m-3">Reject</span>';
                                                                         echo '<a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="' . $contactU->id . '">Delete</a>';
                                                                     } else { ?>
                                                 <a href="javascript:void(0)" class="response btn btn-info" data-id="<?= $contactU->id ?>">Respond</a>

@@ -1,6 +1,6 @@
 <main>
     <nav class=" navbar-expand-lg navbar-light bg-light topnav">
-        <a class="navbar-brand text-white fw-bold" href="/users">DoorDekho.com</a>
+        <a class="navbar-brand text-white fw-bold" href="/users">DoorsDekho.com</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,6 +17,6 @@
                     <a class="nav-link text-light nav-menu mx-3" href="/users/ContactUs">Contact Us</a>
                 </li>
             </ul>
-            <a class='btn btn-outline-light fw-bold py-1 mx-3' href="/users/login">Login</a>
+            <?= $this->Html->link("Login", ['controller' => 'Users', 'action' => 'login'], ['type' => 'button', 'class' => 'btn btn-light text-dark fw-bold py-1 mx-3']) ?>
         </div>
     </nav>

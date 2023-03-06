@@ -51,7 +51,7 @@ body:before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
   opacity: 0;
   visibility: hidden;
   -webkit-transition: .3s all ease-in-out;
@@ -223,7 +223,8 @@ main .post-content .post-meta {
 
 /* Toggle */
 .menu-toggle span {
-  color: #707070 !important;
+  /* color: #707070 !important; */
+  color: #0dcaf0 !important;
   font-size: 2rem;
 }
 
@@ -284,15 +285,14 @@ nav.navbar-expand-lg.navbar-light.bg-light {
 
 .carousel-img {
 
-  height: 550px !important;
+  height: 650px !important;
 }
 
 .error {
   color: #ff0d0d !important;
 }
 
-  height: 580px !important;
-}
+
 
 
 .card {
@@ -392,4 +392,6 @@ nav.navbar-expand-lg.navbar-light.bg-light {
   position: relative
 }
 
-
+img.img-fluid.rounded-start.product-img {
+  height: 100% !important;
+}

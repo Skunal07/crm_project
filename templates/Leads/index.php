@@ -1,62 +1,58 @@
 
 
-<!------------------------------------------ Add-----Lead----Modal ------------------------------------->
-
-<div class="modal fade" id="AddLeadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <?= $this->Form->create(null, ['type'=>'file','id' => 'newlead']) ?>
-            <div class="modal-body">
-                <label for="name" class="form-label">Name <span>*</span></label>
-                <?php
-                echo $this->Form->input('name', ['class' => 'form-control']);
-                ?> 
-                <br>
-               
-                
-                <label for="price" class="form-label">Price</label>
-                <?php
-                echo $this->Form->input('price', ['class' => 'form-control']);
-                ?>
-                <br>
-                <label for="work_title" class="form-label">Work Title</label>
-                <?php
-                echo $this->Form->input('work_title', ['class' => 'form-control']);
-                ?>
-                <br>
-                <!-- <label for="lead_contacts.contact" class="form-label">Contact</label> -->
-                <?php
-                echo $this->Form->control('lead_contact.contact', ['class' => 'form-control']);
-                ?>
-                <br>
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
-                <?= $this->Form->end() ?>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!--------------------------------------------------------- Start Form ----------------------------------------->
 
 <div class="container-fluid py-4">
-    <div class="row">
+  <div class="row" >
         <div class="col-12">
-            <div class="card mb-4">
+            <div class="card mb-4" id="lead">
                 <div class="card-header pb-0">
                     <h6>Leads</h6>
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;margin-top: -35px;'>New Lead</button>
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
+                <!------------------------------------------ Add-----Lead----Modal ------------------------------------->
+                
+                <div class="modal fade" id="AddLeadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <?= $this->Form->create(null, ['type'=>'file','id' => 'newlead']) ?>
+                            <div class="modal-body">
+                                <label for="name" class="form-label">Name <span>*</span></label>
+                                <?php
+                                echo $this->Form->control('name', ['class' => 'form-control']);
+                                ?> 
+                                <br>
+                                <?php
+                                echo $this->Form->control('price', ['class' => 'form-control']);
+                                ?>
+                                <br>
+                                <?php
+                                echo $this->Form->control('work_title', ['class' => 'form-control']);
+                                ?>
+                                <br>
+                                <!-- <label for="lead_contacts.contact" class="form-label">Contact</label> -->
+                                <?php
+                                echo $this->Form->control('lead_contact.contact', ['class' => 'form-control']);
+                                ?>
+                                <br>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?>
+                                <?= $this->Form->end() ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2" >
                     <div class="table-responsive p-0 lead">
-                        <table class="table align-items-center mb-0">
+                      <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id</th>
@@ -227,38 +223,38 @@
               "name",
               [
                 "required" => false,
-                "class" => "form-control",
-                "id" => "name",
+                "class" => "form-control name",
+                
               ]
             ); ?>
             <?php echo $this->Form->control(
               "price",
               [
                 "required" => false,
-                "class" => "form-control",
-                "id" => "price",
+                "class" => "form-control price",
+                
               ]
             ); ?>
             <?php echo $this->Form->control(
               "work_title",
               [
                 "required" => false,
-                "class" => "form-control",
-                "id" => "work_title",
+                "class" => "form-control work_title",
+                
               ]
             ); ?>
             <?php echo $this->Form->control(
               "lead_contact.contact",
               [
                 "required" => false,
-                "class" => "form-control",
-                "id" => "contacts",
+                "class" => "form-control contact",
+               
               ]
             ); ?>
           </div>
           <div class="modal-footer">
-            <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
           </div>
           <?= $this->Form->end() ?>
         </div>

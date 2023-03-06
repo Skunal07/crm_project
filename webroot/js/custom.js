@@ -530,6 +530,68 @@ $(document).ready(function () {
 //------------------------------------- Delete Staff using ajax ---------------------------------------//
 
 
+$(document).on("click", ".response", function () {
+    // alert('dgkhdfhg');
+    var user_id = $(this).data("id");
+  
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        url: "/contactUs/response/" + user_id,
+        data: {user_id },
+        type: "JSON",
+        method: "post",
+        success: function (response) {
+            console.log(response)
+            $('.productss').load('/contactUs/index .productss')
+
+        }
+    });
+})
+
+$(document).on("click", ".delete", function () {
+    // alert('dgkhdfhg');
+    var user_id = $(this).data("id");
+    alert(user_id)
+  
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        url: "/contactUs/deleteContactus/" + user_id,
+        data: {user_id },
+        type: "JSON",
+        method: "post",
+        success: function (response) {
+            console.log(response)
+            $('.productss').load('/contactUs/index .productss')
+
+        }
+    });
+})
+$(document).on("click", ".reject", function () {
+    // alert('dgkhdfhg');
+    var user_id = $(this).data("id");
+    
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        url: "/contactUs/reject/" + user_id,
+        data: { user_id },
+        type: "JSON",
+        method: "post",
+        success: function (response) {
+            console.log(response)
+            $('.productss').load('/contactUs/index .productss')
+        }
+    });
+})
+
+//------------------------------------- Delete Staff using ajax ---------------------------------------//
+
+
 $(document).on("click", ".btn-delete-student", function () {
     // alert('dgkhdfhg');
 
@@ -676,7 +738,7 @@ $(document).ready(function () {
                 required: "Please enter email  ",
             },
             phone: {
-                 required: " Please enter phone no ",
+                required: " Please enter phone no ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
             },
@@ -841,7 +903,7 @@ $(document).ready(function () {
                 required: true,
             },
             'lead_contact[contact]': {
-                  required: true,
+                required: true,
                 minlength: 10,
                 maxlength: 10,
                 noSpace: true,
@@ -859,7 +921,7 @@ $(document).ready(function () {
                 required: "Please enter work title ",
             },
             'lead_contact[contact]': {
-             required: " Please enter phone no ",
+                required: " Please enter phone no ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only"

@@ -430,6 +430,160 @@ $(document).ready(function () {
 });
 
 
+//============================ view product details ===================
+$(document).on("click", ".productView", function () {
+    var product_id = $(this).data("id");
+    $.ajax({
+        url: "/products/view",
+        data: { id: product_id },
+        type: "JSON",
+        method: "get",
+        success: function (response) {
+            product = $.parseJSON(response);
+            var image = product["product_image"];
+            document
+                .querySelector("#productImage")
+                .setAttribute("src", "/img/" + image);
+            $("#cardTitle").html(product['product_name']);
+            $("#categoryName").html(product['category']['category_name']);
+            $("#userName").html(product['user']['user_profile']['first_name']);
+            $("#created").html(product['created_date']);
+            $("#short").html(product['short_discription']);
+            $("#description").html(product['description']);
+        },
+    });
+});
+
+//========================== getting product details for edit ===================
+$(document).on("click", ".productEdit", function () {
+    var product_id = $(this).data("id");
+    $.ajax({
+        url: "/products/view",
+        data: { id: product_id },
+        type: "JSON",
+        method: "get",
+        success: function (response) {
+            Product = $.parseJSON(response);
+            // console.log(Product);
+            $("#product_name").val(Product["product_name"]);
+            $("#short_discription").val(Product["short_discription"]);
+            $("#long_description").val(Product["description"]);
+            $("#product_tags").val(Product["product_tags"]);
+            var p_image = Product["product_image"];
+            document
+                .querySelector("#productImg")
+                .setAttribute('src', "/img/" + p_image);
+            
+            $("#imagedd").val(Product["product_image"]);
+            $("#iddd").val(Product["id"]);
+            $("#useridd").val(Product['user']['id'])
+        },
+    });
+});
+
+//====================== update product =================
+$(document).ready(function () {
+    $("#productDetails").validate({
+        rules: {
+            product_name: {
+                required: true,
+            },
+            short_discription: {
+                required: true,
+            },
+            description: {
+                required: true,
+            },
+            product_tags: {
+                required: true,
+            },
+        },
+        messages: {
+            product_name: {
+                required: " Please Enter Your Name",
+            },
+            short_discription: {
+                required: "Please enter Short Description",
+            },
+            description: {
+                required: "Please enter Description",
+            },
+            product_tags: {
+                required: "Please enter Tags",
+            },
+        },
+        submitHandler: function (form) {
+            var formData = new FormData(form);
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/products/edit",
+                type: "JSON",
+                method: "POST",
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if (data["status"] == 0) {
+                        alert(data["message"]);
+                    } else {
+                        swal(
+                            "Updated Successfully!",
+                            "Details has been saved!",
+                            "success"
+                        );
+                        //==== reload table data ====
+                        $(".product").load("/products/index .product");
+                        $("#EditProduct").hide();
+                        $("div.modal-backdrop").remove();
+                    }
+                },
+            });
+            return false;
+        },
+    });
+});
+
+//============================== Delete Products ================
+$(document).on("click", ".deleteProducts", function () {
+    var csrfToken = $('meta[name="csrfToken"]').attr('content');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': csrfToken // this is defined in app.php as a js variable
+        }
+    });
+    var postdata = $(this).attr("data-id");
+
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+
+                // alert(postdata);
+                $.ajax({
+                    url: "/products/delete/" + postdata,
+                    data: postdata,
+                    type: "JSON",
+                    method: "post",
+                    success: function (response) {
+
+                        $('#data' + postdata).hide();
+                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    }
+                });
+            }
+        })
+
+});
+
 //----------------------------------- Add Staff using ajax -------------------------//
 
 $(document).ready(function () {

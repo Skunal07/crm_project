@@ -26,7 +26,7 @@ class UsersController extends AppController
         $this->loadModel('Categories');
         $this->loadModel('Leads');
 
-        $this->Authentication->addUnauthenticatedActions(['login', 'index']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'index','viewProduct']);
     }
 
     public function index($id = null)
@@ -57,9 +57,9 @@ class UsersController extends AppController
         }
         $productc=$this->Categories->find('all')->where(['status'=>0]);
         if($id != null){
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0,'category_id'=>$id]);
+            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0,'category_id'=>$id]);
         }else{
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'delete_status'=> 0]);
+            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0]);
         }
         $this->set(compact('products','productc','id','contactU'));
 

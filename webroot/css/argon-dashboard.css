@@ -26937,4 +26937,18 @@ pre[class*="language-"] {
   color: #ff0d0d !important;
 }
 
-/*# sourceMappingURL=dashboard-free.css.map */
+ul.pagination li a {
+  background-color: #1171ef;
+  color: #fff;
+  margin: 0px 4px;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.category-title {
+  display: flex;
+  justify-content: center !important;
+}
+
+/* # sourceMappingURL=dashboard-free.css.map */

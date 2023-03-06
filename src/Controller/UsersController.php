@@ -18,7 +18,7 @@ class UsersController extends AppController
     public function initialize(): void
     {
         $this->loadComponent('Authentication.Authentication');
-
+        
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
@@ -28,7 +28,12 @@ class UsersController extends AppController
             $i++;
         }
         $count = $i;
-        $this->set(compact('contactus', 'count'));
+        $result = $this->Authentication->getIdentity();
+        $uid=$result->id;
+        $user = $this->Users->get($uid, [
+            'contain' => ['UserProfile']
+        ]);
+        $this->set(compact('contactus', 'count','user'));
     }
     public function beforeFilter($event)
     {
@@ -87,12 +92,15 @@ class UsersController extends AppController
         $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0]);
         $totallost = $this->Leads->find('all')->where(['stages' => 0, 'delete_status' => 0]);
         $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
+        $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
+        $leads = $this->Leads->find('all',['limit'=> 5])->where(['delete_status' => 0,'stages'=> 4])->order(['id' => 'DESC']); 
+
         $i = 0;
         foreach ($contactus as $a) {
             $i++;
         }
         $count = $i;
-        $this->set(compact('contactus', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost'));
+        $this->set(compact('contactus', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost','category','leads'));
     }
 
     //-----------------------------Admin----Index--------------------------//

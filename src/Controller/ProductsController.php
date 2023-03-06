@@ -24,14 +24,13 @@ class ProductsController extends AppController
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $i = 0;
+        foreach ($contactus as $a) {
             $i++;
         }
-        $count=$i;
-        $this->set(compact('contactus','count'));
-       
+        $count = $i;
+        $this->set(compact('contactus', 'count'));
     }
     public function beforeFilter($event)
     {
@@ -41,7 +40,6 @@ class ProductsController extends AppController
 
         $this->loadModel('Users');
         $this->loadModel('UserProfile');
-
     }
     public function index()
     {
@@ -53,74 +51,26 @@ class ProductsController extends AppController
         $categories = $this->Categories->find('all')->where(['status' => 0]);
 
         $this->set(compact('products', 'categories'));
-
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Product id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+
     public function view($id = null)
     {
+        $id = $_GET['id'];
         $product = $this->Products->get($id, [
-            'contain' => ['Users', 'Categories'],
+            'contain' => ['Users.UserProfile', 'Categories'],
         ]);
 
-        $this->set(compact('product'));
+        echo json_encode($product);
+        exit;
+        // $this->set(compact('product'));
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
+
     public function addproduct()
     {
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
-        // $product = $this->Products->newEmptyEntity();
-        // if ($this->request->is('post')) {
-        //     $data = $this->request->getData();
-        //     $productImage = $this->request->getData('product_image');
-        //     $fileName = $productImage->getClientFilename();
-
-        //     $fileSize = $productImage->getSize();
-        //     $data["product_image"] = $fileName;
-        //     $data["user_id"] = $uid;
-        //     $product = $this->Products->patchEntity($product, $data);
-        //     $response = $this->Products->save($product);
-        //     dd($response);
-        //     if ($this->Products->save($product)) {
-        //         $hasFileError = $productImage->getError();
-
-        //         if ($hasFileError > 0) {
-        //             $data["product_image"] = "";
-        //         } else {
-        //             $fileType = $productImage->getClientMediaType();
-
-        //             if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
-        //                 $imagePath = WWW_ROOT . "img/" . $fileName;
-        //                 $productImage->moveTo($imagePath);
-        //                 $data["product_image"] = $fileName;
-        //             }
-        //         }
-        //         echo json_encode(array(
-        //             "status" => 1,
-        //             "message" => "The User has been saved.",
-        //         ));
-        //         exit;
-        //     }
-        //     echo json_encode(array(
-        //         "status" => 0,
-        //         "message" => "The User  could not be saved. Please, try again.",
-        //     ));
-        //     exit;
-        // }
-        // $this->set(compact('user'));
-
         $addproduct = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -156,49 +106,69 @@ class ProductsController extends AppController
         }
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Product id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
-        $product = $this->Products->get($id, [
-            'contain' => [],
-        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $product = $this->Products->patchEntity($product, $this->request->getData());
-            if ($this->Products->save($product)) {
-                $this->Flash->success(__('The product has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            $data = $this->request->getData();
+            $fileName2 = $this->request->getData("imagedd");
+            $id = $this->request->getData("iddd");
+            // $userid = $this->request->getData("useridd");
+            $product = $this->Products->get($id, [
+                'contain' => [],
+            ]);
+            $productImage = $this->request->getData('product_image');
+            $fileName = $productImage->getClientFilename();
+            if ($fileName == '') {
+                $fileName = $fileName2;
             }
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            $data['product_image'] = $fileName;
+
+            $product = $this->Products->patchEntity($product, $data);
+            if ($this->Products->save($product)) {
+                $hasFileError = $productImage->getError();
+
+                if ($hasFileError > 0) {
+                    $data["image"] = "";
+                } else {
+                    $fileType = $productImage->getClientMediaType();
+
+                    if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                        $imagePath = WWW_ROOT . "img/" . $fileName;
+                        $productImage->moveTo($imagePath);
+                        $data["image"] = $fileName;
+                    }
+                }
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "The Product has been saved.",
+                ));
+                exit;
+            }
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The Product could not be saved. Please, try again.",
+            ));
+            exit;
         }
-        $users = $this->Products->Users->find('list', ['limit' => 200])->all();
-        $categories = $this->Products->Categories->find('list', ['limit' => 200])->all();
-        $this->set(compact('product', 'users', 'categories'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Product id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $product = $this->Products->get($id);
-        if ($this->Products->delete($product)) {
-            $this->Flash->success(__('The product has been deleted.'));
+        $product->delete_status = 1;
+        if ($this->Products->save($product)) {
+            echo json_encode(array(
+                "status" => 1,
+                "message" => "The Product has been Deleted",
+            ));
+            exit;
         } else {
-            $this->Flash->error(__('The product could not be deleted. Please, try again.'));
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The Product could not be Deleted. Please, try again.",
+            ));
+            exit;
         }
-
-        return $this->redirect(['action' => 'index']);
     }
 }

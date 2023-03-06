@@ -8,11 +8,11 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Contact Us Request</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $i=0; 
-                                    foreach($totalcontact as $total){
+                                    <?php $i = 0;
+                                    foreach ($totalcontact as $total) {
                                         $i++;
-                                    } 
-                                    echo $i ;?>
+                                    }
+                                    echo $i; ?>
                                 </h5>
                                 <p class="mb-0">
                                     <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -37,13 +37,13 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's approved</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $j=0; 
-                                    foreach($totallead as $lead){
+                                    <?php $j = 0;
+                                    foreach ($totallead as $lead) {
                                         $j++;
-                                    } 
-                                    echo $j ;?>
-                            </h5>
-                            <p class="mb-0">
+                                    }
+                                    echo $j; ?>
+                                </h5>
+                                <p class="mb-0">
                                     <span class="text-success text-sm font-weight-bolder">+3%</span>
                                     since last week
                                 </p>
@@ -66,13 +66,13 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Lost</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $k=0; 
-                                    foreach($totallost as $lost){
+                                    <?php $k = 0;
+                                    foreach ($totallost as $lost) {
                                         $k++;
-                                    } 
-                                    echo $k ;?>
-                            </h5>
-                            <p class="mb-0">
+                                    }
+                                    echo $k; ?>
+                                </h5>
+                                <p class="mb-0">
                                     <span class="text-danger text-sm font-weight-bolder">-2%</span>
                                     since last quarter
                                 </p>
@@ -95,11 +95,11 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Won</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $l=0; 
-                                    foreach($totalwon as $won){
+                                    <?php $l = 0;
+                                    foreach ($totalwon as $won) {
                                         $l++;
-                                    } 
-                                    echo $l ;?>
+                                    }
+                                    echo $l; ?>
                                 </h5>
                                 <p class="mb-0">
                                     <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
@@ -127,7 +127,7 @@
                     </p>
                 </div>
                 <div class="card-body p-3">
-                <div id="donutchart" style="width: 800px; height: 500px;"></div>
+                    <div id="donutchart" style="width: 800px; height: 500px;"></div>
                 </div>
             </div>
         </div>
@@ -135,34 +135,34 @@
             <div class="card card-carousel overflow-hidden h-100 p-0">
                 <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
                     <div class="carousel-inner border-radius-lg h-100">
-                        <div class="carousel-item h-100 active" style="background-image: url('/img/carousel-1.jpg');
+                        <div class="carousel-item h-100 active" style="background-image: url('/img/b1.jpg');
       background-size: cover;">
                             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                 <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                     <i class="ni ni-camera-compact text-dark opacity-10"></i>
                                 </div>
-                                <h5 class="text-white mb-1">Get started with Argon</h5>
-                                <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+                                <!-- <h5 class="text-dark mb-1">Get started with Argon</h5>
+                                <p class="text-dark">There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p> -->
                             </div>
                         </div>
-                        <div class="carousel-item h-100" style="background-image: url('/img/carousel-2.jpg');
+                        <div class="carousel-item h-100" style="background-image: url('/img/b2.jpg');
       background-size: cover;">
                             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                 <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                     <i class="ni ni-bulb-61 text-dark opacity-10"></i>
                                 </div>
-                                <h5 class="text-white mb-1">Faster way to create web pages</h5>
-                                <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
+                                <!-- <h5 class="text-dark mb-1">Faster way to create web pages</h5>
+                                <p class="text-dark">That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p> -->
                             </div>
                         </div>
-                        <div class="carousel-item h-100" style="background-image: url('/img/carousel-3.jpg');
+                        <div class=" carousel-item h-100" style="background-image: url('/img/b3.jpg');
       background-size: cover;">
                             <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
                                 <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                     <i class="ni ni-trophy text-dark opacity-10"></i>
                                 </div>
-                                <h5 class="text-white mb-1">Share with us your design tips!</h5>
-                                <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
+                                <!-- <h5 class="text-dark mb-1">Share with us your design tips!</h5>
+                                <p class="text-dark">Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p> -->
                             </div>
                         </div>
                     </div>
@@ -328,7 +328,7 @@
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-mobile-button text-white opacity-10"></i>
+                                    <i class="ni ni-mobile-button text-dark opacity-10"></i>
                                 </div>
                                 <div class="d-flex flex-column">
                                     <h6 class="mb-1 text-dark text-sm">Devices</h6>
@@ -342,7 +342,7 @@
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-tag text-white opacity-10"></i>
+                                    <i class="ni ni-tag text-dark opacity-10"></i>
                                 </div>
                                 <div class="d-flex flex-column">
                                     <h6 class="mb-1 text-dark text-sm">Tickets</h6>
@@ -356,7 +356,7 @@
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-box-2 text-white opacity-10"></i>
+                                    <i class="ni ni-box-2 text-dark opacity-10"></i>
                                 </div>
                                 <div class="d-flex flex-column">
                                     <h6 class="mb-1 text-dark text-sm">Error logs</h6>
@@ -370,7 +370,7 @@
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
                             <div class="d-flex align-items-center">
                                 <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-satisfied text-white opacity-10"></i>
+                                    <i class="ni ni-satisfied text-dark opacity-10"></i>
                                 </div>
                                 <div class="d-flex flex-column">
                                     <h6 class="mb-1 text-dark text-sm">Happy users</h6>
@@ -390,25 +390,28 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['sales', 'Hours per Day'],
-          ['ContactUs', <?= $i ?>],
-          ['Lost ', <?= $l ?>],
-          ['Approved',<?= $j ?>],
-          ['Won',  <?= $k ?>],
-         
-        ]);
+        $(document).ready(function() {
+            google.charts.load("current", {
+                packages: ["corechart"]
+            });
+            google.charts.setOnLoadCallback(drawChart);
 
-        var options = {
-          title: 'Daily Activities',
-          pieHole: 0.4,
-        };
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-    }
-})
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['sales', 'Hours per Day'],
+                    ['ContactUs', <?= $i ?>],
+                    ['Lost ', <?= $l ?>],
+                    ['Approved', <?= $j ?>],
+                    ['Won', <?= $k ?>],
+
+                ]);
+
+                var options = {
+                    title: 'Daily Activities',
+                    pieHole: 0.4,
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                chart.draw(data, options);
+            }
+        })
     </script>

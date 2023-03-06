@@ -15,7 +15,21 @@ use App\Controller\View;
 
 class UsersController extends AppController
 {
+    public function initialize(): void
+    {
+        $this->loadComponent('Authentication.Authentication');
 
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Flash');
+        $this->loadModel('ContactUs');
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $i = 0;
+        foreach ($contactus as $a) {
+            $i++;
+        }
+        $count = $i;
+        $this->set(compact('contactus', 'count'));
+    }
     public function beforeFilter($event)
     {
         parent::beforeFilter($event);
@@ -25,6 +39,8 @@ class UsersController extends AppController
         $this->loadModel('ContactUs');
         $this->loadModel('Categories');
         $this->loadModel('Leads');
+
+
 
         $this->Authentication->addUnauthenticatedActions(['login', 'index', 'viewProduct']);
     }

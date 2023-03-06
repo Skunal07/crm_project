@@ -1,4 +1,46 @@
+jQuery.validator.addMethod(
+    "regex",
+    function (value, element, param) {
+        return value.match(new RegExp("^" + param + "$"));
+    }
+);
+var ALPHA_REGEX = "[a-zA-Z_ ]*";
+var ALPHA_REGEXn = "/^[0-9]+$/";
 
+jQuery.validator.addMethod(
+    'Uppercase',
+    function (value) {
+        return /[A-Z]/.test(value);
+    },
+    'Your password must contain at least one Uppercase Character.'
+);
+jQuery.validator.addMethod(
+    'Lowercase',
+    function (value) {
+        return /[a-z]/.test(value);
+    },
+    'Your password must contain at least one Lowercase Character.'
+);
+jQuery.validator.addMethod(
+    'Specialcharacter',
+    function (value) {
+        return /[!@#$%^&*()_-]/.test(value);
+    },
+    'Your password must contain at least one Special Character.'
+);
+jQuery.validator.addMethod(
+    'Onedigit',
+    function (value) {
+        return /[0-9]/.test(value);
+    },
+    'Your password must contain at least one digit.'
+);
+jQuery.validator.addMethod(
+    "noSpace",
+    function (value, element) {
+        return value == '' || value.trim().length != 0;
+    },
+    "No space please and don't leave it empty");
 //----------------------------------- Add Company Using ajax -------------------------//
 
 $(document).ready(function () {
@@ -7,15 +49,17 @@ $(document).ready(function () {
         rules: {
             company_name: {
                 required: true,
+                regex: ALPHA_REGEX,
             },
         },
         messages: {
             company_name: {
                 required: "Please enter company name ",
+                regex: "Please enter characters only"
             },
         },
         submitHandler: function (form) {
-            
+
             var formData = $(form).serialize();
 
             // console.log(formData);
@@ -35,7 +79,7 @@ $(document).ready(function () {
                         alert(data["message"]);
                     } else {
                         $('#AddModal').modal('hide');
-                        $('.company').load('/companies/index .company')
+                        $('#company').load('/companies/index #company')
                     }
                 },
             });
@@ -60,9 +104,9 @@ $(document).on("click", ".editCompany", function () {
 
             $("#companyiddd").val(user["id"]);
             $("#companyname").val(user["company_name"]);
-            
 
-          
+
+
         },
     });
 });
@@ -70,88 +114,90 @@ $(document).on("click", ".editCompany", function () {
 
 //-----------------------------------  Company Edit Using ajax -------------------------//
 
-$(document).ready(function(){
+$(document).ready(function () {
     $("#companyEdits").validate({
-    rules: {
-        company_name: {
-            required: true,
-        },
-    
-    },
-    messages: {
-        company_name: {
-            required: " Please enter your Company name",
-        },
-        
-    },
-    submitHandler: function (form) {
-        var formData = $(form).serialize();
-    
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
+        rules: {
+            company_name: {
+                required: true,
+                regex: ALPHA_REGEX,
             },
-            url: "/companies/companyEdit",
-            type: "JSON",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                var data = JSON.parse(response);               
-                    
-                $(".table-responsive").load("/companies/index .table-responsive");
+
+        },
+        messages: {
+            company_name: {
+                required: " Please enter your Company name",
+                regex: "Please enter characters only"
+            },
+
+        },
+        submitHandler: function (form) {
+            var formData = $(form).serialize();
+
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/companies/companyEdit",
+                type: "JSON",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    var data = JSON.parse(response);
+
+                    $(".table-responsive").load("/companies/index .table-responsive");
                     swal("Good job!", "User details Has been updated!", "success");
                     $('#companyEdit').hide();
                     $('.modal-backdrop').hide();
-                    
-            },
-        });
-        return false;
-    },
-});
+
+                },
+            });
+            return false;
+        },
+    });
 });
 
 
 //------------------------------------- Delete Company using ajax ---------------------------------------//
 
 
-$(document).on("click", ".btn-delete-company", function(){
+$(document).on("click", ".btn-delete-company", function () {
     // alert('dgkhdfhg');
-    
+
     var csrfToken = $('meta[name="csrfToken"]').attr('content');
- 
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': csrfToken // this is defined in app.php as a js variable
         }
     });
     var postdata = $(this).attr("data-id");
-    
+
     swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-        
-        // alert(postdata);
-        $.ajax({
-            url: "/companies/deleteCompany/"+postdata,
-            data: postdata,
-            type: "JSON",
-            method: "post",
-            success:function(response){
-                
-               $('#data'+postdata).hide();
-               swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+
+                // alert(postdata);
+                $.ajax({
+                    url: "/companies/deleteCompany/" + postdata,
+                    data: postdata,
+                    type: "JSON",
+                    method: "post",
+                    success: function (response) {
+
+                        $('#data' + postdata).hide();
+                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    }
+                });
             }
-        });
-    }
- })
- 
- });
+        })
+
+});
 
 
 //----------------------------------- Add Category Using ajax -------------------------//
@@ -162,11 +208,13 @@ $(document).ready(function () {
         rules: {
             category_name: {
                 required: true,
+                regex: ALPHA_REGEX,
             },
         },
         messages: {
             category_name: {
                 required: "Please enter category name ",
+                regex: "Please enter characters only"
             },
         },
         submitHandler: function (form) {
@@ -189,7 +237,7 @@ $(document).ready(function () {
                         alert(data["message"]);
                     } else {
                         $('#AddcategoryModal').modal('hide');
-                        $('.category').load('/categories/index .category')
+                        $('#category').load('/categories/index #category')
                     }
                 },
             });
@@ -213,94 +261,96 @@ $(document).on("click", ".editCategories", function () {
 
             $("#catiddd").val(user["id"]);
             $("#name").val(user["category_name"]);
-           
 
-          
+
+
         },
     });
 });
 
 //-----------------------------------  Categories Edit Using ajax -------------------------//
 
-$(document).ready(function(){
+$(document).ready(function () {
     $("#editcat").validate({
-    rules: {
-        category_name: {
-            required: true,
-        },
-    
-    },
-    messages: {
-        category_name: {
-            required: " Please enter your Category name",
-        },
-        
-    },
-    submitHandler: function (form) {
-        var formData = $(form).serialize();
-    
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
+        rules: {
+            category_name: {
+                required: true,
+                regex: ALPHA_REGEX,
             },
-            url: "/categories/editCategory",
-            type: "JSON",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                var data = JSON.parse(response);               
-                    
-                $(".table-responsive").load("/categories/index .table-responsive");
+
+        },
+        messages: {
+            category_name: {
+                required: " Please enter your Category name",
+                regex: "Please enter characters only"
+            },
+
+        },
+        submitHandler: function (form) {
+            var formData = $(form).serialize();
+
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/categories/editCategory",
+                type: "JSON",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    var data = JSON.parse(response);
+
+                    $("#category").load("/categories/index #category");
                     swal("Good job!", "User details Has been updated!", "success");
                     $('#editcategoryModal').hide();
                     $('.modal-backdrop').hide();
-                    
-            },
-        });
-        return false;
-    },
-});
+
+                },
+            });
+            return false;
+        },
+    });
 });
 
 
 //------------------------------------- Delete Categories using ajax ---------------------------------------//
 
 
-$(document).on("click", ".btn-delete-category", function(){
-        
-    
+$(document).on("click", ".btn-delete-category", function () {
+
+
     var postdata = $(this).attr("data-id");
-    
+
     swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-        
-        // alert(postdata);
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            url: "/categories/deleteStatus/"+postdata,
-            data: postdata,
-            type: "JSON",
-            method: "post",
-            success:function(response){
-                
-               $('#data'+postdata).hide();
-               swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+
+                // alert(postdata);
+                $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    url: "/categories/deleteStatus/" + postdata,
+                    data: postdata,
+                    type: "JSON",
+                    method: "post",
+                    success: function (response) {
+
+                        $('#data' + postdata).hide();
+                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    }
+                });
             }
-        });
-    }
- })
- 
- });
- 
+        })
+
+});
+
 
 //----------------------------------- Add Product Using ajax -------------------------//
 
@@ -309,18 +359,45 @@ $(document).ready(function () {
         rules: {
             product_name: {
                 required: true,
+
             },
             category_id: {
+                required: true,
+            },
+            product_tags: {
+                required: true,
+            },
+            short_discription: {
+                required: true,
+            },
+            description: {
+                required: true,
+            },
+            product_image: {
                 required: true,
             },
         },
         messages: {
             product_name: {
                 required: "Please enter company name ",
+
             },
             category_id: {
                 required: "Please select category name ",
             },
+            product_tags: {
+                required: "Please enter Product tags name ",
+            },
+            short_discription: {
+                required: "Please enter short discription  ",
+            },
+            description: {
+                required: "Please select description",
+            },
+            product_image: {
+                required: "Please enter company name ",
+            },
+
         },
         submitHandler: function (form) {
             var formData = new FormData(form);
@@ -357,91 +434,144 @@ $(document).ready(function () {
 
 $(document).ready(function () {
 
-  
-   $("#staffAdd").validate({
-     ules: {
-       email: {
-           required: true,
-       },
-      
-   },
-   messages: {
-       email: {
-           required: " Please enter your Email",
-       },
-       
-   },
-       submitHandler: function (form) {
-           var formData = $(form).serialize();
-           $.ajax({
-               headers: {
-                   "X-CSRF-TOKEN": csrfToken,
-               },
-               url: "/users/staffAdd",
-               type: "JSON",
-               method: "POST",
-               data: formData,
-               success: function (response) {
-                 console.log(response);
-                 var data = JSON.parse(response);
-                   if(data['status'] == '1'){
-                     $('#addstaff').hide();
-                     $('.modal-backdrop').remove();
-                     $('#staff_update').load('/users/users_list  #staff_update');
-                   }
-               },
-           });
-           return false;
-       },
-   });
+
+    $("#staffAdd").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                Uppercase: true,
+                Lowercase: true,
+                Specialcharacter: true,
+                Onedigit: true,
+                maxlength: 18,
+                minlength: 8,
+            },
+            'user_profile[first_name]': {
+                required: true,
+                minlength: 2,
+                regex: ALPHA_REGEX,
+                noSpace: true,
+            },
+            'user_profile[last_name]': {
+                required: true,
+                minlength: 2,
+                regex: ALPHA_REGEX,
+                noSpace: true,
+            },
+            'user_profile[address]': {
+                required: true,
+            },
+            'user_profile[contact]': {
+                required: true,
+                minlength: 10,
+                maxlength: 10,
+                noSpace: true,
+            },
+
+        },
+        messages: {
+            email: {
+                required: " Please enter Email",
+            },
+            password: {
+                required: "Please enter your password",
+                minlength: "Password need to be at least 8 characters long",
+                maxlength: "Password need to be atleast  18 characters long",
+            },
+            'user_profile[first_name]': {
+                required: " Please enter first Name",
+                minlength: "Name need to be at least 2 characters long",
+            },
+            'user_profile[last_name]': {
+                required: " Please enter last Name",
+                regex: "Please enter characters only"
+            },
+            'user_profile[address]': {
+                required: " Please enter address ",
+            },
+            'user_profile[contact]': {
+                required: " Please enter phone no ",
+                minlength: "phone number must be 10 digits",
+                maxlength: "phone number must be 10 digits",
+                regexno: "please enter digits only"
+            },
+
+        },
+        submitHandler: function (form) {
+            var formData = $(form).serialize();
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/users/staffAdd",
+                type: "JSON",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    console.log(response);
+                    var data = JSON.parse(response);
+                    if (data['status'] == '1') {
+                        $('#addstaff').hide();
+                        $('.modal-backdrop').remove();
+                        $('#staff_update').load('/users/users_list  #staff_update');
+                    }
+                },
+            });
+            return false;
+        },
+    });
 });
 
 
 //------------------------------------- Delete Staff using ajax ---------------------------------------//
 
 
-$(document).on("click", ".btn-delete-student", function(){
-   // alert('dgkhdfhg');
-   
-   var csrfToken = $('meta[name="csrfToken"]').attr('content');
+$(document).on("click", ".btn-delete-student", function () {
+    // alert('dgkhdfhg');
 
-   $.ajaxSetup({
-       headers: {
-           'X-CSRF-TOKEN': csrfToken // this is defined in app.php as a js variable
-       }
-   });
-   var postdata = $(this).attr("data-id");
-   
-   swal({
-       title: "Are you sure?",
-       text: "Once deleted, you will not be able to recover this imaginary file!",
-       icon: "warning",
-       buttons: true,
-       dangerMode: true,
-     })
-     .then((willDelete) => {
-       if (willDelete) {
-       
-       // alert(postdata);
-       $.ajax({
-           url: "/users/deletestatus/"+postdata,
-           data: postdata,
-           type: "JSON",
-           method: "post",
-           success:function(response){
-               
-              $('#data'+postdata).hide();
-              swal("Data Deleted Succesfully!", "You clicked the button!", "success");
-           }
-       });
-   }
-})
+    var csrfToken = $('meta[name="csrfToken"]').attr('content');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': csrfToken // this is defined in app.php as a js variable
+        }
+    });
+    var postdata = $(this).attr("data-id");
+
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+
+                // alert(postdata);
+                $.ajax({
+                    url: "/users/deletestatus/" + postdata,
+                    data: postdata,
+                    type: "JSON",
+                    method: "post",
+                    success: function (response) {
+
+                        $('#data' + postdata).hide();
+                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    }
+                });
+            }
+        })
 
 });
 
 
 
- //--------------------------- Users Gettingn Data modal through ajax-----------------------//
+//--------------------------- Users Gettingn Data modal through ajax-----------------------//
 
 $(document).on("click", ".editUser", function () {
     var user_id = $(this).data("id");
@@ -460,7 +590,7 @@ $(document).on("click", ".editUser", function () {
             $("#iddd").val(user["id"]);
             // hidden input for image and id
 
-          
+
             $("#firstname").val(user["user_profile"]["first_name"]);
             $("#lastname").val(user["user_profile"]["last_name"]);
             $("#contact").val(user["user_profile"]["contact"]);
@@ -472,94 +602,53 @@ $(document).on("click", ".editUser", function () {
 
 
 
+//---------------------------Users update data in modal through ajax-----------------------//
 
-
-
- //---------------------------Users update data in modal through ajax-----------------------//
-
-                $(document).ready(function(){
-                    $("#useredit").validate({
-                    rules: {
-                        email: {
-                            required: true,
-                        },
-                    
-                    },
-                    messages: {
-                        email: {
-                            required: " Please enter your Email",
-                        },
-                        
-                    },
-                    submitHandler: function (form) {
-                        var formData = $(form).serialize();
-                    
-                        $.ajax({
-                            headers: {
-                                "X-CSRF-TOKEN": csrfToken,
-                            },
-                            url: "/users/editProfile",
-                            type: "JSON",
-                            method: "POST",
-                            data: formData,
-                            success: function (response) {
-                                var data = JSON.parse(response);               
-                                    
-                                $(".table-responsive").load("/users/users_list .table-responsive");
-                                    swal("Good job!", "User details Has been updated!", "success");
-                                    $('#exampleModalCenter').hide();
-                                    $('.modal-backdrop').hide();
-                                    
-                            },
-                        });
-                        return false;
-                    },
-                });
-                });
-
-
-
- //---------------------------Edit Profile Details through ajax-----------------------//
-
- $(document).ready(function(){
+$(document).ready(function () {
     $("#useredit").validate({
-       rules: {
-           email: {
-               required: true,
-           },
-     
-       },
-       messages: {
-           email: {
-               required: " Please enter your Email",
-           },
-        
-       },
-       submitHandler: function (form) {
-           var formData = $(form).serialize();
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
+        rules: {
+            email: {
+                required: true,
+                email: true
             },
-            url: "/users/profileEdit",
-            type: "JSON",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                   var data = JSON.parse(response);               
-                   $(".table-responsive").load("/users/users_list .table-responsive");
-                       swal("Good job!", "User details Has been updated!", "success");
-                       $('#exampleModalCenter').hide();
-                       $('.modal-backdrop').hide();
-                       
-               },
-           });
-           return false;
-       },
-   });
-   });
+        },
+        messages: {
+            email: {
+                required: " Please enter Email",
+            },
 
-   //----------------------------------- Add Contact Using ajax -------------------------//
+        },
+        submitHandler: function (form) {
+            var formData = $(form).serialize();
+
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/users/editProfile",
+                type: "JSON",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    var data = JSON.parse(response);
+
+                    $("#staff_update").load("/users/users_list #staff_update");
+                    swal("Good job!", "User details Has been updated!", "success");
+                    $('#exampleModalCenter').hide();
+                    $('.modal-backdrop').hide();
+
+                },
+            });
+            return false;
+        },
+    });
+});
+
+
+
+
+
+//----------------------------------- Add Contact Using ajax -------------------------//
 
 $(document).ready(function () {
     // alert('nhjhbncjhsjknc');
@@ -567,11 +656,29 @@ $(document).ready(function () {
         rules: {
             email: {
                 required: true,
+                email: true,
+            },
+            address: {
+                required: true,
+            },
+            phone: {
+                required: true,
+                minlength: 10,
+                maxlength: 10,
+                noSpace: true,
             },
         },
         messages: {
             email: {
-                required: "Please enter category name ",
+                required: "Please enter email  ",
+            },
+            address: {
+                required: "Please enter email  ",
+            },
+            phone: {
+                 required: " Please enter phone no ",
+                minlength: "phone number must be 10 digits",
+                maxlength: "phone number must be 10 digits",
             },
         },
         submitHandler: function (form) {
@@ -594,7 +701,7 @@ $(document).ready(function () {
                         alert(data["message"]);
                     } else {
                         $('#AddContact').modal('hide');
-                        $('.contact').load('/contacts/index .contact')
+                        $('#contact').load('/contacts/index #contact')
                     }
                 },
             });
@@ -623,9 +730,9 @@ $(document).on("click", ".editcontact", function () {
             $("#addresss").val(user["address"]);
             $("#emails").val(user["email"]);
             $("#phones").val(user["phone"]);
-         
-            
-            
+
+
+
         },
     });
 });
@@ -634,101 +741,128 @@ $(document).on("click", ".editcontact", function () {
 
 //---------------------------Edit Contact Details through ajax-----------------------//
 
-$(document).ready(function(){
+$(document).ready(function () {
     $("#editContact").validate({
         rules: {
             email: {
                 required: true,
+                email: true
             },
-            
+
         },
         messages: {
             email: {
                 required: " Please enter your Lead Name",
             },
-            
+
         },
         submitHandler: function (form) {
             var formData = $(form).serialize();
             $.ajax({
                 headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            url: "/contacts/contactEdit",
-            type: "JSON",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                var data = JSON.parse(response);               
-                $(".contact").load("/contacts/index .contact");
-                swal("Good job!", "User details Has been updated!", "success");
-                $('#contactEdit').hide();
-                $('.modal-backdrop').hide();
-                
-            },
-           });
-           return false;
-       },
-   });
-   });
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/contacts/contactEdit",
+                type: "JSON",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    $(".contact").load("/contacts/index .contact");
+                    swal("Good job!", "User details Has been updated!", "success");
+                    $('#contactEdit').hide();
+                    $('.modal-backdrop').hide();
+
+                },
+            });
+            return false;
+        },
+    });
+});
 
 
 //------------------------------------- Delete Contact using ajax ---------------------------------------//
 
 
-$(document).on("click", ".btn-delete-contact", function(){
+$(document).on("click", ".btn-delete-contact", function () {
     // alert('dgkhdfhg');
-    
+
     var csrfToken = $('meta[name="csrfToken"]').attr('content');
- 
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': csrfToken // this is defined in app.php as a js variable
         }
     });
     var postdata = $(this).attr("data-id");
-    
+
     swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-        
-        // alert(postdata);
-        $.ajax({
-            url: "/contacts/deleteContact/"+postdata,
-            data: postdata,
-            type: "JSON",
-            method: "post",
-            success:function(response){
-                
-               $('#data'+postdata).hide();
-               swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+
+                // alert(postdata);
+                $.ajax({
+                    url: "/contacts/deleteContact/" + postdata,
+                    data: postdata,
+                    type: "JSON",
+                    method: "post",
+                    success: function (response) {
+
+                        $('#data' + postdata).hide();
+                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    }
+                });
             }
-        });
-    }
- })
- 
- });
+        })
+
+});
 
 
-   //----------------------------------- Add Lead Using ajax -------------------------//
-   
-   $(document).ready(function () {
+//----------------------------------- Add Lead Using ajax -------------------------//
+
+$(document).ready(function () {
     // alert('nhjhbncjhsjknc');
     $("#newlead").validate({
         rules: {
             name: {
                 required: true,
+                regex: ALPHA_REGEX,
+            },
+            price: {
+                required: true,
+            },
+            work_title: {
+                required: true,
+            },
+            'lead_contact[contact]': {
+                  required: true,
+                minlength: 10,
+                maxlength: 10,
+                noSpace: true,
             },
         },
         messages: {
             name: {
                 required: "Please enter name ",
+                regex: "Please enter characters only"
+            },
+            price: {
+                required: "Please enter price",
+            },
+            work_title: {
+                required: "Please enter work title ",
+            },
+            'lead_contact[contact]': {
+             required: " Please enter phone no ",
+                minlength: "phone number must be 10 digits",
+                maxlength: "phone number must be 10 digits",
+                regexno: "please enter digits only"
             },
         },
         submitHandler: function (form) {
@@ -745,23 +879,23 @@ $(document).on("click", ".btn-delete-contact", function(){
                 method: "POST",
                 data: formData,
                 success: function (response) {
-   
+
                     var data = JSON.parse(response);
                     if (data["status"] == 0) {
                         alert(data["message"]);
                     } else {
                         $('#AddLeadModal').modal('hide');
-                        $('.lead').load('/leads/index .lead')
+                        $('#lead').load('/leads/index #lead')
                     }
                 },
             });
             return false;
         },
     });
-   });
-   //--------------------------- Lead Gettingn Data modal through ajax-----------------------//
+});
+//--------------------------- Lead Gettingn Data modal through ajax-----------------------//
 
-   $(document).on("click", ".editLead", function () {
+$(document).on("click", ".editLead", function () {
     var user_id = $(this).data("id");
     $.ajax({
         url: "/leads/editLead",
@@ -774,113 +908,113 @@ $(document).on("click", ".btn-delete-contact", function(){
             // console.log(user["email"]);
 
             $("#leadid").val(user["id"]);
-            $("#name").val(user["name"]);
-            $("#price").val(user["price"]);
-            $("#work_title").val(user["work_title"]);
-            $("#contacts").val(user["lead_contact"]["contact"]);
+            $(".name").val(user["name"]);
+            $(".price").val(user["price"]);
+            $(".work_title").val(user["work_title"]);
+            $(".contact").val(user["lead_contact"]["contact"]);
 
-          
+
         },
     });
 });
 
 
 
- //---------------------------Edit Lead Details through ajax-----------------------//
+//---------------------------Edit Lead Details through ajax-----------------------//
 
- $(document).ready(function(){
+$(document).ready(function () {
     $("#editLead").validate({
-       rules: {
-           name: {
-               required: true,
-           },
-     
-       },
-       messages: {
-           name: {
-               required: " Please enter your Lead Name",
-           },
-        
-       },
-       submitHandler: function (form) {
-           var formData = $(form).serialize();
-        $.ajax({
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
+        rules: {
+            name: {
+                required: true,
             },
-            url: "/leads/leadEdit",
-            type: "JSON",
-            method: "POST",
-            data: formData,
-            success: function (response) {
-                   var data = JSON.parse(response);               
-                   $(".lead").load("/leads/index .lead");
-                       swal("Good job!", "User details Has been updated!", "success");
-                       $('#editLeadModal').hide();
-                       $('.modal-backdrop').hide();
-                       
-               },
-           });
-           return false;
-       },
-   });
-   });
+
+        },
+        messages: {
+            name: {
+                required: " Please enter your Lead Name",
+            },
+
+        },
+        submitHandler: function (form) {
+            var formData = $(form).serialize();
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/leads/leadEdit",
+                type: "JSON",
+                method: "POST",
+                data: formData,
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    $("#lead").load("/leads/index #lead");
+                    swal("Good job!", "User details Has been updated!", "success");
+                    $('#editLeadModal').hide();
+                    $('.modal-backdrop').hide();
+
+                },
+            });
+            return false;
+        },
+    });
+});
 
 //------------------------------------- Delete Lead using ajax ---------------------------------------//
 
 
-$(document).on("click", ".btn-delete-lead", function(){
+$(document).on("click", ".btn-delete-lead", function () {
     // alert('dgkhdfhg');
-    
+
     var csrfToken = $('meta[name="csrfToken"]').attr('content');
- 
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': csrfToken // this is defined in app.php as a js variable
         }
     });
     var postdata = $(this).attr("data-id");
-    
+
     swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-        
-        // alert(postdata);
-        $.ajax({
-            url: "/leads/deleteStatus/"+postdata,
-            data: postdata,
-            type: "JSON",
-            method: "post",
-            success:function(response){
-                
-               $('#data'+postdata).hide();
-               swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+
+                // alert(postdata);
+                $.ajax({
+                    url: "/leads/deleteStatus/" + postdata,
+                    data: postdata,
+                    type: "JSON",
+                    method: "post",
+                    success: function (response) {
+
+                        $('#data' + postdata).hide();
+                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    }
+                });
             }
-        });
-    }
- })
- 
- });
+        })
+
+});
 
 
 
 
 //-------------------------------------Serch function---------------------------------------//
 
-$(document).ready(function(){
-  // alert('dfgfdg');
-  $("#key").on("keyup", function() {  
-    var value = $(this).val().toLowerCase();  
-    $("tr").filter(function() {
-     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+$(document).ready(function () {
+    // alert('dfgfdg');
+    $("#key").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
     });
-  });
 });
 
 

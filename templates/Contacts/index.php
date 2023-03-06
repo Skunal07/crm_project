@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <label for="company_id" class="form-label">Company Name</label>
                 <select name="company_id" id="company_id" class="form-control">
-                    <option value="-1" disabled selected>--Choose Category--</option>
+                    <option value="-1" disabled selected>--Choose Category (Optional)--</option>
                     <?php
                     foreach ($companies as $comp) {
                         echo "<option value='$comp->id' >$comp->company_name</option>";
@@ -46,7 +46,7 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-            <div class="card mb-4">
+            <div class="card mb-4" id="contact">
                 <div class="card-header pb-0">
                     <h6>Contacts</h6>
                     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddContact" style='float: right;margin-top: -35px;'>Add Contacts</button>
@@ -230,8 +230,8 @@
             
           </div>
           <div class="modal-footer">
-            <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
           </div>
           <?= $this->Form->end() ?>
         </div>

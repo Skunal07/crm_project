@@ -143,9 +143,8 @@
             </div>
             <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newproduct']) ?>
             <div class="modal-body">
-                <label for="Product_name" class="form-label">Product Name <span>*</span></label>
                 <?php
-                echo $this->Form->input('product_name', ['class' => 'form-control']);
+                echo $this->Form->control('product_name', ['class' => 'form-control']);
                 ?>
                 <br>
                 <label for="category_id" class="form-label">Category Name</label>
@@ -158,9 +157,8 @@
                 </select>
                 <br>
 
-                <label for="Product_tags" class="form-label">Product Tags</label>
                 <?php
-                echo $this->Form->input('product_tags', ['class' => 'form-control']);
+                echo $this->Form->control('product_tags', ['class' => 'form-control']);
                 ?>
                 <br>
                 <label for="short_discription" class="form-label">Product Short Discription</label>
@@ -168,7 +166,7 @@
                 echo $this->Form->textarea('short_discription', ['class' => 'form-control']);
                 ?>
                 <br>
-                <label for="discription" class="form-label">Product Discription</label>
+                <label for="description" class="form-label">Product Discription</label>
                 <?php
                 echo $this->Form->textarea('description', ['class' => 'form-control']);
                 ?>

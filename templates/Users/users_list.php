@@ -1,49 +1,50 @@
 <!-- modal for Add Staff -->
-
-<div class="modal fade" id="addstaff" tabindex="-1" role="dialog" aria-labelledby="addstaffTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addstaff">Add Staff</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <?php echo $this->Flash->render() ?>
-        <?php echo $this->Form->create(null, ["id" => "staffAdd"]); ?>
-        <div class="mb-3">
-          <?php echo $this->Form->control('user_profile.first_name', ['required' => false, 'class' => "form-control"]); ?>
-        </div>
-        <div class="mb-3">
-          <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => "form-control"]); ?>
-        </div>
-        <div class="mb-3">
-          <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => "form-control"]); ?>
-        </div>
-        <div class="mb-3">
-          <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'class' => "form-control"]); ?>
-        </div>
-        <div class="mb-3">
-          <?php echo $this->Form->control('email', ['required' => false, 'class' => "form-control"]); ?>
-
-        </div>
-        <div class="mb-3">
-          <?php echo $this->Form->control('password', ['required' => false, 'class' => "form-control"]); ?>
-          <?php echo $this->Form->input('user_profile.profile_image', ['required' => false, 'type' => "hidden", 'value' => 'default.jpg']); ?>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit Form</button>
-        <?php echo $this->Form->end(); ?>
-
-      </div>
-    </div>
-  </div>
-</div>
 <div class="container-fluid py-4">
   <div class="row" id="staff_update">
+    
+    <div class="modal fade" id="addstaff" tabindex="-1" role="dialog" aria-labelledby="addstaffTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addstaff">Add Staff</h5>
+            <button type="button" class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+        </button>
+          </div>
+          <div class="modal-body">
+            <?php echo $this->Flash->render() ?>
+            <?php echo $this->Form->create(null, ["id" => "staffAdd"]); ?>
+            <div class="mb-3">
+              <?php echo $this->Form->control('user_profile.first_name', ['required' => false, 'class' => "form-control"]); ?>
+            </div>
+            <div class="mb-3">
+              <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => "form-control"]); ?>
+            </div>
+            <div class="mb-3">
+              <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => "form-control"]); ?>
+            </div>
+            <div class="mb-3">
+              <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'type'=>'number','class' => "form-control"]); ?>
+            </div>
+            <div class="mb-3">
+              <?php echo $this->Form->control('email', ['required' => false, 'class' => "form-control"]); ?>
+              <b><small class="text-danger error-message" id="error_email" ></small></b>
+    
+            </div>
+            <div class="mb-3">
+              <?php echo $this->Form->control('password', ['required' => false, 'class' => "form-control"]); ?>
+              <?php echo $this->Form->input('user_profile.profile_image', ['required' => false, 'type' => "hidden", 'value' => 'default.jpg']); ?>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit Form</button>
+            <?php echo $this->Form->end(); ?>
+    
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="col-12">
       <div class="card mb-4">
 
@@ -202,7 +203,7 @@
             <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control px-3', "id" => "lastname"]); ?>
           </div>
           <div class="col-12 my-3">
-            <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'class' => 'form-control px-3', "id" => "contact"]); ?>
+            <?php echo $this->Form->control('user_profile.contact', ['required' => false,  'type'=>'number','class' => 'form-control px-3', "id" => "contact"]); ?>
           </div>
 
           <div class="col-12 my-3">

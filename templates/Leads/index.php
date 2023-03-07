@@ -3,12 +3,12 @@
 <div class="container-fluid py-4">
   <div class="row">
     <div class="col-12">
-      <div class="card mb-4" id="lead">
+      <div class="card mb-4" >
         <div class="card-header pb-0">
           <h6>Leads</h6>
           <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;margin-top: -35px;'>New Lead</button>
-          <div class="filter">
-            <select name="" id="stage" class="form-control" width="200px">
+          <div class="col-md-3">
+            <select  id="stage" class="form-control" width="200px">
               <option class="stage" value="" selected>All</option>
               <option class="stage" value="1">Awerness</option>
               <option class="stage" value="2">Quilified</option>
@@ -24,14 +24,16 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
               </div>
               <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newlead']) ?>
               <div class="modal-body">
                 <label for="name" class="form-label">Name <span>*</span></label>
                 <?php
 
-                use PhpParser\Node\Stmt\Label;
+
 
                 echo $this->Form->control('name', ['class' => 'form-control']);
                 ?>
@@ -46,7 +48,7 @@
                 <br>
                 <!-- <label for="lead_contacts.contact" class="form-label">Contact</label> -->
                 <?php
-                echo $this->Form->control('lead_contact.contact', ['class' => 'form-control']);
+                echo $this->Form->control('lead_contact.contact', ['class' => 'form-control',  'type'=>'number']);
                 ?>
                 <br>
 
@@ -84,7 +86,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Lead</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="container py-5 h-100">
@@ -147,7 +151,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+       
+        <button type="button" class="btn-close text-dark" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -171,7 +176,7 @@
                 [
                   "required" => false,
                   "class" => "form-control price",
-
+                  
                 ]
               ); ?>
             </div>
@@ -196,7 +201,7 @@
                 <?php echo $this->Form->control(
                   "lead_contact.contact",
                   [
-                    "required" => false,
+                    "required" => false, 'type'=>'number',
                     "class" => "form-control contact",
 
                   ]

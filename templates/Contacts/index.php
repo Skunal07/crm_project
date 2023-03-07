@@ -6,7 +6,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Contacts</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
             </div>
             <?= $this->Form->create(null, ['id' => 'newcontact']) ?>
             <div class="modal-body">
@@ -29,7 +31,7 @@
                 ?>
                 <br>
                 <?php
-                echo $this->Form->control('phone', ['class' => 'form-control']);
+                echo $this->Form->control('phone', [ 'type'=>'number','class' => 'form-control']);
                 ?>
                 <br>
                 
@@ -132,7 +134,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Contacts</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         </div>
         <div class="modal-body">
           <div class="container py-5 h-100">
@@ -195,9 +199,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         </div>  
         <div class="modal-body">
           <?php echo $this->Form->create(null, ["type" => "file", "id" => "editContact",]); ?>
@@ -224,7 +228,7 @@
               [
                 "required" => false,
                 "class" => "form-control",
-                "id" => "phones",
+                "id" => "phones", 'type'=>'number',
               ]
             ); ?>
             

@@ -12,38 +12,7 @@ namespace App\Controller;
  */
 class CompaniesController extends AppController
 {
-    public function initialize(): void
-    {
-        $this->loadComponent('Authentication.Authentication');
-
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
-        $this->loadModel('UserProfile');
-        $this->loadModel('Users');
-        $this->loadModel('ContactUs');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
-            $i++;
-        }
-        $count=$i;
-        $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
-        $user = $this->Users->get($uid, [
-            'contain' => ['UserProfile']
-        ]);
-        $this->set(compact('contactus', 'count','user'));;
-       
-    }
-    public function beforeFilter($event)
-    {
-        parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout("dashboard");
-        $this->loadModel('UserProfile');
-        
-
-    }
-
+   
   //--------------------------------------Company List----------------------------------//
   public function index()
     {

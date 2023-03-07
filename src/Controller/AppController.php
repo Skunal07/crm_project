@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-use Cake\Core\Configure;
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -39,17 +38,43 @@ class AppController extends Controller
      */
     public function initialize(): void
     {
-        parent::initialize();
+        $this->loadComponent('Authentication.Authentication');
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-        $this->loadComponent('Authentication.Authentication');
-        // define('DATE_YMD', 'Y-m-d');
-
-        /*
-         * Enable the following component for recommended CakePHP form protection settings.
-         * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
-         */
-        //$this->loadComponent('FormProtection');
+        $this->loadModel('ContactUs');
+        $this->loadModel('Contacts');
+        $this->loadModel('UserProfile');
+        $this->loadModel('Users');
+        $this->viewBuilder()->setLayout("dashboard");
+        $this->loadModel('LeadContacts');
+        $this->loadModel('Leads');
+        $this->loadModel('Companies');
+        $this->loadModel('Categories');
+        $this->loadModel('Products');
+        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
+        $i=0;
+        foreach($contactus as $a){
+            $i++;
+        }
+        $count=$i;
+        $result = $this->Authentication->getIdentity();
+        if($result){
+        $uid=$result->id;
+        $user = $this->Users->get($uid, [
+            'contain' => ['UserProfile']
+        ]);
+        $this->set(compact('contactus', 'count','user'));
+    }else{
+        $this->redirect(['controller' => 'Users', 'action' => 'index']);
     }
+       
+    }
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+{
+    parent::beforeFilter($event);
+    // for all controllers in our application, make index and view
+    // actions public, skipping the authentication check
+    $this->Authentication->addUnauthenticatedActions(['index','viewproduct','about','contact']);
+}
 }

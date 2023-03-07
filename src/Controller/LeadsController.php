@@ -6,37 +6,9 @@ namespace App\Controller;
 
 class LeadsController extends AppController
 { 
-    public function initialize(): void
-    {
-        $this->loadComponent('Authentication.Authentication');
-
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
-        $this->loadModel('ContactUs');
-        $this->loadModel('UserProfile');
-        $this->loadModel('Users');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
-            $i++;
-        }
-        $count=$i;
-        $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
-        $user = $this->Users->get($uid, [
-            'contain' => ['UserProfile']
-        ]);
-        $this->set(compact('contactus', 'count','user'));
-       
-    }
-     public function beforeFilter($event)
-    {
-        parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout("dashboard");
-        $this->loadModel('LeadContacts');
-        $this->loadModel('Companies');
-
-    }
+  
+     
+    
 
     public function index($id = null)
     {
@@ -45,7 +17,7 @@ class LeadsController extends AppController
         ];
         // $id = $this->request->getQuery('user_id');
         if($id != null){
-            $leads =$this->Leads->find('all')->contain('Users.UserProfile','LeadContacts')->where(['stages'=>$id]);
+            $leads =$this->Leads->find('all')->contain(['Users.UserProfile','LeadContacts'])->where(['stages'=>$id]);
             // dd($leads);
         }else{
             $leads = $this->paginate($this->Leads);
@@ -84,7 +56,11 @@ class LeadsController extends AppController
             $lead->user_id=$uid;
             if ($this->Leads->save($lead)) {
                 $this->Flash->success(__('The Lead has been saved.'));
-
+                $this->autoRender = false;
+                $this->viewBuilder()->setLayout(null);
+    
+                $this->render('/element/flash/lead');
+                
                 echo json_encode(array(
                     "status" => 1,
                     "message" => "Lead has been created"

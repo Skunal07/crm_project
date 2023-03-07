@@ -27,7 +27,6 @@
                                     }
                                 ?>
                                     <tr>
-                           
                                     <td class="align-middle text-center">
                                             <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
                                         </td>
@@ -53,14 +52,12 @@
                                                 <a href="javascript:void(0)" class="response btn btn-dark" data-id="<?= $contactU->id ?>">Reply</a>
                                                 <a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="<?= $contactU->id ?>">Delete</a>
                                             <?php } ?>
-
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

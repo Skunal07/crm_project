@@ -38,15 +38,26 @@ class LeadsController extends AppController
 
     }
 
-    public function index()
+    public function index($id = null)
     {
         $this->paginate = [
-            'contain' => ['Users','LeadContacts'],
+            'contain' => ['Users.UserProfile','LeadContacts'],
         ];
-        $leads = $this->paginate($this->Leads);
-        // pr($leads->lead_contacts);
-        // die;
+        // $id = $this->request->getQuery('user_id');
+        if($id != null){
+            $leads =$this->Leads->find('all')->contain('Users.UserProfile','LeadContacts')->where(['stages'=>$id]);
+            // dd($leads);
+        }else{
+            $leads = $this->paginate($this->Leads);
+        }
+       
         $this->set(compact('leads'));
+        if ($this->request->is('ajax')) {
+            $this->autoRender = false;
+            //$this->layout = false;
+            $this->viewBuilder()->setLayout(null);
+            $this->render('/element/flash/lead');
+        }
     }
 
    

@@ -15,7 +15,8 @@ use Cake\Core\Configure;
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
               </div>
               <?= $this->Form->create(null, ['id' => 'newcategory']) ?>
               <div class="modal-body">
@@ -113,7 +114,7 @@ use Cake\Core\Configure;
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Category Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <div class="container py-5 h-100">
@@ -164,8 +165,10 @@ use Cake\Core\Configure;
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Update Category Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

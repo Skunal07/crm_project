@@ -160,6 +160,7 @@ class UsersController extends AppController
             $user->added_by = $uid;
             $user->users_id = $uid;
             if ($this->Users->save($user)) {
+                
                 echo json_encode(array(
                     "status" => 1,
                     "message" => "staff has been created"

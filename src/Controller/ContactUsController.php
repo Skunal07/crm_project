@@ -25,34 +25,7 @@ class ContactUsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function initialize(): void
-    {
-        $this->loadComponent('Authentication.Authentication');
-
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
-        $this->loadModel('ContactUs');
-        $this->loadModel('UserProfile');
-        $this->loadModel('Users');
-        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
-        $i = 0;
-        foreach ($contactus as $a) {
-            $i++;
-        }
-        $count = $i;
-        $result = $this->Authentication->getIdentity();
-        $uid = $result->id;
-        $user = $this->Users->get($uid, [
-            'contain' => ['UserProfile']
-        ]);
-        $this->set(compact('contactus', 'count', 'user'));
-    }
-    public function beforeFilter($event)
-    {
-        parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout("dashboard");
-        $this->loadModel('Users');
-    }
+ 
     public function index()
     {
         $contactUs = $this->paginate($this->ContactUs);

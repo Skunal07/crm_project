@@ -1,11 +1,13 @@
 <!-------------------------------------- Add Contact Modal -------------------------------------------->
 
 <div class="modal fade" id="AddContact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Contacts</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <?= $this->Form->create(null, ['id' => 'newcontact']) ?>
       <div class="modal-body">
@@ -18,6 +20,7 @@
           } ?>
         </select>
         <br>
+
 
         <?php
         echo $this->Form->control('address', ['class' => 'form-control']);
@@ -130,12 +133,15 @@
 
 
 
+
 <div class="modal fade" id="contactView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Contacts Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+     <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <div class="container py-5 h-100">
@@ -160,6 +166,7 @@
                         <div class="col-6 mb-3">
                           <h6>Phone</h6>
                           <p id="conatctPhone" class="text-muted"></p>
+
                         </div>
                       </div>
 
@@ -191,6 +198,7 @@
   </div>
 </div>
 
+
 <!----------------------------------Edit Profile With Modal------------------------------>
 
 <div class="modal fade" id="contactEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -198,7 +206,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Update Contacts Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

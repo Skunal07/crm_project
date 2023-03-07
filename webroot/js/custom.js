@@ -5,7 +5,7 @@ jQuery.validator.addMethod(
     }
 );
 var ALPHA_REGEX = "[a-zA-Z_ ]*";
-var ALPHA_REGEXn = "/^[0-9]+$/";
+var ALPHA_REGEXn = /[0-9]/;
 
 jQuery.validator.addMethod(
     'Uppercase',
@@ -121,6 +121,7 @@ $(document).ready(function () {
             company_name: {
                 required: true,
                 regex: ALPHA_REGEX,
+                noSpace: true,
             },
 
         },
@@ -208,6 +209,7 @@ $(document).ready(function () {
     $("#newcategory").validate({
         rules: {
             category_name: {
+                noSpace: true,
                 required: true,
                 regex: ALPHA_REGEX,
             },
@@ -276,6 +278,7 @@ $(document).ready(function () {
         rules: {
             category_name: {
                 required: true,
+                noSpace: true,
                 regex: ALPHA_REGEX,
             },
 
@@ -360,22 +363,28 @@ $(document).ready(function () {
         rules: {
             product_name: {
                 required: true,
+                 noSpace: true,
 
             },
             category_id: {
                 required: true,
+                 noSpace: true,
             },
             product_tags: {
                 required: true,
+                 noSpace: true,
             },
             short_discription: {
                 required: true,
+                 noSpace: true,
             },
             description: {
                 required: true,
+                 noSpace: true,
             },
             product_image: {
                 required: true,
+                 noSpace: true,
             },
         },
         messages: {
@@ -604,15 +613,19 @@ $(document).ready(function () {
         rules: {
             product_name: {
                 required: true,
+                 noSpace: true,
             },
             short_discription: {
                 required: true,
+                 noSpace: true,
             },
             description: {
                 required: true,
+                 noSpace: true,
             },
             product_tags: {
                 required: true,
+                 noSpace: true,
             },
         },
         messages: {
@@ -711,12 +724,17 @@ $(document).on("click", ".deleteProducts", function () {
 
 $(document).ready(function () {
 
-
+    var removeErr = document.getElementsByClassName('error-message');
+    for (i = 0; i < removeErr.length; i++) {
+        removeErr[i].innerHTML = "";
+    }
     $("#staffAdd").validate({
         rules: {
             email: {
                 required: true,
-                email: true
+                email: true,
+                 noSpace: true,
+                noSpace: true,
             },
             password: {
                 required: true,
@@ -726,6 +744,7 @@ $(document).ready(function () {
                 Onedigit: true,
                 maxlength: 18,
                 minlength: 8,
+                noSpace: true,
             },
             'user_profile[first_name]': {
                 required: true,
@@ -741,6 +760,7 @@ $(document).ready(function () {
             },
             'user_profile[address]': {
                 required: true,
+                noSpace: true,
             },
             'user_profile[contact]': {
                 required: true,
@@ -795,6 +815,8 @@ $(document).ready(function () {
                         $('#addstaff').hide();
                         $('.modal-backdrop').remove();
                         $('#staff_update').load('/users/users_list  #staff_update');
+                    }else{
+                        $('#error_email').html("Email Already in Use"); 
                     }
                 },
             });
@@ -971,12 +993,54 @@ $(document).ready(function () {
         rules: {
             email: {
                 required: true,
-                email: true
+                email: true,
+                 noSpace: true,
+                noSpace: true,
             },
+            'user_profile[first_name]': {
+                required: true,
+                minlength: 2,
+                regex: ALPHA_REGEX,
+                noSpace: true,
+            },
+            'user_profile[last_name]': {
+                required: true,
+                minlength: 2,
+                regex: ALPHA_REGEX,
+                noSpace: true,
+            },
+            'user_profile[address]': {
+                required: true,
+                noSpace: true,
+            },
+            'user_profile[contact]': {
+                required: true,
+                minlength: 10,
+                maxlength: 10,
+                noSpace: true,
+            },
+
         },
         messages: {
             email: {
                 required: " Please enter Email",
+            },
+            'user_profile[first_name]': {
+                required: " Please enter first Name",
+                minlength: "Name need to be at least 2 characters long",
+            },
+            'user_profile[last_name]': {
+                required: " Please enter last Name",
+                regex: "Please enter characters only"
+            },
+            'user_profile[address]': {
+                required: " Please enter address ",
+            },
+            'user_profile[contact]': {
+                required: " Please enter phone no ",
+                minlength: "phone number must be 10 digits",
+                maxlength: "phone number must be 10 digits",
+                regexno: "please enter digits only"
             },
 
         },
@@ -1017,9 +1081,13 @@ $(document).ready(function () {
             email: {
                 required: true,
                 email: true,
+                noSpace: true,
+
             },
             address: {
                 required: true,
+                noSpace: true,
+
             },
             phone: {
                 required: true,
@@ -1106,15 +1174,34 @@ $(document).ready(function () {
         rules: {
             email: {
                 required: true,
-                email: true
-            },
+                email: true,
+                noSpace: true,
 
+            },
+            address: {
+                required: true,
+                noSpace: true,
+
+            },
+            phone: {
+                required: true,
+                minlength: 10,
+                maxlength: 10,
+                noSpace: true,
+            },
         },
         messages: {
             email: {
-                required: " Please enter your Lead Name",
+                required: "Please enter email  ",
             },
-
+            address: {
+                required: "Please enter email  ",
+            },
+            phone: {
+                required: " Please enter phone no ",
+                minlength: "phone number must be 10 digits",
+                maxlength: "phone number must be 10 digits",
+            },
         },
         submitHandler: function (form) {
             var formData = $(form).serialize();
@@ -1193,12 +1280,17 @@ $(document).ready(function () {
             name: {
                 required: true,
                 regex: ALPHA_REGEX,
+                noSpace: true,
             },
             price: {
                 required: true,
+                noSpace: true,
+                
             },
             work_title: {
                 required: true,
+                noSpace: true,
+                
             },
             'lead_contact[contact]': {
                 required: true,
@@ -1214,15 +1306,18 @@ $(document).ready(function () {
             },
             price: {
                 required: "Please enter price",
+
             },
             work_title: {
                 required: "Please enter work title ",
+
             },
             'lead_contact[contact]': {
                 required: " Please enter phone no ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
-                regexno: "please enter digits only"
+                regexno: "please enter digits only",
+
             },
         },
         submitHandler: function (form) {
@@ -1245,7 +1340,9 @@ $(document).ready(function () {
                         alert(data["message"]);
                     } else {
                         $('#AddLeadModal').modal('hide');
-                        $('#lead').load('/leads/index #lead')
+                        $('#AddLeadModal form')[0].reset();
+                        // $(this).find('form').trigger('reset');
+                        $('.lead').load('/leads/index .lead')
                     }
                 },
             });
@@ -1287,14 +1384,53 @@ $(document).ready(function () {
         rules: {
             name: {
                 required: true,
+                regex: ALPHA_REGEX,
+                noSpace: true,
             },
-
+            price: {
+                required: true,
+                noSpace: true,
+                
+            },
+            stages: {
+                required: true,
+            },
+            work_title: {
+                required: true,
+                noSpace: true,
+                
+            },
+            'lead_contact[contact]': {
+                required: true,
+                minlength: 10,
+                maxlength: 10,
+                noSpace: true,
+            },
         },
         messages: {
             name: {
-                required: " Please enter your Lead Name",
+                required: "Please enter name ",
+                regex: "Please enter characters only"
             },
+            price: {
+                required: "Please enter price",
 
+            },
+            stages: {
+                required: "Please Select Progress",
+
+            },
+            work_title: {
+                required: "Please enter work title ",
+
+            },
+            'lead_contact[contact]': {
+                required: " Please enter phone no ",
+                minlength: "phone number must be 10 digits",
+                maxlength: "phone number must be 10 digits",
+                regexno: "please enter digits only",
+
+            },
         },
         submitHandler: function (form) {
             var formData = $(form).serialize();
@@ -1308,7 +1444,7 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     var data = JSON.parse(response);
-                    $("#lead").load("/leads/index #lead");
+                    $('.lead').load('/leads/index .lead')
                     swal("Good job!", "User details Has been updated!", "success");
                     $('#editLeadModal').hide();
                     $('.modal-backdrop').hide();

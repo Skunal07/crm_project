@@ -1,5 +1,6 @@
 <?php
-  use Cake\Core\Configure;
+
+use Cake\Core\Configure;
 ?>
 <div class="container-fluid py-4">
   <div class="row" id="category">
@@ -69,8 +70,7 @@
                       <h6 class="mb-0 text-sm"><?= ($category->user->user_profile['first_name']) ?> <?= ($category->user->user_profile['last_name']) ?></h6>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= date(Configure::read('DATE_YMD'), strtotime($category->created_date)) ?></span>
-
+                      <h6 class="mb-0 text-sm"><?= h($category->created_date) ?></h6>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold"><?php
@@ -110,7 +110,7 @@
 
 <!--======================== View Profile With Modal =====================------->
 <div class="modal fade" id="viewCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Category Details</h5>
@@ -165,8 +165,10 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
+
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
         <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

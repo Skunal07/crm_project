@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -10,6 +11,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Utility\Security;
 use App\Controller\View;
+
 /**
  * ContactUs Controller
  *
@@ -32,19 +34,18 @@ class ContactUsController extends AppController
         $this->loadModel('ContactUs');
         $this->loadModel('UserProfile');
         $this->loadModel('Users');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $i = 0;
+        foreach ($contactus as $a) {
             $i++;
         }
-        $count=$i;
+        $count = $i;
         $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
+        $uid = $result->id;
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
-        $this->set(compact('contactus', 'count','user'));
-       
+        $this->set(compact('contactus', 'count', 'user'));
     }
     public function beforeFilter($event)
     {
@@ -81,8 +82,8 @@ class ContactUsController extends AppController
         $this->request->allowMethod(['post']);
         $contact = $this->ContactUs->get($id);
         $contact->work_status = 1;
-        $email=$contact->email;
-        $name=$contact->name;
+        $email = $contact->email;
+        $name = $contact->name;
 
         if ($this->ContactUs->save($contact)) {
             $mailer = new Mailer('default');
@@ -112,9 +113,9 @@ class ContactUsController extends AppController
     {
         $this->request->allowMethod(['post']);
         $contact = $this->ContactUs->get($id);
-            $contact->work_status = 2;
-            $email=$contact->email;
-            $name=$contact->name;
+        $contact->work_status = 2;
+        $email = $contact->email;
+        $name = $contact->name;
 
         if ($this->ContactUs->save($contact)) {
             $mailer = new Mailer('default');
@@ -139,7 +140,7 @@ class ContactUsController extends AppController
     {
         $this->request->allowMethod(['post']);
         $contact = $this->ContactUs->get($id);
-            $contact->delete_status = 1;
+        $contact->delete_status = 1;
 
         if ($this->ContactUs->save($contact)) {
             echo json_encode(array(

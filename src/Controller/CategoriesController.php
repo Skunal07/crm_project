@@ -4,19 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Categories Controller
- *
- * @property \App\Model\Table\CategoriesTable $Categories
- * @method \App\Model\Entity\Category[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
+
 class CategoriesController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
     public function initialize(): void
     {
         $this->loadComponent('Authentication.Authentication');
@@ -24,20 +14,20 @@ class CategoriesController extends AppController
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('UserProfile');
-        $this->loadModel('Users');        
+        $this->loadModel('Users');
         $this->loadModel('ContactUs');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $i = 0;
+        foreach ($contactus as $a) {
             $i++;
         }
-        $count=$i;
+        $count = $i;
         $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
+        $uid = $result->id;
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
-        $this->set(compact('contactus', 'count','user'));
+        $this->set(compact('contactus', 'count', 'user'));
     }
     public function beforeFilter($event)
     {
@@ -49,25 +39,9 @@ class CategoriesController extends AppController
         $this->paginate = [
             'contain' => ['Users.UserProfile'],
         ];
-        $categories = $this->paginate($this->Categories->find('all')->where(['Categories.status' => 0]));
+        $categories = $this->paginate($this->Categories->find('all')->where(['Categories.delete_status' => 0]));
 
         $this->set(compact('categories'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Category id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $category = $this->Categories->get($id, [
-            'contain' => ['Users', 'Products'],
-        ]);
-
-        $this->set(compact('category'));
     }
 
     //-----------------------------------------Add Category--------------------------------------//
@@ -75,11 +49,11 @@ class CategoriesController extends AppController
     public function addcategory()
     {
         $user = $this->Authentication->getIdentity();
-        $uid=$user->id ;
+        $uid = $user->id;
         $category = $this->Categories->newEmptyEntity();
         if ($this->request->is('ajax')) {
             $category = $this->Categories->patchEntity($category, $this->request->getData());
-            $category->user_id=$uid;
+            $category->user_id = $uid;
             if ($this->Categories->save($category)) {
                 $this->Flash->success(__('The category has been saved.'));
 
@@ -100,7 +74,7 @@ class CategoriesController extends AppController
         }
     }
 
-   
+
     //-----------------------------------------DeleteStatus--------------------------------------//
 
     public function deleteStatus($id = null, $delete_status = null)
@@ -134,7 +108,7 @@ class CategoriesController extends AppController
         // $this->Model = $this->loadModel('UserProfile');
         $id = $_GET['id'];
         $categories = $this->Categories->get($id, [
-            'contain' => []
+            'contain' => ['Users.UserProfile']
         ]);
         echo json_encode($categories);
         exit;
@@ -142,7 +116,7 @@ class CategoriesController extends AppController
 
 
     //--------------------------------------After Fetch Edit----------------------------------//
-    
+
 
     public function editCategory($id = null)
     {
@@ -172,6 +146,4 @@ class CategoriesController extends AppController
             }
         }
     }
-
-    
 }

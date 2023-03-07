@@ -27,19 +27,18 @@ class ProductsController extends AppController
 
         $this->loadModel('UserProfile');
         $this->loadModel('Users');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $i = 0;
+        foreach ($contactus as $a) {
             $i++;
         }
-        $count=$i;
+        $count = $i;
         $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
+        $uid = $result->id;
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
-        $this->set(compact('contactus', 'count','user'));
-
+        $this->set(compact('contactus', 'count', 'user'));
     }
     public function beforeFilter($event)
     {
@@ -57,7 +56,7 @@ class ProductsController extends AppController
         ];
         $products = $this->paginate($this->Products);
 
-        $categories = $this->Categories->find('all')->where(['status' => 0]);
+        $categories = $this->Categories->find('all')->where(['delete_status' => 0]);
 
         $this->set(compact('products', 'categories'));
     }

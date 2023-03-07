@@ -40,7 +40,7 @@
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category Name</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created at</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modified at</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
@@ -65,23 +65,27 @@
                       </div>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= ($category->user->user_profile['first_name']) ?> <?= ($category->user->user_profile['last_name']) ?></p>
+                      <h6 class="mb-0 text-sm"><?= ($category->user->user_profile['first_name']) ?> <?= ($category->user->user_profile['last_name']) ?></h6>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold"><?= date(Configure::read('DATE_YMD'), strtotime($category->created_date)) ?></span>
+
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold"><?php
                                                                             if ($category->modified_date == null) {
                                                                               echo '--';
                                                                             } else {
-                                                                              echo h($category->modified_date);
+                                                                            ?>
+                          <h6 class="mb-0 text-sm"><?= h($category->modified_date) ?></h6>
+                        <?php
                                                                             }
 
-                                                                            ?></span>
+                        ?>
+                      </span>
                     </td>
                     <td class="align-middle text-center">
-                      <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#viewCategoryModal" class="btn btn-success editCategories" data-id="<?= $category->id ?>">View</a>
+                      <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#viewCategoryModal" class="btn btn-success viewCategories" data-id="<?= $category->id ?>">View</a>
                       <a href="javascript:void(0)" data-toggle="modal" data-target="#editcategoryModal" class="btn btn-primary editCategories" data-id="<?= $category->id ?>">Edit</a>
 
                       <a href="javascript:void(0)" class="btn-delete-category btn btn-danger" data-id="<?= $category->id ?>">Delete</a>
@@ -103,15 +107,12 @@
 
 
 
-<!----------------------------------View Profile With Modal------------------------------>
-
-
-
+<!--======================== View Profile With Modal =====================------->
 <div class="modal fade" id="viewCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Category View</h5>
+        <h5 class="modal-title" id="exampleModalLabel">View Category Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -121,28 +122,22 @@
               <div class="card mb-3" style="border-radius: .5rem;">
                 <div class="row g-0">
                   <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp" alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                    <h5><u>Create Category Name</u></h5>
-                    <p> <?= ($category->user->user_profile['first_name']) ?> <?= ($category->user->user_profile['last_name']) ?></p>
+                    <img src="" alt="Avatar" id="userPic" class="img-fluid my-5" style="width: 80px;" />
+                    <h5>Addeded By</h5>
+                    <p id="addedby"> </p>
                   </div>
                   <div class="col-md-8">
                     <div class="card-body p-4">
                       <h6>Information</h6>
                       <hr class="mt-0 mb-4">
                       <div class="row pt-1">
-                        <div class="col-6 mb-3">
+                        <div class="col-5 mb-3">
                           <h6>Category Name</h6>
-                          <p class="text-muted"><?= h($category->category_name) ?></p>
+                          <p id="category-name" class="text-muted"></p>
                         </div>
-                        <div class="col-6 mb-3">
-                          <h6>Status</h6>
-                          <p class="text-muted">
-                            <?php if ($category->status == 0) {
-                              echo "Active Categories";
-                            } else {
-                              echo "DeActive Categories";
-                            }
-                            ?></p>
+                        <div class="col-7 mb-3">
+                          <h6>Created At</h6>
+                          <p id="created" class="text-muted"></p>
                         </div>
                       </div>
 
@@ -164,8 +159,7 @@
   </div>
 </div>
 
-<!----------------------------------Edit Category With Modal------------------------------>
-
+<!---======================== Edit Category With Modal ============================-------->
 <div class="modal fade" id="editcategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -175,10 +169,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <?php echo $this->Form->create(null, ["type" => "file", "id" => "editcat",]); ?>
       <div class="modal-body">
-        <?php echo $this->Form->create(null, ["type" => "file", "id" => "editcat",]); ?>
         <input type="hidden" id="catiddd" name="catiddd">
-        <div class="input-group input-group-outline mb-3">
+        <div class="col-12">
           <?php echo $this->Form->control(
             "category_name",
             [

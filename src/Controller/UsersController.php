@@ -18,7 +18,7 @@ class UsersController extends AppController
     public function initialize(): void
     {
         $this->loadComponent('Authentication.Authentication');
-        
+
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
@@ -42,7 +42,6 @@ class UsersController extends AppController
         $this->loadModel('Categories');
         $this->loadModel('Leads');
         $this->Authentication->addUnauthenticatedActions(['login', 'index', 'viewProduct']);
-
     }
 
     public function index($id = null)
@@ -72,14 +71,13 @@ class UsersController extends AppController
             $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
         }
 
-        $productc=$this->Categories->find('all')->where(['status'=>0]);
-        if($id != null){
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0,'category_id'=>$id]);
-        }else{
-            $products=$this->Products->find('all')->contain('Categories')->where(['Products.status'=>0 ,'Products.delete_status'=> 0]);
+        $productc = $this->Categories->find('all')->where(['delete_status' => 0]);
+        if ($id != null) {
+            $products = $this->Products->find('all')->contain('Categories')->where(['Products.status' => 0, 'Products.delete_status' => 0, 'category_id' => $id]);
+        } else {
+            $products = $this->Products->find('all')->contain('Categories')->where(['Products.status' => 0, 'Products.delete_status' => 0]);
         }
-        $this->set(compact('products','productc','id','contactU'));
-
+        $this->set(compact('products', 'productc', 'id', 'contactU'));
     }
 
     public function dashboard()
@@ -90,7 +88,7 @@ class UsersController extends AppController
         $totallost = $this->Leads->find('all')->where(['stages' => 0, 'delete_status' => 0]);
         $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
         $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
-        $leads = $this->Leads->find('all',['limit'=> 5])->where(['delete_status' => 0,'stages'=> 4])->order(['id' => 'DESC']); 
+        $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4])->order(['id' => 'DESC']);
 
         $i = 0;
         foreach ($contactus as $a) {
@@ -98,11 +96,11 @@ class UsersController extends AppController
         }
         $count = $i;
         $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
+        $uid = $result->id;
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
-        $this->set(compact('contactus','user', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost','category','leads'));
+        $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost', 'category', 'leads'));
     }
 
     //-----------------------------Admin----Index--------------------------//
@@ -130,7 +128,7 @@ class UsersController extends AppController
     public function usersList()
     {
         $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
+        $uid = $result->id;
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
@@ -140,7 +138,7 @@ class UsersController extends AppController
         if ($result->role == '1') {
             $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0]));
 
-            $this->set(compact('users','user'));
+            $this->set(compact('users', 'user'));
         } else {
             return $this->redirect(['controller' => 'Users', 'action' => 'dashboard']);
         }

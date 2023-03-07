@@ -191,39 +191,39 @@
                 <div class="table-responsive">
                     <table class="table align-items-center ">
                         <tbody>
-                            <?php foreach($leads as $lead){ 
-                                ?>
-                            <tr>
-                                <td class="w-30">
-                                    <div class="d-flex px-2 py-1 align-items-center">
-                                        <div>
-                                            <img src="/img/yoo.jpg" width='50px' alt="Country flag">
+                            <?php foreach ($leads as $lead) {
+                            ?>
+                                <tr>
+                                    <td class="w-30">
+                                        <div class="d-flex px-2 py-1 align-items-center">
+                                            <div>
+                                                <img src="/img/yoo.jpg" width='50px' alt="Country flag">
+                                            </div>
+                                            <div class="ms-4">
+                                                <p class="text-xs font-weight-bold mb-0">Name:</p>
+                                                <h6 class="text-sm mb-0"><?= $lead->name ?></h6>
+                                            </div>
                                         </div>
-                                        <div class="ms-4">
-                                            <p class="text-xs font-weight-bold mb-0">Name:</p>
-                                            <h6 class="text-sm mb-0"><?= $lead->name ?></h6>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">Work Title:</p>
+                                            <h6 class="text-sm mb-0"><?= $lead->work_title ?></h6>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Work Title:</p>
-                                        <h6 class="text-sm mb-0"><?= $lead->work_title ?></h6>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Price:</p>
-                                        <h6 class="text-sm mb-0"><?= $lead->price ?></h6>
-                                    </div>
-                                </td>
-                                <td class="align-middle text-sm">
-                                    <div class="col text-center">
-                                        <p class="text-xs font-weight-bold mb-0">Created At:</p>
-                                        <h6 class="text-sm mb-0"><?= $lead->created_date?></h6>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">Price:</p>
+                                            <h6 class="text-sm mb-0"><?= $lead->price ?></h6>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-sm">
+                                        <div class="col text-center">
+                                            <p class="text-xs font-weight-bold mb-0">Created At:</p>
+                                            <h6 class="text-sm mb-0"><?= $lead->created_date ?></h6>
+                                        </div>
+                                    </td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -237,27 +237,27 @@
                 </div>
                 <div class="card-body p-3">
                     <ul class="list-group">
-                        <?php foreach($category as $cat){ ?>
-                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                            <div class="d-flex align-items-center">
-                                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
-                                    <i class="ni ni-mobile-button text-dark opacity-10"></i>
-                                </div>
-                                <div class="d-flex flex-column">
+                        <?php foreach ($category as $cat) { ?>
+                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                <div class="d-flex align-items-center">
+                                    <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                                        <i class="ni ni-mobile-button text-dark opacity-10"></i>
+                                    </div>
+                                    <div class="d-flex flex-column">
 
-                                    <h6 class="mb-1 text-dark text-sm"><?= $cat->category_name ?></h6>
-                                    <?php $i=0 ;
-                                    foreach($cat->products as $p){
-                                        $i++;
-                                    } ?>
-                                    <span class="text-xs"><?= $i ?> in stock</span>
+                                        <h6 class="mb-1 text-dark text-sm"><?= $cat->category_name ?></h6>
+                                        <?php $i = 0;
+                                        foreach ($cat->products as $p) {
+                                            $i++;
+                                        } ?>
+                                        <span class="text-xs"><?= $i ?> in stock</span>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex">
-                                <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
-                            </div>
-                        </li>
+                                <div class="d-flex">
+                                    <button class="btn btn-link btn-icon-only btn-rounded btn-sm text-dark icon-move-right my-auto"><i class="ni ni-bold-right" aria-hidden="true"></i></button>
+                                </div>
+                            </li>
                         <?php } ?>
                     </ul>
                 </div>
@@ -268,19 +268,21 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            google.charts.load("current", {
+                packages: ["corechart"]
+            });
+            google.charts.setOnLoadCallback(drawChart);
 
-        $(document).ready(function(){
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['sales', 'Hours per Day'],
-          ['ContactUs', <?= $i ?>],
-          ['Lost ', <?= $k ?>],
-          ['Approved',<?= $j ?>],
-          ['Won',  <?= $l ?>],
-         
-        ]);
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['sales', 'Hours per Day'],
+                    ['ContactUs', <?= $i ?>],
+                    ['Lost ', <?= $k ?>],
+                    ['Approved', <?= $j ?>],
+                    ['Won', <?= $l ?>],
+
+                ]);
                 var options = {
                     title: 'Daily Activities',
                     pieHole: 0.4,

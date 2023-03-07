@@ -44,18 +44,19 @@ jQuery.validator.addMethod(
 //----------------------------------- Add Company Using ajax -------------------------//
 
 $(document).ready(function () {
-    // alert('nhjhbncjhsjknc');
     $("#newcompany").validate({
         rules: {
             company_name: {
                 required: true,
                 regex: ALPHA_REGEX,
+                noSpace:true,
             },
         },
         messages: {
             company_name: {
                 required: "Please enter company name ",
-                regex: "Please enter characters only"
+                regex: "Please enter characters only",
+
             },
         },
         submitHandler: function (form) {
@@ -425,6 +426,55 @@ $(document).ready(function () {
                 },
             });
             return false;
+        },
+    });
+});
+
+//============================ view Category details ===================
+$(document).on("click", ".viewCategories", function () {
+    var category_id = $(this).data("id");
+    $.ajax({
+        url: "/categories/editCategories",
+        data: { id: category_id },
+        type: "JSON",
+        method: "get",
+        success: function (response) {
+            category = $.parseJSON(response);
+            var image = category["user"]["user_profile"]["profile_image"];
+            document
+            .querySelector("#userPic")
+                .setAttribute("src", "/img/" + image);
+            $("#addedby").html(category['user']['user_profile']['first_name']+' '+category['user']['user_profile']['last_name']);
+            $("#category-name").html(category['category_name']);
+            $("#created").html(category['created_date']);
+        },
+    });
+});
+
+//============================ view User details ===================
+$(document).on("click", ".viewUser", function () {
+    var user_id = $(this).data("id");
+    $.ajax({
+        url: "/users/updateProfile",
+        data: { id: user_id },
+        type: "JSON",
+        method: "get",
+        success: function (response) {
+            user = $.parseJSON(response);
+            var image = user["user_profile"]["profile_image"];
+            document
+            .querySelector("#userPic")
+            .setAttribute("src", "/img/" + image);
+            $("#userName").html(user['user_profile']['first_name']+' '+user['user_profile']['last_name']);
+            $("#userPhone").html(user['user_profile']['contact']);
+            $("#userEmail").html(user['email']);
+            $("#usercreated").html(user['created_date']);
+            $("#userAddress").html(user['user_profile']['address']);
+            if (user['role'] == 0) {
+                $("#userRole").html('Staff Member');
+            } else {
+                $("#userRole").html('Admin');
+            }
         },
     });
 });
@@ -821,7 +871,6 @@ $(document).on("click", ".btn-delete-student", function () {
 
 $(document).on("click", ".editUser", function () {
     var user_id = $(this).data("id");
-    // console.log(user_id);
     $.ajax({
         url: "/users/updateProfile",
         data: { id: user_id },
@@ -830,13 +879,7 @@ $(document).on("click", ".editUser", function () {
         success: function (response) {
             user = $.parseJSON(response);
             console.log(user["email"]);
-            // return false;
-
-            // hidden input for image and id
             $("#iddd").val(user["id"]);
-            // hidden input for image and id
-
-
             $("#firstname").val(user["user_profile"]["first_name"]);
             $("#lastname").val(user["user_profile"]["last_name"]);
             $("#contact").val(user["user_profile"]["contact"]);
@@ -877,12 +920,10 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     var data = JSON.parse(response);
-
+                    swal("Updated!", "User details Has been updated Successfully!", "success");
                     $("#staff_update").load("/users/users_list #staff_update");
-                    swal("Good job!", "User details Has been updated!", "success");
-                    $('#exampleModalCenter').hide();
+                    $('#updateDetails').hide();
                     $('.modal-backdrop').hide();
-
                 },
             });
             return false;

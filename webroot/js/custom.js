@@ -430,6 +430,30 @@ $(document).ready(function () {
     });
 });
 
+//============================ view lead details ===================
+$(document).on("click", ".viewLead", function () {
+    var lead_id = $(this).data("id");
+    $.ajax({
+        url: "/leads/editLead",
+        data: { id: lead_id },
+        type: "JSON",
+        method: "get",
+        success: function (response) {
+            lead = $.parseJSON(response);
+            console.log(lead);
+            var image = lead["user"]["user_profile"]["profile_image"];
+            document
+            .querySelector("#userPic")
+                .setAttribute("src", "/img/" + image);
+            $("#addedby").html(lead['user']['user_profile']['first_name']+' '+lead['user']['user_profile']['last_name']);
+            $("#conatct-name").html(lead['name']);
+            $("#contact-price").html(lead['price']);
+            $("#contact-title").html(lead['work_title']);
+            $("#contact-phone").html(lead['lead_contact']['contact']);
+        },
+    });
+});
+
 //============================ view Category details ===================
 $(document).on("click", ".viewCategories", function () {
     var category_id = $(this).data("id");
@@ -500,6 +524,49 @@ $(document).on("click", ".productView", function () {
             $("#created").html(product['created_date']);
             $("#short").html(product['short_discription']);
             $("#description").html(product['description']);
+        },
+    });
+});
+
+//============================ view contacts details ===================
+$(document).on("click", ".viewcontact", function () {
+    var contact_id = $(this).data("id");
+    $.ajax({
+        url: "/contacts/editContact",
+        data: { id: contact_id },
+        type: "JSON",
+        method: "get",
+        success: function (response) {
+            contact = $.parseJSON(response);
+            var image = contact['user']['user_profile']['profile_image'];
+            document
+                .querySelector("#userPic")
+                .setAttribute("src", "/img/" + image);
+            $("#user-name").html(contact['user']['user_profile']['first_name'] + ' ' + contact['user']['user_profile']['last_name']);
+            $("#contactEmail").html(contact['email']);
+            $("#conatctPhone").html(contact['phone']);
+            $("#conatct-address").html(contact['address']);
+            $("#company-name").html(contact['company']['company_name']);
+        },
+    });
+});
+
+//============================ view company details ===================
+$(document).on("click", ".viewCompany", function () {
+    var company_id = $(this).data("id");
+    $.ajax({
+        url: "/Companies/editCompany",
+        data: { id: company_id },
+        type: "JSON",
+        method: "get",
+        success: function (response) {
+            company = $.parseJSON(response);
+            var image = company['user']['user_profile']['profile_image'];
+            document
+                .querySelector("#userPic")
+                .setAttribute("src", "/img/" + image);
+            $("#user-name").html(company['user']['user_profile']['first_name'] + ' ' + company['user']['user_profile']['last_name']);
+            $("#company-name").html(company['company_name']);
         },
     });
 });
@@ -616,7 +683,7 @@ $(document).on("click", ".deleteProducts", function () {
     })
         .then((willDelete) => {
             if (willDelete) {
-
+                var hide_tr = $(this).parents("tr");
                 // alert(postdata);
                 $.ajax({
                     url: "/products/delete/" + postdata,
@@ -624,9 +691,15 @@ $(document).on("click", ".deleteProducts", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
-                        $('#data' + postdata).hide();
-                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    var data = JSON.parse(response);
+                    var status = data["status"];
+                        if (status == "1") {
+                            hide_tr.hide();
+                            $('#data' + postdata).hide();
+                            swal("Data Deleted Succesfully!", "success");
+                        }else {
+                        swal("Your file is not deleted");
+                    }
                     }
                 });
             }

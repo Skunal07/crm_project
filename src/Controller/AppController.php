@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-
+use Cake\Core\Configure;
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -44,6 +44,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
+        // define('DATE_YMD', 'Y-m-d');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.

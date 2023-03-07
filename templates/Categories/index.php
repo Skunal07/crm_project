@@ -1,3 +1,6 @@
+<?php
+  use Cake\Core\Configure;
+?>
 <div class="container-fluid py-4">
   <div class="row" id="category">
     <div class="col-12">
@@ -65,7 +68,7 @@
                       <p class="text-xs font-weight-bold mb-0"><?= ($category->user->user_profile['first_name']) ?> <?= ($category->user->user_profile['last_name']) ?></p>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= h($category->created_date) ?></span>
+                      <span class="text-secondary text-xs font-weight-bold"><?= date(Configure::read('DATE_YMD'), strtotime($category->created_date)) ?></span>
                     </td>
                     <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold"><?php

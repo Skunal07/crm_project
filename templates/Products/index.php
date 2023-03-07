@@ -25,7 +25,11 @@
                                 <!-- <pre> -->
                                 <?php
                                 if (count($products) > 0) {
-                                    foreach ($products as $product) : ?>
+                                    foreach ($products as $product) :
+                                        if ($product->delete_status == 1) {
+                                            continue;
+                                        }
+                                ?>
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">

@@ -178,11 +178,15 @@ class UsersController extends AppController
 
     public function login()
     {
+        if($this->Authentication->getIdentity()){
+            $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
+            return $this->redirect($redirect);
+        }
         $this->viewBuilder()->setLayout("login");
 
         $this->request->allowMethod(['get', 'post']);
+        
         $result = $this->Authentication->getResult();
-
         if ($result && $result->isValid()) {
             $email = $this->request->getData('email');
             $users = TableRegistry::get("Users");
@@ -195,11 +199,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('Your Account Deactivate Please Contact Us Customer Care'));
                 $redirect = $this->request->getQuery('redirect', ['controller' => 'users', 'action' => 'logout',]);
             } else {
-                if ($result->role == '1') {
-                    $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
-                } else {
-                    $redirect = $this->request->getQuery('redirect', ['controller' => 'products', 'action' => 'producthome',]);
-                }
+            $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
             }
 
             return $this->redirect($redirect);

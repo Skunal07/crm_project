@@ -27,7 +27,6 @@
                                     }
                                 ?>
                                     <tr>
-                           
                                     <td class="align-middle text-center">
                                             <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
                                         </td>
@@ -48,23 +47,17 @@
                                         </td>
                                         <td class="align-middle"><?php
                                                                     if ($contactU->work_status == 1) {
-                                                                        echo '<span class="btn btn-success ml-3">Approval</span>';
-                                                                        echo '<a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="' . $contactU->id . '">Delete</a>';
-                                                                    } else if ($contactU->work_status == 2) {
-                                                                        echo '<span class="btn btn-danger m-3">Reject</span>';
-                                                                        echo '<a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="' . $contactU->id . '">Delete</a>';
+                                                                        echo '<span class="btn btn-success ml-3">Replyed</span>';
                                                                     } else { ?>
-                                                <a href="javascript:void(0)" class="response btn btn-info" data-id="<?= $contactU->id ?>">Respond</a>
-                                                <a href="javascript:void(0)" class="reject btn btn-info ml-3" data-id="<?= $contactU->id ?>">Reject</a>
+                                                <a href="javascript:void(0)" class="response btn btn-dark" data-id="<?= $contactU->id ?>">Reply</a>
+                                                <a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="<?= $contactU->id ?>">Delete</a>
                                             <?php } ?>
-
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

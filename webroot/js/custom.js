@@ -523,7 +523,7 @@ $(document).on("click", ".productEdit", function () {
             document
                 .querySelector("#productImg")
                 .setAttribute('src', "/img/" + p_image);
-            
+
             $("#imagedd").val(Product["product_image"]);
             $("#iddd").val(Product["id"]);
             $("#useridd").val(Product['user']['id'])
@@ -737,13 +737,13 @@ $(document).ready(function () {
 $(document).on("click", ".response", function () {
     // alert('dgkhdfhg');
     var user_id = $(this).data("id");
-  
+
     $.ajax({
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
         url: "/contactUs/response/" + user_id,
-        data: {user_id },
+        data: { user_id },
         type: "JSON",
         method: "post",
         success: function (response) {
@@ -755,29 +755,59 @@ $(document).on("click", ".response", function () {
 })
 
 $(document).on("click", ".delete", function () {
-    // alert('dgkhdfhg');
-    var user_id = $(this).data("id");
-    alert(user_id)
-  
-    $.ajax({
+    var csrfToken = $('meta[name="csrfToken"]').attr('content');
+    $.ajaxSetup({
         headers: {
-            "X-CSRF-TOKEN": csrfToken,
-        },
-        url: "/contactUs/deleteContactus/" + user_id,
-        data: {user_id },
-        type: "JSON",
-        method: "post",
-        success: function (response) {
-            console.log(response)
-            $('.productss').load('/contactUs/index .productss')
-
+            'X-CSRF-TOKEN': csrfToken // this is defined in app.php as a js variable
         }
     });
-})
+    var user_id = $(this).data("id");
+    // alert(user_id)
+
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+
+                // alert(postdata);
+                $.ajax({
+                    url: "/contactUs/deleteContactus/" + user_id,
+                    data: user_id,
+                    type: "JSON",
+                    method: "post",
+                    success: function (response) {
+
+                        $('.productss').load('/contactUs/index .productss')
+                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                    }
+                });
+            }
+        })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).on("click", ".reject", function () {
     // alert('dgkhdfhg');
     var user_id = $(this).data("id");
-    
+
     $.ajax({
         headers: {
             "X-CSRF-TOKEN": csrfToken,

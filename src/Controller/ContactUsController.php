@@ -79,6 +79,8 @@ class ContactUsController extends AppController
     // ===============================================================================================
     public function response($id = null)
     {
+        $result = $this->Authentication->getIdentity();
+        $uid=$result->id;
         $this->request->allowMethod(['post']);
         $contact = $this->ContactUs->get($id);
         $contact->work_status = 1;
@@ -109,33 +111,7 @@ class ContactUsController extends AppController
             exit;
         }
     }
-    public function reject($id = null)
-    {
-        $this->request->allowMethod(['post']);
-        $contact = $this->ContactUs->get($id);
-        $contact->work_status = 2;
-        $email = $contact->email;
-        $name = $contact->name;
 
-        if ($this->ContactUs->save($contact)) {
-            $mailer = new Mailer('default');
-            $mailer->setTransport('gmail'); //your email configuration name
-            $mailer->setFrom(['kunal02chd@gmail.com' => 'Code The Pixel']);
-            $mailer->setTo($email);
-            $mailer->setEmailFormat('html');
-            $mailer->setSubject('Team DoorDekho.com');
-            $mailer->deliver("<h3>hello Mr/Mrs $name .</h3>
-            <p>I hope this email finds you well.</p>
-            <p>I’m sorry to hear that your project has been cancelled. I’m sure we’ll find a way to work together again in the future.</p>
-            <p>Please let me know if there’s anything else I can help you .</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
-            ");
-            echo json_encode(array(
-                "status" => 1,
-                "message" => 'this message has been send',
-            ));
-            exit;
-        }
-    }
     public function deleteContactus($id = null)
     {
         $this->request->allowMethod(['post']);

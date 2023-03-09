@@ -733,7 +733,9 @@ $(document).ready(function () {
             email: {
                 required: true,
                 email: true,
+
                 noSpace: true,
+
             },
             password: {
                 required: true,
@@ -1335,6 +1337,7 @@ $(document).ready(function () {
                 success: function (response) {
 
                     var data = JSON.parse(response);
+                    console.log(data);
                     if (data["status"] == 0) {
                         alert(data["message"]);
                     } else {
@@ -1366,6 +1369,7 @@ $(document).on("click", ".editLead", function () {
             $("#leadid").val(user["id"]);
             $(".name").val(user["name"]);
             $(".price").val(user["price"]);
+            $(".stages").val(user["stages"]);
             $(".work_title").val(user["work_title"]);
             $(".contact").val(user["lead_contact"]["contact"]);
 
@@ -1373,6 +1377,7 @@ $(document).on("click", ".editLead", function () {
         },
     });
 });
+
 
 
 
@@ -1444,7 +1449,7 @@ $(document).ready(function () {
                 success: function (response) {
                     var data = JSON.parse(response);
                     $('.lead').load('/leads/index .lead')
-                    swal("Good job!", "User details Has been updated!", "success");
+                    swal("Updated!", "Lead details Has been updated Successfully!", "success");
                     $('#editLeadModal').hide();
                     $('.modal-backdrop').hide();
 

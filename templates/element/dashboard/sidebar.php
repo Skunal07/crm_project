@@ -5,13 +5,13 @@
         <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
             <!-- <img src="/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo"> -->
             <?php
-            $image=$user->user_profile->profile_image;
+            $image = $user->user_profile->profile_image;
             ?>
-            <img src="/img/<?= $image ?>" class="navbar-brand-img h-100" >
-            <span class="ms-1 font-weight-bold">Welcome <?php
-           
-            echo $user->user_profile["first_name"].' '.$user->user_profile["last_name"];
-            ?></span>
+            <img src="/img/<?= $image ?>" class="navbar-brand-img rounded h-100">
+            <span class="ms-1 font-weight-bold"><?php
+
+                                                echo $user->user_profile["first_name"] . ' ' . $user->user_profile["last_name"];
+                                                ?></span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -25,7 +25,7 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
-            <?php if($user->role == 1){ ?>
+            <?php if ($user->role == 1) { ?>
 
                 <li class="nav-item">
                     <a class="nav-link " href="/users/users_list">
@@ -35,7 +35,7 @@
                         <span class="nav-link-text ms-1">Users</span>
                     </a>
                 </li>
-                <?php }?>
+            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link " href="/categories">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">

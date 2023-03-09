@@ -1,5 +1,5 @@
-<?php $page = substr( $_SERVER['REQUEST_URI'],strrpos($_SERVER['REQUEST_URI'],"/")+1); ?>
-<?=$page=="dashboard"?'active bg-gradient-primary':''; ?>
+<?php $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1); ?>
+<?= $page == "dashboard" ? 'active bg-gradient-primary' : ''; ?>
 <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
@@ -10,22 +10,22 @@
                     <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
                 </ol>
                 <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php echo $page ?></h6>
-                
+
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                     <div class="input-group">
                         <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                        <input type="text" class="form-control"id="key" placeholder="Type here...">
+                        <input type="text" class="form-control" id="key" placeholder="Type here...">
                     </div>
-                
+
                 </div>
                 <ul class="navbar-nav  justify-content-end">
                     <li class="nav-item d-flex align-items-center">
-                        <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                        <a href="/users/logout" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
-                            
-                            <span class="d-sm-inline d-none">Sign In</span>
+
+                            <span class="d-sm-inline d-none">Sign Out</span>
                         </a>
                     </li>
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -47,7 +47,7 @@
                             <i class="fa fa-bell fa-lg cursor-pointer"></i><?php if ($count != null) {  ?><sup class="text-white bg-danger  px-1 rounded"><?= $count ?></sup><?php } ?>
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                            <?php if($count == null){
+                            <?php if ($count == null) {
                                 echo 'No Message Yet';
                             }
                             foreach ($contactus as $list) { ?>
@@ -67,7 +67,7 @@
                                                 </p>
                                             </div>
                                         </div>
-                                    </buttons>
+                                        </buttons>
                                 </li>
                             <?php  } ?>
                         </ul>
@@ -84,12 +84,12 @@
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,
                 },
-                url: "/users/notification/"+id,
+                url: "/users/notification/" + id,
                 type: "JSON",
                 method: "POST",
-                data:id,
+                data: id,
                 success: function(response) {
-$('#count').load('/users/dashboard #count')
+                    $('#count').load('/users/dashboard #count')
                 },
             });
 

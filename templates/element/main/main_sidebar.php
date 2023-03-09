@@ -9,11 +9,11 @@
          <div class="share">
              <h2>Get in touch</h2>
              <?= $this->Form->create() ?>
-             <?php echo $this->Form->control('name', ['class' => 'form-control', 'placeholder' => 'Enter your name']); ?>
-             <?php echo $this->Form->control('email', ['class' => 'form-control', 'placeholder' => 'Enter your email']); ?>
-             <?php echo $this->Form->control('phone', ['class' => 'form-control', 'placeholder' => 'Enter your Mobile Number']); ?>
+             <?php echo $this->Form->control('name', ['class' => 'form-control', 'required', 'placeholder' => 'Enter your name']); ?>
+             <?php echo $this->Form->control('email', ['class' => 'form-control','required', 'placeholder' => 'Enter your email']); ?>
+             <?php echo $this->Form->control('phone', ['class' => 'form-control','required', 'placeholder' => 'Enter your Mobile Number']); ?>
              <label for="select">Query Type</label>
-             <select class="form-select form-control" name="query_type" id="query_type" aria-label="Default select">
+             <select class="form-select form-control" name="query_type" id="query_type" required aria-label="Default select">
                  <option class="bg-secondary" value="0" disabled selected>--Select--</option>
                  <option class="bg-secondary" value="Doors">Doors</option>
                  <option class="bg-secondary" value="Windows">Windows</option>
@@ -21,9 +21,9 @@
                  <option class="bg-secondary" value="Repair Doors & Windows">Repair Doors & Windows</option>
                  <option class="bg-secondary" value="Others">Others</option>
              </select>
-             <?php echo $this->Form->control('message', ['rows' => '5', 'cols' => '30', 'type' => 'textarea', 'class' => 'form-control', 'placeholder' => 'Write your message']); ?>
+             <?php echo $this->Form->control('message', ['rows' => '5', 'cols' => '30', 'required', 'type' => 'textarea', 'class' => 'form-control', 'placeholder' => 'Write your message']); ?>
              <div class="form-group form-check">
-                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                 <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
                  <label class="form-check-label" for="exampleCheck1">I agree to these Terms and Conditions.</label>
              </div>
              <?= $this->Form->button(__('submit'), ['class' => 'btn btn-primary btn-block']) ?>

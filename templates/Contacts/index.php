@@ -77,7 +77,11 @@
 
 
                     <td class="align-middle text-center">
-                      <p> <?= ($contact->company->company_name) ?></p>
+                      <p> <?php  if($contact->company_id!= null){
+                        echo $contact->company->company_name;
+                      }else{
+                        echo '--';
+                      } ?></p>
                     </td>
                     <td class="align-middle text-center">
                       <p> <?= ($contact->user->user_profile['first_name']) ?> <?= ($contact->user->user_profile['last_name']) ?></p>

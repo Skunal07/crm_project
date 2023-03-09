@@ -17,7 +17,7 @@ class UsersController extends AppController
 {
     public function initialize(): void
     {
-        $this->loadComponent('Authentication.Authentication');
+          $this->loadComponent('Authentication.Authentication');
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
@@ -82,24 +82,33 @@ class UsersController extends AppController
 
     public function dashboard()
     {
-        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
-        $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
-        $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0]);
-        $totallost = $this->Leads->find('all')->where(['stages' => 0, 'delete_status' => 0]);
-        $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
-        $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
-        $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4])->order(['id' => 'DESC']);
-
-        $i = 0;
-        foreach ($contactus as $a) {
-            $i++;
-        }
-        $count = $i;
         $result = $this->Authentication->getIdentity();
         $uid = $result->id;
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
+        if($result->role ==1){
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
+        $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0]);
+        $totallost = $this->Leads->find('all')->where(['stages' =>3, 'delete_status' => 0]);
+        $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
+        $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
+        $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4])->order(['id' => 'DESC']);
+    }else{
+            $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+            $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
+            $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0,'user_id'=>$uid]);
+            $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0,'user_id'=>$uid]);
+            $totallead = $this->Leads->find('all')->where(['delete_status' => 0,'user_id'=>$uid]);
+            $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0,'user_id'=>$uid]);
+            $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4,'user_id'=>$uid])->order(['id' => 'DESC']);
+        }
+        $i = 0;
+        foreach ($contactus as $a) {
+            $i++;
+        }
+        $count = $i;
         $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost', 'category', 'leads'));
     }
 

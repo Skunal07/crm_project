@@ -15,21 +15,6 @@
                 </tr>
               </thead>
               <tbody>
-               
-                <?php
-                // print_r($products);die;
-                $i=1;
-                foreach ($leads as $lead) :
-                  if ($lead->delete_status == 1) {
-                    continue;
-                  }
-                ?>
-                  <tr id="data<?= $lead->id ?>">
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                    </td>
-
-
     <?php
     // print_r($products);die;
     $i = 1;

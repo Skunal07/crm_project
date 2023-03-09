@@ -57,7 +57,7 @@ class UsersController extends AppController
             if ($this->ContactUs->save($contactU)) {
                 $mailer = new Mailer('default');
                 $mailer->setTransport('gmail'); //your email configuration name
-                $mailer->setFrom(['kunal02chd@gmail.com' => 'Code The Pixel']);
+                $mailer->setFrom(['kunal02chd@gmail.com' => 'Team Doors Dekho']);
                 $mailer->setTo($email);
                 $mailer->setEmailFormat('html');
                 $mailer->setSubject('Team DoorDekho.com');
@@ -66,9 +66,11 @@ class UsersController extends AppController
                 <p>Our Team Contact you Soon.</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
                 ");
                 $this->Flash->success(__('The contact u has been saved.'));
+
                 return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
         }
 
         $productc = $this->Categories->find('all')->where(['delete_status' => 0]);
@@ -169,7 +171,7 @@ class UsersController extends AppController
             $user->added_by = $uid;
             $user->users_id = $uid;
             if ($this->Users->save($user)) {
-                
+
                 echo json_encode(array(
                     "status" => 1,
                     "message" => "staff has been created"
@@ -188,14 +190,14 @@ class UsersController extends AppController
 
     public function login()
     {
-        if($this->Authentication->getIdentity()){
+        if ($this->Authentication->getIdentity()) {
             $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
             return $this->redirect($redirect);
         }
         $this->viewBuilder()->setLayout("login");
 
         $this->request->allowMethod(['get', 'post']);
-        
+
         $result = $this->Authentication->getResult();
         if ($result && $result->isValid()) {
             $email = $this->request->getData('email');
@@ -209,7 +211,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('Your Account Deactivate Please Contact Us Customer Care'));
                 $redirect = $this->request->getQuery('redirect', ['controller' => 'users', 'action' => 'logout',]);
             } else {
-            $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
+                $redirect = $this->request->getQuery('redirect', ['action' => 'dashboard',]);
             }
 
             return $this->redirect($redirect);
@@ -249,7 +251,7 @@ class UsersController extends AppController
             if ($this->ContactUs->save($contactU)) {
                 $mailer = new Mailer('default');
                 $mailer->setTransport('gmail'); //your email configuration name
-                $mailer->setFrom(['kunal02chd@gmail.com' => 'Code The Pixel']);
+                $mailer->setFrom(['kunal02chd@gmail.com' => 'Team Doors Dekho']);
                 $mailer->setTo($email);
                 $mailer->setEmailFormat('html');
                 $mailer->setSubject('Team DoorDekho.com');
@@ -258,6 +260,7 @@ class UsersController extends AppController
                 <p>Our Team Contact you Soon.</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
                 ");
                 $this->Flash->success(__('The contact u has been saved.'));
+
                 return $this->redirect(['action' => 'viewProduct', $id]);
             }
             $this->Flash->error(__('The contact u could not be saved. Please, try again.'));

@@ -40,7 +40,11 @@
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->query_type) ?></span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->message) ?></span>
+                                            <span class="text-secondary text-xs font-weight-bold"><?php if($contactU->message != null){
+                                                echo ($contactU->message);
+                                            }else{
+                                                echo '--';
+                                            } ?></span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>

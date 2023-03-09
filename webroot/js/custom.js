@@ -738,7 +738,9 @@ $(document).ready(function () {
             email: {
                 required: true,
                 email: true,
-                 noSpace: true,
+
+                noSpace: true,
+
             },
             password: {
                 required: true,

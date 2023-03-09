@@ -50,6 +50,7 @@
                                                                                                     } else {
                                                                                                         echo '--';
                                                                                                     } ?></span>
+
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>

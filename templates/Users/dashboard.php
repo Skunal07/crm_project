@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Approved</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Project</p>
                                 <h5 class="font-weight-bolder">
                                     <?php $j = 0;
                                     foreach ($totallead as $lead) {
@@ -246,11 +246,11 @@
                                     <div class="d-flex flex-column">
 
                                         <h6 class="mb-1 text-dark text-sm"><?= $cat->category_name ?></h6>
-                                        <?php $i = 0;
+                                        <?php $no = 0;
                                         foreach ($cat->products as $p) {
-                                            $i++;
+                                            $no++;
                                         } ?>
-                                        <span class="text-xs"><?= $i ?> in stock</span>
+                                        <span class="text-xs"><?= $no ?> in stock</span>
 
                                     </div>
                                 </div>
@@ -279,7 +279,7 @@
                     ['sales', 'Hours per Day'],
                     ['ContactUs', <?= $i ?>],
                     ['Lost ', <?= $k ?>],
-                    ['Approved', <?= $j ?>],
+                    ['Project', <?= $j ?>],
                     ['Won', <?= $l ?>],
 
                 ]);

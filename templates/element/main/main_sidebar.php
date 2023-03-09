@@ -26,6 +26,8 @@
              <div class="form-group form-check">
                  <input type="checkbox" class="form-check-input" name="checkbox" id="checkbox">
                  <label class="form-check-label" for="exampleCheck1">I agree to these Terms and Conditions.</label>
+
+
              </div>
              <?= $this->Form->button(__('submit'), ['class' => 'btn btn-primary btn-block contactus']) ?>
              <?= $this->Form->end() ?>

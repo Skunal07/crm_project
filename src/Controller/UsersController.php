@@ -13,6 +13,7 @@ use Cake\Utility\Security;
 use App\Controller\View;
 
 
+
 class UsersController extends AppController
 {
     public function initialize(): void
@@ -50,6 +51,8 @@ class UsersController extends AppController
 
 
         $contactU = $this->ContactUs->newEmptyEntity();
+
+
         if ($this->request->is('post')) {
             $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
             $email = $contactU->email;

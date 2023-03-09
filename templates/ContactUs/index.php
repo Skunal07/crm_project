@@ -5,6 +5,11 @@
                 <div class="card-header pb-0">
                     <h5>Contact Us Request</h5>
                 </div>
+                <div class="text-center spinner" style="display: none;">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0 productss">
                         <table class="table align-items-center mb-0">
@@ -27,7 +32,7 @@
                                     }
                                 ?>
                                     <tr>
-                                    <td class="align-middle text-center">
+                                        <td class="align-middle text-center">
                                             <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
                                         </td>
                                         <td class="align-middle text-center">
@@ -40,7 +45,11 @@
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->query_type) ?></span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->message) ?></span>
+                                            <span class="text-secondary text-xs font-weight-bold"><?php if ($contactU->message) {
+                                                                                                        echo $contactU->message;
+                                                                                                    } else {
+                                                                                                        echo '--';
+                                                                                                    } ?></span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>
@@ -50,6 +59,7 @@
                                                                         echo '<span class="btn btn-success ml-3">Replyed</span>';
                                                                     } else { ?>
                                                 <a href="javascript:void(0)" class="response btn btn-dark" data-id="<?= $contactU->id ?>">Reply</a>
+
                                                 <a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="<?= $contactU->id ?>">Delete</a>
                                             <?php } ?>
                                         </td>

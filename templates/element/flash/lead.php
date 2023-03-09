@@ -1,35 +1,19 @@
-
 <table class="table align-items-center mb-0 lead">
-              <thead>
-                <tr>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">S.no</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price($)</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Work Title</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progress Stages</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created Date</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modified Date</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-               
-                <?php
-                // print_r($products);die;
-                $i=1;
-                foreach ($leads as $lead) :
-                  if ($lead->delete_status == 1) {
-                    continue;
-                  }
-                ?>
-                  <tr id="data<?= $lead->id ?>">
-                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                    </td>
-
-
+  <thead>
+    <tr>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">S.no</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price($)</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Work Title</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progress Stages</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created Date</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modified Date</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+    </tr>
+  </thead>
+  <tbody>
     <?php
     // print_r($products);die;
     $i = 1;
@@ -64,7 +48,8 @@
                                                                   echo 'Lost';
                                                                 } else if ($lead->stages == 4) {
                                                                   echo 'Completed';
-                                                                }  ?> </span>
+                                                                }
+                                                                ?> </span>
         </td>
         <td class="align-middle text-center">
           <span class="text-secondary text-xs font-weight-bold"><?= h($lead->lead_contact->contact) ?></span>

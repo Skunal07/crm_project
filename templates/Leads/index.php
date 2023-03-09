@@ -34,9 +34,6 @@
               <div class="modal-body">
 
                 <?php
-
-
-
                 echo $this->Form->control('name', ['class' => 'form-control']);
                 ?>
                 <br>

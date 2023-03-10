@@ -43,10 +43,10 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count">
-                        <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-bell fa-lg cursor-pointer"></i><?php if ($count != null) {  ?><sup class="text-white bg-danger  px-1 rounded"><?= $count ?></sup><?php } ?>
                         </a>
-                        <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                        <ul class="dropdown-menu list-group table-responsive dropdown-menu-end notify px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                             <?php if ($count == null) {
                                 echo 'No Message Yet';
                             }
@@ -58,8 +58,8 @@
                                                 <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New Request</span> for <?= $list->query_type ?>
+                                                <h6 class="text-sm font-weight-normal text-dark mb-1">
+                                                    <span class="font-weight-bold ">New Request</span> for <?= $list->query_type ?>
                                                 </h6>
                                                 <p class="text-xs text-secondary mb-0">
                                                     <i class="fa fa-clock me-1"></i>

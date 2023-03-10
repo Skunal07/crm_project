@@ -169,6 +169,7 @@ class LeadsController extends AppController
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
         // $data = $this->Leads->find('all')->w;
+
         $data = $this->Leads->find('all');
         
         $this->viewBuilder()
@@ -221,6 +222,7 @@ class LeadsController extends AppController
         }
         $this->Flash->success('CSV imported successfully.');
     }
+
     }
    
 }

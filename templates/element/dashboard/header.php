@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="/img/favicon.png">
     <title>
 
-        DoorDekho.com
+        DoorsDekho.com
 
     </title>
     <!--     Fonts and icons     -->

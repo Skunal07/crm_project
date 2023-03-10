@@ -1521,8 +1521,6 @@ $(document).on("click", ".btn-delete-lead", function () {
 });
 
 
-
-
 //-------------------------------------Serch function---------------------------------------//
 
 $(document).ready(function () {

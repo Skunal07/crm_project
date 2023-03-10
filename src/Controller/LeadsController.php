@@ -171,11 +171,13 @@ class LeadsController extends AppController
         // $data = $this->Leads->find('all')->w;
         $data = $this->Leads->find('all')->where(['Leads.delete_status' => 0]);
         foreach ($data as $value) {
-            $dat[] = $value->name;
+            $dat[] = $value;
         }
+
+        $header = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5', 'Column 6', 'Column 7', 'Column 8', 'Column 9'];
         $this->set(compact('dat'));
         $this->viewBuilder()
             ->setClassName('CsvView.Csv')
-            ->setOption('serialize', 'dat');
+            ->setOption('serialize', 'dat', $header);
     }
 }

@@ -13,6 +13,7 @@ use Cake\Utility\Security;
 use App\Controller\View;
 
 
+
 class UsersController extends AppController
 {
     public function initialize(): void
@@ -50,7 +51,45 @@ class UsersController extends AppController
 
 
         $contactU = $this->ContactUs->newEmptyEntity();
+
+
         if ($this->request->is('post')) {
+
+            $response = array(
+                'status' => 0,
+                'message' => ''
+            );
+            // Validate recaptcha
+            $requestData = $this->request->getData();
+            if (!isset($requestData['g-recaptcha-response'])) {
+                $response['status'] = 0;
+                $response['message'] = "Error in Google reCAPTACHA";
+                echo json_encode($response);
+                exit;
+            }
+            $recaptcha = $_POST['g-recaptcha-response'];
+            $secret_key = '6LdrauskAAAAAJxRRsWtJd_8_Nd0BquTCBPrckMk';
+
+            $url = 'https://www.google.com/recaptcha/api/siteverify?secret='
+                . $secret_key . '&response=' . $recaptcha;
+
+            // Making request to verify captcha
+            $response = file_get_contents($url);
+
+            // Response return by google is in
+            // JSON format, so we have to parse
+            // that json
+            $response = json_decode($response);
+
+            // Checking, if response is true or not
+            if ($response->success != true) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Error in Google reCAPTACHA",
+                ));
+                exit;
+            }
+
             $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
             $email = $contactU->email;
             $name = $contactU->name;

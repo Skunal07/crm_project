@@ -19,6 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="/font/icomoon/style.css">
 
     <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -57,7 +58,6 @@
 </head>
 
 <body>
-
     <?php echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
     <script>
         var csrfToken = $('meta[name="csrfToken"]').attr('content');

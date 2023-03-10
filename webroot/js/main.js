@@ -79,7 +79,7 @@ $(document).ready(function () {
 });
 var ALPHA_REGEX = "[a-zA-Z_ ]*";
 $(document).ready(function () {
-
+  
     $("#contactusform").validate({
         rules: {
             email: {
@@ -98,10 +98,9 @@ $(document).ready(function () {
 				 required: true,
 				 minlength: 10,
 				 maxlength: 10,
-				},
-				checkbox: {
-					required: true,
-			}
+            },
+            
+				
 
         },
         messages: {
@@ -120,33 +119,41 @@ $(document).ready(function () {
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
 			},
-			checkbox: {
-				required: "Please Accept Terms & Condition",
-			}
+		
           
         },
         submitHandler: function (form) {
-            $('.gif-loader').show();
-            var formData = $(form).serialize();
+            if (grecaptcha.getResponse() == "") {
+                $('#cptcha-checkbox').html('please check this feild');
+                $('#cptcha-checkbox').show();
+                return false
+            } else {
+                $('#cptcha-checkbox').hide();
+                
+         
+                $('.gif-loader').show();
+                var formData = $(form).serialize();
             
-            $.ajax({
-                headers: {
-                    "X-CSRF-TOKEN": csrfToken,
-                },
-                url: "/users/index",
-                type: "JSON",
-                method: "POST",
-                data: formData,
-                success: function (response) {
-                    var data = JSON.parse(response);
-					console.log(data)
-                    swal("Submitted!", "Your details Has been Submitted Successfully!", "success");
-                    $('.gif-loader').hide();
-                    // $("#staff_update").load("/users/users_list #staff_update");
-                    // $('#updateDetails').hide();
-                    // $('.modal-backdrop').hide();
-                },
-            });
+                $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    url: "/users/index",
+                    type: "JSON",
+                    method: "POST",
+                    data: formData,
+                    success: function (response) {
+                        var data = JSON.parse(response);
+                        console.log(data)
+                        swal("Submitted!", "Your details Has been Submitted Successfully!", "success");
+                        $('.gif-loader').hide();
+                        grecaptcha.reset();
+                         $('#contactusform')[0].reset();
+                        // $('#updateDetails').hide();
+                        // $('.modal-backdrop').hide();
+                    },
+                });
+            }
         },
     });
 });

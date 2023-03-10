@@ -1536,3 +1536,48 @@ $(document).ready(function () {
 });
 
 
+
+$(document).ready(function () {
+    $("#newcsv").validate({
+        rules: {
+            importcsv: {
+                required: true,
+            },
+            
+        },
+        messages: {
+            product_name: {
+                required: "Please enter company name ",
+
+            }
+        },
+        submitHandler: function (form) {
+            var formData = new FormData(form);
+            $.ajax({
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                url: "/Leads/import",
+                type: "JSON",
+                method: "POST",
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+
+            //         var data = JSON.parse(response);
+            //         if (data["status"] == 0) {
+            //             // alert(data["message"]);
+            //             $('#AddProductModal').modal('hide');
+            //         } else {
+            //             $('#AddProductModal').modal('hide');
+            // swal("Success!", "Product  Has been Saved!", "success");
+            //             $('.product').load('/products/index .product')
+            //         }
+                },
+            });
+            return false;
+        },
+    });
+});

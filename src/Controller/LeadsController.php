@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Controller;
 
+use Cake\Datasource\ConnectionManager;
 
 class LeadsController extends AppController
 
@@ -169,15 +169,60 @@ class LeadsController extends AppController
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
         // $data = $this->Leads->find('all')->w;
-        $data = $this->Leads->find('all')->where(['Leads.delete_status' => 0]);
-        foreach ($data as $value) {
-            $dat[] = $value;
-        }
 
-        $header = ['Column 1', 'Column 2', 'Column 3', 'Column 4', 'Column 5', 'Column 6', 'Column 7', 'Column 8', 'Column 9'];
-        $this->set(compact('dat'));
+        $data = $this->Leads->find('all');
+        
         $this->viewBuilder()
-            ->setClassName('CsvView.Csv')
-            ->setOption('serialize', 'dat', $header);
+        ->setClassName('CsvView.Csv')
+        ->setOption('serialize', 'data');
+        $this->set(compact('data'));
     }
+    public function import()
+    {
+        if ($this->request->is('ajax')) {
+            // dd($_FILES);
+            $tmpFileName = $_FILES['importcsv']['tmp_name'];
+            $row = 1;
+            if (($handle = fopen($tmpFileName, "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    echo "<pre>";
+                    print_r($data);
+                    echo "</pre>";
+                    // $num = count($data);
+                    // echo "<p> $num fields in line $row: <br /></p>\n";
+                    // $row++;
+                    // for ($c=0; $c < $num; $c++) {
+                    //     echo $data[$c] . "<br />\n";
+                    // }
+                }
+                fclose($handle);
+            }
+        dd("dsfdsfsd..");
+        $csvFile = $this->request->getData('importcsv');
+        dd($csvFile);
+       
+        $csv = array_map('str_getcsv', file($csvFile));
+        dd($csv);
+        foreach ($csv as $row) {
+            $data = [
+                // 'id' => $row[0],
+                'user_id' => $row[1],
+                'company_id' => $row[2],
+                'name' => $row[3],
+                'price' => $row[4],
+                'work_title' => $row[5],
+                'delete_status' => $row[6],
+                'stages' => $row[7],
+                'created_date' => $row[8],
+                'modified_date' => $row[9],
+               
+            ];
+            $this->Leads->newEntity($data);
+            $this->Leads->save($this->Users->newEntity);
+        }
+        $this->Flash->success('CSV imported successfully.');
+    }
+
+    }
+   
 }

@@ -186,7 +186,7 @@
 
 <!--======================= Modal For View Products ==================-->
 <div class="modal fade" id="ViewProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center bg-dark">
                 <h5 class="modal-title text-white" id="exampleModalLabel">Product Details</h5>

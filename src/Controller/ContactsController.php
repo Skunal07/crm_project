@@ -10,11 +10,20 @@ class ContactsController extends AppController
 
     public function index()
     {
+        $user = $this->Authentication->getIdentity();
+        $uid = $user->id;
         $this->paginate = [
             'contain' => ['Companies', 'Users.UserProfile'],
+
         ];
-        $contacts = $this->paginate($this->Contacts);
-        $companies = $this->Companies->find('all');
+        if ($user->role == 1) {
+            $contacts = $this->paginate($this->Contacts);
+            $companies = $this->Companies->find('all');
+        } else {
+            $contacts = $this->Contacts->find('all')->contain(['Companies', 'Users.UserProfile'])->where(['Contacts.user_id' => $uid])->order(['Contacts.id' => 'DESC']);
+            $companies = $this->Companies->find('all');
+        }
+
 
 
         $this->set(compact('contacts', 'companies'));
@@ -23,6 +32,7 @@ class ContactsController extends AppController
 
     public function view($id = null)
     {
+
         $contact = $this->Contacts->get($id, [
             'contain' => ['Companies', 'Users'],
         ]);

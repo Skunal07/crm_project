@@ -395,3 +395,13 @@ nav.navbar-expand-lg.navbar-light.bg-light {
 img.img-fluid.rounded-start.product-img {
   height: 100% !important;
 }
+
+.gif-loader img {
+  position: fixed !important;
+  z-index: 999 !important;
+  top: 350px !important;
+}
+
+.gif-loader {
+  display: none;
+}

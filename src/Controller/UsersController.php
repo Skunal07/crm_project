@@ -13,11 +13,12 @@ use Cake\Utility\Security;
 use App\Controller\View;
 
 
+
 class UsersController extends AppController
 {
     public function initialize(): void
     {
-          $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authentication.Authentication');
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
@@ -50,7 +51,45 @@ class UsersController extends AppController
 
 
         $contactU = $this->ContactUs->newEmptyEntity();
+
+
         if ($this->request->is('post')) {
+
+            $response = array(
+                'status' => 0,
+                'message' => ''
+            );
+            // Validate recaptcha
+            $requestData = $this->request->getData();
+            if (!isset($requestData['g-recaptcha-response'])) {
+                $response['status'] = 0;
+                $response['message'] = "Error in Google reCAPTACHA";
+                echo json_encode($response);
+                exit;
+            }
+            $recaptcha = $_POST['g-recaptcha-response'];
+            $secret_key = '6LdrauskAAAAAJxRRsWtJd_8_Nd0BquTCBPrckMk';
+
+            $url = 'https://www.google.com/recaptcha/api/siteverify?secret='
+                . $secret_key . '&response=' . $recaptcha;
+
+            // Making request to verify captcha
+            $response = file_get_contents($url);
+
+            // Response return by google is in
+            // JSON format, so we have to parse
+            // that json
+            $response = json_decode($response);
+
+            // Checking, if response is true or not
+            if ($response->success != true) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "Error in Google reCAPTACHA",
+                ));
+                exit;
+            }
+
             $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
             $email = $contactU->email;
             $name = $contactU->name;
@@ -65,12 +104,17 @@ class UsersController extends AppController
                 <p>Your Message has been Submitted Successfully.</p>
                 <p>Our Team Contact you Soon.</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
                 ");
-                $this->Flash->success(__('The contact u has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The contact u could not be saved. Please, try again.'));
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "The User has been saved.",
+                ));
+                exit;
             }
+            echo json_encode(array(
+                "status" => 0,
+                "message" => "The User  could not be saved. Please, try again.",
+            ));
+            exit;
         }
 
         $productc = $this->Categories->find('all')->where(['delete_status' => 0]);
@@ -89,22 +133,22 @@ class UsersController extends AppController
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
-        if($result->role ==1){
-        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
-        $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
-        $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0]);
-        $totallost = $this->Leads->find('all')->where(['stages' =>3, 'delete_status' => 0]);
-        $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
-        $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
-        $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4])->order(['id' => 'DESC']);
-    }else{
+        if ($result->role == 1) {
             $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
             $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
-            $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0,'user_id'=>$uid]);
-            $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0,'user_id'=>$uid]);
-            $totallead = $this->Leads->find('all')->where(['delete_status' => 0,'user_id'=>$uid]);
-            $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0,'user_id'=>$uid]);
-            $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4,'user_id'=>$uid])->order(['id' => 'DESC']);
+            $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0]);
+            $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0]);
+            $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
+            $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
+            $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4])->order(['id' => 'DESC']);
+        } else {
+            $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+            $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
+            $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0, 'user_id' => $uid]);
+            $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0, 'user_id' => $uid]);
+            $totallead = $this->Leads->find('all')->where(['delete_status' => 0, 'user_id' => $uid]);
+            $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0, 'user_id' => $uid]);
+            $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4, 'user_id' => $uid])->order(['id' => 'DESC']);
         }
         $i = 0;
         foreach ($contactus as $a) {

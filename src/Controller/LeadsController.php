@@ -7,22 +7,35 @@ namespace App\Controller;
 
 class LeadsController extends AppController
 
-{ 
+{
 
 
     public function index($id = null)
     {
+        $user = $this->Authentication->getIdentity();
+        $uid = $user->id;
         $this->paginate = [
             'contain' => ['Users.UserProfile', 'LeadContacts'],
         ];
         // $id = $this->request->getQuery('user_id');
+        if ($user->role == 1) {
+            if ($id != null) {
 
-        if($id != null){
-            $leads =$this->Leads->find('all')->contain(['Users.UserProfile','LeadContacts'])->where(['stages'=>$id]);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts'])->where(['stages' => $id]);
 
-            // dd($leads);
+                // dd($leads);
+            } else {
+                $leads = $this->paginate($this->Leads);
+            }
         } else {
-            $leads = $this->paginate($this->Leads);
+            if ($id != null) {
+
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts'])->where(['stages' => $id, 'Leads.user_id' => $uid]);
+
+                // dd($leads);
+            } else {
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts'])->where(['Leads.user_id' => $uid]);
+            }
         }
 
         $this->set(compact('leads'));
@@ -61,9 +74,9 @@ class LeadsController extends AppController
                 $this->Flash->success(__('The Lead has been saved.'));
                 $this->autoRender = false;
                 $this->viewBuilder()->setLayout(null);
-    
+
                 $this->render('/element/flash/lead');
-                
+
 
                 echo json_encode(array(
                     "status" => 1,
@@ -150,5 +163,19 @@ class LeadsController extends AppController
                 exit;
             }
         }
+    }
+
+    public function export()
+    {
+        $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
+        // $data = $this->Leads->find('all')->w;
+        $data = $this->Leads->find('all')->where(['Leads.delete_status' => 0]);
+        foreach ($data as $value) {
+            $dat[] = $value->name;
+        }
+        $this->set(compact('dat'));
+        $this->viewBuilder()
+            ->setClassName('CsvView.Csv')
+            ->setOption('serialize', 'dat');
     }
 }

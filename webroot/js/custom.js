@@ -47,24 +47,23 @@ $(document).ready(function () {
     $("#newcompany").validate({
         rules: {
             company_name: {
-                required: true,
-                regex: ALPHA_REGEX,
-                noSpace:true,
+            required: true,
+            regex: ALPHA_REGEX,
+            noSpace:true,
             },
         },
         messages: {
             company_name: {
                 required: "Please enter company name ",
                 regex: "Please enter characters only",
-
+                
             },
         },
         submitHandler: function (form) {
-
+            
             var formData = $(form).serialize();
 
             // console.log(formData);
-            // return false;
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,
@@ -77,10 +76,12 @@ $(document).ready(function () {
 
                     var data = JSON.parse(response);
                     if (data["status"] == 0) {
-                        alert(data["message"]);
+                        // alert(data["message"]);
                     } else {
                         $('#AddModal').modal('hide');
                         $('#company').load('/companies/index #company')
+            swal("Success!", "Company  Has been saved!", "success");
+
                     }
                 },
             });
@@ -93,6 +94,7 @@ $(document).ready(function () {
 
 $(document).on("click", ".editCompany", function () {
     var user_id = $(this).data("id");
+    
     $.ajax({
         url: "/companies/editCompany",
         data: { id: user_id },
@@ -105,6 +107,7 @@ $(document).on("click", ".editCompany", function () {
 
             $("#companyiddd").val(user["id"]);
             $("#companyname").val(user["company_name"]);
+            swal("Updated!", "Company details Has been updated!", "success");
 
 
 
@@ -147,7 +150,7 @@ $(document).ready(function () {
                     var data = JSON.parse(response);
 
                     $(".table-responsive").load("/companies/index .table-responsive");
-                    swal("Good job!", "User details Has been updated!", "success");
+                    swal("Updated!", "User details Has been updated!", "success");
                     $('#companyEdit').hide();
                     $('.modal-backdrop').hide();
 
@@ -239,6 +242,7 @@ $(document).ready(function () {
                     if (data["status"] == 0) {
                         alert(data["message"]);
                     } else {
+            swal("Success!", "Category  Has been Saved!", "success");
                         $('#AddcategoryModal').modal('hide');
                         $('#category').load('/categories/index #category')
                     }
@@ -305,7 +309,7 @@ $(document).ready(function () {
                     var data = JSON.parse(response);
 
                     $("#category").load("/categories/index #category");
-                    swal("Good job!", "User details Has been updated!", "success");
+                    swal("Updated!", "User details Has been updated!", "success");
                     $('#editcategoryModal').hide();
                     $('.modal-backdrop').hide();
 
@@ -426,10 +430,11 @@ $(document).ready(function () {
 
                     var data = JSON.parse(response);
                     if (data["status"] == 0) {
-                        alert(data["message"]);
+                        // alert(data["message"]);
                         $('#AddProductModal').modal('hide');
                     } else {
                         $('#AddProductModal').modal('hide');
+            swal("Success!", "Product  Has been Saved!", "success");
                         $('.product').load('/products/index .product')
                     }
                 },
@@ -781,8 +786,10 @@ $(document).ready(function () {
             'user_profile[first_name]': {
                 required: " Please enter first Name",
                 minlength: "Name need to be at least 2 characters long",
+                regex: "Please enter characters only"
             },
             'user_profile[last_name]': {
+                minlength: "Name need to be at least 2 characters long",
                 required: " Please enter last Name",
                 regex: "Please enter characters only"
             },
@@ -790,7 +797,7 @@ $(document).ready(function () {
                 required: " Please enter address ",
             },
             'user_profile[contact]': {
-                required: " Please enter phone no ",
+                required: " Please enter Phone Number ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only"
@@ -814,6 +821,7 @@ $(document).ready(function () {
                         $('#addstaff').hide();
                         $('.modal-backdrop').remove();
                         $('#staff_update').load('/users/users_list  #staff_update');
+                        swal("Success!", "Staff  Has been Saved!", "success");
                     }else{
                         $('#error_email').html("Email Already in Use"); 
                     }
@@ -831,18 +839,22 @@ $(document).ready(function () {
 $(document).on("click", ".response", function () {
     // alert('dgkhdfhg');
     var user_id = $(this).data("id");
-
-    $.ajax({
-        headers: {
-            "X-CSRF-TOKEN": csrfToken,
-        },
-        url: "/contactUs/response/" + user_id,
-        data: { user_id },
-        type: "JSON",
-        method: "post",
-        success: function (response) {
-            console.log(response)
-            $('.productss').load('/contactUs/index .productss')
+                        $('.spinner').show();
+                        
+                        
+                        $.ajax({
+                            headers: {
+                                "X-CSRF-TOKEN": csrfToken,
+                            },
+                            url: "/contactUs/response/" + user_id,
+                            data: { user_id },
+                            type: "JSON",
+                            method: "post",
+                            success: function (response) {
+                                console.log(response)
+                                $('.productss').load('/contactUs/index .productss')
+                                $('.spinner').hide();
+                        swal("SENT!", "Mail has been sent!", "success");
 
         }
     });
@@ -1027,16 +1039,18 @@ $(document).ready(function () {
             'user_profile[first_name]': {
                 required: " Please enter first Name",
                 minlength: "Name need to be at least 2 characters long",
+                regex: "Please enter characters only"
             },
             'user_profile[last_name]': {
                 required: " Please enter last Name",
+                minlength: "Name need to be at least 2 characters long",
                 regex: "Please enter characters only"
             },
             'user_profile[address]': {
                 required: " Please enter address ",
             },
             'user_profile[contact]': {
-                required: " Please enter phone no ",
+                required: " Please enter Phone Number ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only"
@@ -1097,13 +1111,13 @@ $(document).ready(function () {
         },
         messages: {
             email: {
-                required: "Please enter email  ",
+                required: "Please enter Email  ",
             },
             address: {
-                required: "Please enter email  ",
+                required: "Please enter Address  ",
             },
             phone: {
-                required: " Please enter phone no ",
+                required: " Please enter Phone Number ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
             },
@@ -1125,10 +1139,12 @@ $(document).ready(function () {
 
                     var data = JSON.parse(response);
                     if (data["status"] == 0) {
-                        alert(data["message"]);
+                        swal("Error", "There is Some Problem to Save Contact!", "error");
                     } else {
                         $('#AddContact').modal('hide');
                         $('#contact').load('/contacts/index #contact')
+                        swal("Success!", "Contact has been saved!", "success");
+
                     }
                 },
             });
@@ -1191,13 +1207,13 @@ $(document).ready(function () {
         },
         messages: {
             email: {
-                required: "Please enter email  ",
+                required: "Please enter Email  ",
             },
             address: {
-                required: "Please enter email  ",
+                required: "Please enter Address  ",
             },
             phone: {
-                required: " Please enter phone no ",
+                required: " Please enter Phone Number ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
             },
@@ -1215,7 +1231,7 @@ $(document).ready(function () {
                 success: function (response) {
                     var data = JSON.parse(response);
                     $(".contact").load("/contacts/index .contact");
-                    swal("Good job!", "User details Has been updated!", "success");
+                    swal("Updated!", "User details Has been updated!", "success");
                     $('#contactEdit').hide();
                     $('.modal-backdrop').hide();
 
@@ -1312,7 +1328,7 @@ $(document).ready(function () {
 
             },
             'lead_contact[contact]': {
-                required: " Please enter phone no ",
+                required: " Please enter Phone Number ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only",
@@ -1337,12 +1353,16 @@ $(document).ready(function () {
                     var data = JSON.parse(response);
                     console.log(data);
                     if (data["status"] == 0) {
-                        alert(data["message"]);
+                        // alert(data["message"]);
+                        swal("Error!", "There is some problem!", "error");
+
                     } else {
                         $('#AddLeadModal').modal('hide');
                         $('#AddLeadModal form')[0].reset();
                         // $(this).find('form').trigger('reset');
                         $('.lead').load('/leads/index .lead')
+                        swal("Success!", "Lead has been saved!", "success");
+
                     }
                 },
             });
@@ -1427,7 +1447,7 @@ $(document).ready(function () {
 
             },
             'lead_contact[contact]': {
-                required: " Please enter phone no ",
+                required: " Please enter Phone Number ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only",

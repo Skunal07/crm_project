@@ -26,10 +26,10 @@
                  <option class="bg-secondary" value="Others">Others</option>
              </select>
              <?php echo $this->Form->control('message', ['rows' => '5', 'cols' => '30', 'type' => 'textarea', 'class' => 'form-control', 'placeholder' => 'Write your message']); ?>
-<<<<<<< HEAD
+
              <span id="cptcha-checkbox" class="error"></span>
              <div id="html_element"></div>
-=======
+             <!-- =======
 
              <label id="checkbox-error" class="error" for="checkbox"></label>
 
@@ -37,7 +37,7 @@
                  <input type="checkbox" class="form-check-input" name="checkbox" id="checkbox">
                  <label class="form-check-label" for="exampleCheck1">I agree to these Terms and Conditions.</label>
              </div>
->>>>>>> efa65220eb40bc90cba7f6d5a764f68a9eb64603
+>>>>> -->
              <?= $this->Form->button(__('submit'), ['class' => 'btn btn-primary btn-block contactus']) ?>
              <?= $this->Form->end() ?>
          </div>

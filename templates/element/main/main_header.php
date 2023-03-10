@@ -36,7 +36,7 @@
 
     <!-- <link rel="stylesheet" href="css/style.css"> -->
 
-    <title>Door Dekho</title>
+    <title>DoorsDekho.com</title>
     <style>
         .header {
             padding: 10px 16px;

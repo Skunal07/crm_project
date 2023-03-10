@@ -26951,4 +26951,8 @@ ul.pagination li a {
   justify-content: center !important;
 }
 
+ul.dropdown-menu.list-group.table-responsive.dropdown-menu-end.px-2.py-3.me-sm-n4.show {
+  height: 300px !important;
+}
+
 /* # sourceMappingURL=dashboard-free.css.map */

@@ -164,4 +164,18 @@ class LeadsController extends AppController
             }
         }
     }
+
+    public function export()
+    {
+        $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
+        // $data = $this->Leads->find('all')->w;
+        $data = $this->Leads->find('all')->where(['Leads.delete_status' => 0]);
+        foreach ($data as $value) {
+            $dat[] = $value->name;
+        }
+        $this->set(compact('dat'));
+        $this->viewBuilder()
+            ->setClassName('CsvView.Csv')
+            ->setOption('serialize', 'dat');
+    }
 }

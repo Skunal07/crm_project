@@ -172,19 +172,12 @@ class LeadsController extends AppController
         // $data = $this->Leads->find('all')->w;
 
         $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
-        // dd($data);
-        // foreach ($data as $row) {
-        //     $row['name'];
-        //     $row['price'];
-        //     $row['work_title'];
-        //     $row['user_id'];
-        //     $row['lead_contact']['contact'];
-        // }
-
-        $this->viewBuilder()
-            ->setClassName('CsvView.Csv')
-            ->setOption('serialize', 'data');
-        $this->set(compact('data'));
+        $_serialize = 'data';
+        $_header = ['ID', 'Name', 'Added by', 'Price', 'Worked Title', 'Contact'];
+        $_extract = ['id', 'name', 'user_id', 'price', 'work_title', 'lead_contact.contact'];
+    
+        $this->viewBuilder()->setClassName('CsvView.Csv');
+        $this->set(compact('data', '_serialize', '_header', '_extract'));
     }
 
 
@@ -193,29 +186,41 @@ class LeadsController extends AppController
     {
         if ($this->request->is('ajax')) {
             // dd($_FILES);
+            // $csvFile = $this->request->getData('importcsv');
+            // $filename = $csvFile->getClientFilename();
             $tmpFileName = $_FILES['importcsv']['tmp_name'];
-            $this->viewBuilder()->setClassName("Json");
+            // $imagepath = WWW_ROOT . 'csv/' . $filename;
+                        // $csvFile->moveTo($imagepath);
             $row = 1;
             if (($handle = fopen($tmpFileName, "r")) !== FALSE) {
-                while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    $data = [
-                        // 'id' => $row[0],
-                        'user_id' => $row[1],
-                        'name' => $row[2],
-                        'price' => $row[3],
-                        'work_title' => $row[4],
-                        // 'lead_contact.lead_id' => 5,
-                    ];
-
-                    // $data = ['lead_contact.lead_id' => 16];
+                while (!feof($handle)) {
+                    $rowData[] = fgetcsv($handle);
                 }
-                $lead = $this->Leads->newEntity($data);
-                // dd($lead);
-                $this->Leads->save($lead);
-                fclose($handle);
+                foreach($rowData as $row){
+                        $lead = $this->Leads->newEntity();
+                        $data = [
+                        // 'id' => $row[0],
+                        'name' => $row[1],
+                        'user_id' => $row[2],
+                            'price' => $row[3],
+                            'work_title' => $row[4],
+                            'lead_contact.contact' =>  $row[5],
+                        ];
+                        
+                        // $data = ['lead_contact.lead_id' => 16];
+            $lead = $this->Leads->patchEntity($lead, $data);
+
+                        if($this->Leads->save($lead)){
+                            echo json_encode(array(
+                                "status" => 1,
+                                "message" => "The Lead has been inserted."
+                            ));
+                            exit;
+                        }
+                    }
+                        fclose($handle);
             }
             // dd($handle);
-            // $csvFile = $this->request->getData('importcsv');
             // dd($csvFile);
 
             // $csv = array_map('str_getcsv', file($csvFile));

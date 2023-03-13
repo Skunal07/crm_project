@@ -51,9 +51,7 @@ class CompaniesTable extends Table
         $this->hasMany('Contacts', [
             'foreignKey' => 'company_id',
         ]);
-        $this->hasMany('Leads', [
-            'foreignKey' => 'company_id',
-        ]);
+     
     }
 
     /**

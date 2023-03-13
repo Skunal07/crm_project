@@ -169,8 +169,7 @@ class LeadsController extends AppController
     public function export()
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
-        // $data = $this->Leads->find('all')->w;
-
+       
         $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
         $_serialize = 'data';
         $_header = ['ID', 'Name', 'Added by', 'Price', 'Worked Title', 'Contact'];
@@ -178,6 +177,7 @@ class LeadsController extends AppController
     
         $this->viewBuilder()->setClassName('CsvView.Csv');
         $this->set(compact('data', '_serialize', '_header', '_extract'));
+
     }
 
 
@@ -196,29 +196,18 @@ class LeadsController extends AppController
                 while (!feof($handle)) {
                     $rowData[] = fgetcsv($handle);
                 }
-                foreach($rowData as $row){
-                        $lead = $this->Leads->newEntity();
-                        $data = [
-                        // 'id' => $row[0],
-                        'name' => $row[1],
-                        'user_id' => $row[2],
-                            'price' => $row[3],
-                            'work_title' => $row[4],
-                            'lead_contact.contact' =>  $row[5],
-                        ];
-                        
-                        // $data = ['lead_contact.lead_id' => 16];
-            $lead = $this->Leads->patchEntity($lead, $data);
 
-                        if($this->Leads->save($lead)){
-                            echo json_encode(array(
-                                "status" => 1,
-                                "message" => "The Lead has been inserted."
-                            ));
-                            exit;
-                        }
-                    }
-                        fclose($handle);
+                $lead = $this->Leads->newEntity($data);
+                // dd($lead);
+                if ($this->Leads->save($lead)) {
+                    echo json_encode(array(
+                        "status" => 1,
+                        "message" => "The Lead has been inserted."
+                    ));
+                    exit;
+                }
+                fclose($handle);
+
             }
             // dd($handle);
             // dd($csvFile);

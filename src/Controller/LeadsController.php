@@ -169,15 +169,14 @@ class LeadsController extends AppController
     public function export()
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
-       
+
         $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
         $_serialize = 'data';
         $_header = ['ID', 'Name', 'Added by', 'Price', 'Worked Title', 'Contact'];
         $_extract = ['id', 'name', 'user_id', 'price', 'work_title', 'lead_contact.contact'];
-    
+
         $this->viewBuilder()->setClassName('CsvView.Csv');
         $this->set(compact('data', '_serialize', '_header', '_extract'));
-
     }
 
 
@@ -186,19 +185,27 @@ class LeadsController extends AppController
     {
         if ($this->request->is('ajax')) {
             // dd($_FILES);
-            // $csvFile = $this->request->getData('importcsv');
-            // $filename = $csvFile->getClientFilename();
             $tmpFileName = $_FILES['importcsv']['tmp_name'];
-            // $imagepath = WWW_ROOT . 'csv/' . $filename;
-                        // $csvFile->moveTo($imagepath);
+            $this->viewBuilder()->setClassName("Json");
             $row = 1;
             if (($handle = fopen($tmpFileName, "r")) !== FALSE) {
-                while (!feof($handle)) {
-                    $rowData[] = fgetcsv($handle);
-                }
+                while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    $data = [
+                        // 'id' => $row[0],
+                        'name' => $row[1],
+                        'user_id' => $row[2],
+                        'price' => $row[3],
+                        'work_title' => $row[4],
+                        'lead_contact.contact' => $row[5],
+                    ];
 
-                $lead = $this->Leads->newEntity($data);
-                // dd($lead);
+                    $lead = $this->Leads->newEntity($data);
+                    // $data = ['lead_contact.lead_id' => 16];
+                }
+                // foreach($data as $d){
+
+                // }
+                dd($data);
                 if ($this->Leads->save($lead)) {
                     echo json_encode(array(
                         "status" => 1,
@@ -207,7 +214,6 @@ class LeadsController extends AppController
                     exit;
                 }
                 fclose($handle);
-
             }
             // dd($handle);
             // dd($csvFile);

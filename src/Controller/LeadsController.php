@@ -187,6 +187,7 @@ class LeadsController extends AppController
 
     public function import()
     {
+
         if ($this->request->is('post')) {
             $tmpFileName = $_FILES['importcsv']['tmp_name'];
             $data = [];
@@ -196,13 +197,16 @@ class LeadsController extends AppController
                 while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
                     $counter++;
                     $data[] = [
+
                         'name' => $row[1],
                         'user_id' => $row[2],
                         'price' => $row[3],
                         'work_title' => $row[4],
+
                         'lead_contact' => ['contact' => $row[5]],
                     ];
                     // $lead['lead_contact'] = ['contact' => $row[5]];
+
 
 
                 }

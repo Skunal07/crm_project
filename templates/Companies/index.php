@@ -11,7 +11,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+                  <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
                 </div>
                 <?= $this->Form->create(null, ['id' => 'newcompany']) ?>
                 <div class="modal-body">
@@ -32,7 +32,7 @@
 
         </div>
         <div class="card-body px-0 pt-0 pb-2">
-          <div class="table-responsive p-0 ">
+          <div class="table-responsive company-div p-0 ">
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
@@ -104,7 +104,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
-          <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
         <div class="container py-5 h-100">
@@ -172,9 +172,10 @@
               "id" => "companyname",
             ]
           ); ?>
+        </div>
+      </div>
 
-
-  <div class="modal fade" id="companyEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <!-- <div class="modal fade" id="companyEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -183,29 +184,29 @@
             <span aria-hidden="true">&times;</span>
           </button>
 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
-        </div>
-        <?= $this->Form->end() ?>
+        </div> -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
       </div>
+      <?= $this->Form->end() ?>
     </div>
   </div>
+</div>
 
 
 
 
 
-  <style>
-    .gradient-custom {
-      /* fallback for old browsers */
-      background: #f6d365;
+<style>
+  .gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
 
-      /* Chrome 10-25, Safari 5.1-6 */
-      background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
 
-      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-      background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
-    }
-  </style>
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+  }
+</style>

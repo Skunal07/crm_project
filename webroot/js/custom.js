@@ -107,7 +107,7 @@ $(document).on("click", ".editCompany", function () {
 
             $("#companyiddd").val(user["id"]);
             $("#companyname").val(user["company_name"]);
-            swal("Updated!", "Company details Has been updated!", "success");
+            // swal("Updated!", "Company details Has been updated!", "success");
 
 
 
@@ -149,7 +149,7 @@ $(document).ready(function () {
                 success: function (response) {
                     var data = JSON.parse(response);
 
-                    $(".table-responsive").load("/companies/index .table-responsive");
+                    $(".company-div").load("/companies/index .company-div");
                     swal("Updated!", "User details Has been updated!", "success");
                     $('#companyEdit').hide();
                     $('.modal-backdrop').hide();

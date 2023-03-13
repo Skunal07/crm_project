@@ -52,7 +52,7 @@
                                                                 ?> </span>
         </td>
         <td class="align-middle text-center">
-          <span class="text-secondary text-xs font-weight-bold"><?= h($lead->lead_contact->contact) ?></span>
+          <span class="text-secondary text-xs font-weight-bold"><?= h($lead->lead_contact['contact']) ?></span>
         </td>
         <td class="align-middle text-center">
           <span class="text-secondary text-xs font-weight-bold"><?= h($lead->user->user_profile['first_name']) ?> <?= h($lead->user->user_profile['last_name']) ?></span>

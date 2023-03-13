@@ -107,7 +107,7 @@ $(document).on("click", ".editCompany", function () {
 
             $("#companyiddd").val(user["id"]);
             $("#companyname").val(user["company_name"]);
-            swal("Updated!", "Company details Has been updated!", "success");
+            // swal("Updated!", "Company details Has been updated!", "success");
 
 
 
@@ -149,14 +149,14 @@ $(document).ready(function () {
                 success: function (response) {
                     var data = JSON.parse(response);
 
-                    $(".table-responsive").load("/companies/index .table-responsive");
-                    swal("Updated!", "User details Has been updated!", "success");
+                    $(".company-div").load("/companies/index .company-div");
                     $('#companyEdit').hide();
                     $('.modal-backdrop').hide();
+                    swal("Updated!", "User details Has been updated!", "success");
 
                 },
             });
-            return false;
+            // return false;
         },
     });
 });
@@ -254,6 +254,7 @@ $(document).ready(function () {
 });
 
 //----------------------------------- Fetch Details For Categories Edit Using ajax -------------------------//
+
 $(document).on("click", ".editCategories", function () {
     var user_id = $(this).data("id");
     $.ajax({
@@ -295,6 +296,7 @@ $(document).ready(function () {
 
         },
         submitHandler: function (form) {
+            // var formData = new FormData(form);
             var formData = $(form).serialize();
 
             $.ajax({
@@ -308,8 +310,8 @@ $(document).ready(function () {
                 success: function (response) {
                     var data = JSON.parse(response);
 
-                    $("#category").load("/categories/index #category");
                     swal("Updated!", "User details Has been updated!", "success");
+                    $("#category").load("/categories/index #category");
                     $('#editcategoryModal').hide();
                     $('.modal-backdrop').hide();
 
@@ -1467,7 +1469,7 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     var data = JSON.parse(response);
-                    $('.lead').load('/leads/index .lead')
+                    $('.lead').load('/leads/index .lead');
                     swal("Updated!", "Lead details Has been updated Successfully!", "success");
                     $('#editLeadModal').hide();
                     $('.modal-backdrop').hide();
@@ -1528,12 +1530,11 @@ $(document).ready(function () {
     // alert('dfgfdg');
     $("#key").on("keyup", function () {
         var value = $(this).val().toLowerCase();
-        $("tr").filter(function () {
+        $("#mytable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
 });
-
 
 
 $(document).ready(function () {

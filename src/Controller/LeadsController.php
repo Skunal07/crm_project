@@ -171,7 +171,7 @@ class LeadsController extends AppController
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
         // $data = $this->Leads->find('all')->w;
 
-        $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
+        $data = $this->Leads->find('all');
         // dd($data);
         // foreach ($data as $row) {
         //     $row['name'];
@@ -211,7 +211,13 @@ class LeadsController extends AppController
                 }
                 $lead = $this->Leads->newEntity($data);
                 // dd($lead);
-                $this->Leads->save($lead);
+                if ($this->Leads->save($lead)) {
+                    echo json_encode(array(
+                        "status" => 1,
+                        "message" => "The Lead has been inserted."
+                    ));
+                    exit;
+                }
                 fclose($handle);
             }
             // dd($handle);

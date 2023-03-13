@@ -127,7 +127,7 @@
                     </p>
                 </div>
                 <div class="card-body p-3">
-                    <div id="donutchart" ></div>
+                    <div id="donutchart" style=" width:800px; height:500px; "></div>
                 </div>
             </div>
         </div>

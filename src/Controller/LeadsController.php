@@ -65,11 +65,15 @@ class LeadsController extends AppController
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
         $lead = $this->Leads->newEmptyEntity();
+        dd([$lead, $this->request->getData()]);
         if ($this->request->is('ajax')) {
             $lead = $this->Leads->patchEntity($lead, $this->request->getData());
             // pr($lead);
             // die;
             $lead->user_id = $uid;
+
+            dd($lead);
+
             if ($this->Leads->save($lead)) {
 
                 $this->Flash->success(__('The Lead has been saved.'));
@@ -183,56 +187,48 @@ class LeadsController extends AppController
 
     public function import()
     {
-        if ($this->request->is('ajax')) {
-            // dd($_FILES);
+
+        if ($this->request->is('post')) {
             $tmpFileName = $_FILES['importcsv']['tmp_name'];
-            $this->viewBuilder()->setClassName("Json");
-            $row = 1;
+            $data = [];
+            $counter = 1;
             if (($handle = fopen($tmpFileName, "r")) !== FALSE) {
+                // $headers = fgetcsv($handle);
                 while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    $data = [
-                        // 'id' => $row[0],
+                    $counter++;
+                    $data[] = [
+
                         'name' => $row[1],
                         'user_id' => $row[2],
                         'price' => $row[3],
                         'work_title' => $row[4],
-                        'lead_contact.contact' => $row[5],
+
+                        'lead_contact' => ['contact' => $row[5]],
                     ];
+                    // $lead['lead_contact'] = ['contact' => $row[5]];
 
-                    $lead = $this->Leads->newEntity($data);
-                    // $data = ['lead_contact.lead_id' => 16];
-                }
-                // foreach($data as $d){
 
-                // }
-                dd($data);
-                if ($this->Leads->save($lead)) {
-                    echo json_encode(array(
-                        "status" => 1,
-                        "message" => "The Lead has been inserted."
-                    ));
-                    exit;
+
                 }
                 fclose($handle);
             }
-            // dd($handle);
-            // dd($csvFile);
-
-            // $csv = array_map('str_getcsv', file($csvFile));
-            // dd($csv);
-            // foreach ($csv as $row) {
-            //     $data = [
-            //         // 'id' => $row[0],
-            //         'user_id' => $row[1],
-            //         'company_id' => $row[2],
-            //         'name' => $row[3],
-            //         'price' => $row[4],
-
-            //     ];
-            //     $this->Leads->newEntity($data);
-            //     $this->Leads->save($this->Users->newEntity);
+            // dd($data);
+            $lead = $this->Leads->newEntities($data);
+            // foreach ($data as $val){
+            // $lead = $this->Leads->patchEntities($lead, $data);
+            if ($this->Leads->saveMany($lead)) {
+            }
             // }
-            // $this->Flash->success('CSV imported successfully.');
+            // dd([$lead, $data]);
+            if ($counter != 0) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "$counter Lead has been save."
+                ));
+                exit;
+            }
+
+           
         }
     }
 }

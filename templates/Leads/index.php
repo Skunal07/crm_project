@@ -7,12 +7,12 @@
         <div class="card-header pb-0">
           <h6>Leads</h6>
           <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;margin-top: -35px;'>New Lead</button>
-          <?= $this->Form->create(null, ['type' => 'file','id'=>'newcsv']) ?>
-          <input type="file" name="importcsv" accept=".csv" /> 
+          <a type="button" href="/leads/export" class="btn btn-dark mx-2" style='float: right;margin-top: -35px;'>Download CSV</a>
+          <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newcsv']) ?>
+          <input type="file" name="importcsv" accept=".csv" />
           <input type="submit" id="btncsv" value="Upload" />
-        <?= $this->Form->end()?>
-         
-          <a type="button" href="/leads/export" class="btn btn-dark" style='float: right;margin-top: -35px;'>Download CSV</a>
+          <?= $this->Form->end() ?>
+
           <div class="col-md-3">
             <select id="stage" class="form-control" width="200px">
               <option class="stage" value="" selected>All</option>

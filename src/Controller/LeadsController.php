@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Controller;
 
 use Cake\Datasource\ConnectionManager;
@@ -170,59 +171,68 @@ class LeadsController extends AppController
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
         // $data = $this->Leads->find('all')->w;
 
-        $data = $this->Leads->find('all');
-        
+        $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
+        // dd($data);
+        // foreach ($data as $row) {
+        //     $row['name'];
+        //     $row['price'];
+        //     $row['work_title'];
+        //     $row['user_id'];
+        //     $row['lead_contact']['contact'];
+        // }
+
         $this->viewBuilder()
-        ->setClassName('CsvView.Csv')
-        ->setOption('serialize', 'data');
+            ->setClassName('CsvView.Csv')
+            ->setOption('serialize', 'data');
         $this->set(compact('data'));
     }
+
+
+
     public function import()
     {
         if ($this->request->is('ajax')) {
             // dd($_FILES);
             $tmpFileName = $_FILES['importcsv']['tmp_name'];
+            $this->viewBuilder()->setClassName("Json");
             $row = 1;
             if (($handle = fopen($tmpFileName, "r")) !== FALSE) {
-                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    echo "<pre>";
-                    print_r($data);
-                    echo "</pre>";
-                    // $num = count($data);
-                    // echo "<p> $num fields in line $row: <br /></p>\n";
-                    // $row++;
-                    // for ($c=0; $c < $num; $c++) {
-                    //     echo $data[$c] . "<br />\n";
-                    // }
+                while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    $data = [
+                        // 'id' => $row[0],
+                        'user_id' => $row[1],
+                        'name' => $row[2],
+                        'price' => $row[3],
+                        'work_title' => $row[4],
+                        // 'lead_contact.lead_id' => 5,
+                    ];
+
+                    // $data = ['lead_contact.lead_id' => 16];
                 }
+                $lead = $this->Leads->newEntity($data);
+                // dd($lead);
+                $this->Leads->save($lead);
                 fclose($handle);
             }
-        dd("dsfdsfsd..");
-        $csvFile = $this->request->getData('importcsv');
-        dd($csvFile);
-       
-        $csv = array_map('str_getcsv', file($csvFile));
-        dd($csv);
-        foreach ($csv as $row) {
-            $data = [
-                // 'id' => $row[0],
-                'user_id' => $row[1],
-                'company_id' => $row[2],
-                'name' => $row[3],
-                'price' => $row[4],
-                'work_title' => $row[5],
-                'delete_status' => $row[6],
-                'stages' => $row[7],
-                'created_date' => $row[8],
-                'modified_date' => $row[9],
-               
-            ];
-            $this->Leads->newEntity($data);
-            $this->Leads->save($this->Users->newEntity);
-        }
-        $this->Flash->success('CSV imported successfully.');
-    }
+            // dd($handle);
+            // $csvFile = $this->request->getData('importcsv');
+            // dd($csvFile);
 
+            // $csv = array_map('str_getcsv', file($csvFile));
+            // dd($csv);
+            // foreach ($csv as $row) {
+            //     $data = [
+            //         // 'id' => $row[0],
+            //         'user_id' => $row[1],
+            //         'company_id' => $row[2],
+            //         'name' => $row[3],
+            //         'price' => $row[4],
+
+            //     ];
+            //     $this->Leads->newEntity($data);
+            //     $this->Leads->save($this->Users->newEntity);
+            // }
+            // $this->Flash->success('CSV imported successfully.');
+        }
     }
-   
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
@@ -13,6 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Controller\Controller;
@@ -52,29 +54,28 @@ class AppController extends Controller
         $this->loadModel('Companies');
         $this->loadModel('Categories');
         $this->loadModel('Products');
-        $contactus=$this->ContactUs->find('all')->where(['notification'=>2 ,'delete_status'=> 0]);
-        $i=0;
-        foreach($contactus as $a){
+        $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
+        $i = 0;
+        foreach ($contactus as $a) {
             $i++;
         }
-        $count=$i;
+        $count = $i;
         $result = $this->Authentication->getIdentity();
-        if($result){
-        $uid=$result->id;
-        $user = $this->Users->get($uid, [
-            'contain' => ['UserProfile']
-        ]);
-        $this->set(compact('contactus', 'count','user'));
-    }else{
-        $this->redirect(['controller' => 'Users', 'action' => 'index']);
-    }
-       
+        $uid = $result->id;
+        if ($uid != null) {
+            $user = $this->Users->get($uid, [
+                'contain' => ['UserProfile']
+            ]);
+            $this->set(compact('contactus', 'count', 'user'));
+        } else {
+            $this->redirect(['controller' => 'Users', 'action' => 'index']);
+        }
     }
     public function beforeFilter(\Cake\Event\EventInterface $event)
-{
-    parent::beforeFilter($event);
-    // for all controllers in our application, make index and view
-    // actions public, skipping the authentication check
-    $this->Authentication->addUnauthenticatedActions(['index','viewproduct','about','contact']);
-}
+    {
+        parent::beforeFilter($event);
+        // for all controllers in our application, make index and view
+        // actions public, skipping the authentication check
+        $this->Authentication->addUnauthenticatedActions(['index', 'viewproduct', 'about', 'contact']);
+    }
 }

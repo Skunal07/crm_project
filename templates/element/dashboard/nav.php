@@ -1,7 +1,12 @@
+
+<!-- Get Page URl -->
+
 <?php $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1); ?>
 <?= $page == "dashboard" ? 'active bg-gradient-primary' : ''; ?>
 <main class="main-content position-relative border-radius-lg ">
+
     <!-- Navbar -->
+
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
@@ -76,7 +81,9 @@
             </div>
         </div>
     </nav>
+
     <!-- End Navbar -->
+    
     <script>
         $(document).on("click", ".clear", function() {
             var id = $(this).attr("data");

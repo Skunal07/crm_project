@@ -74,7 +74,6 @@
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fcf8e3;
 }
-
 *,
 *::before,
 *::after {
@@ -86,6 +85,7 @@
     scroll-behavior: smooth;
   }
 }
+
 
 body {
   margin: 0;

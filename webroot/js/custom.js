@@ -445,6 +445,7 @@ $(document).ready(function () {
 });
 
 //============================ view lead details ===================
+
 $(document).on("click", ".viewLead", function () {
     var lead_id = $(this).data("id");
     $.ajax({

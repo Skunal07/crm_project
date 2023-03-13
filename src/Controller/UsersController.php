@@ -126,6 +126,8 @@ class UsersController extends AppController
         $this->set(compact('products', 'productc', 'id', 'contactU'));
     }
 
+    //-----------------------------Dashboard--------------------------//
+    
     public function dashboard()
     {
         $result = $this->Authentication->getIdentity();
@@ -158,7 +160,7 @@ class UsersController extends AppController
         $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'totalwon', 'totallost', 'category', 'leads'));
     }
 
-    //-----------------------------Admin----Index--------------------------//
+    //-----------------------------Notification--------------------------//
 
     public function notification($id = null)
     {
@@ -180,6 +182,9 @@ class UsersController extends AppController
             exit;
         }
     }
+
+    //-----------------------------Admin----Index--------------------------//
+
     public function usersList()
     {
         $result = $this->Authentication->getIdentity();

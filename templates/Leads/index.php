@@ -7,8 +7,7 @@
         <div class="card-header pb-0">
           <h6>Leads</h6>
           <div class="row">
-            <div class="col-4">
-              <!-- <div class="col-md-3"> -->
+            <div class="col-md-4">
               <select id="stage" class="form-control" width="200px">
                 <option class="stage" value="" selected>All</option>
                 <option class="stage" value="1">Awerness</option>
@@ -16,23 +15,13 @@
                 <option class="stage" value="3">Lost</option>
                 <option class="stage" value="4">Completed</option>
               </select>
-              <!-- </div> -->
             </div>
-            <div class="col-5">
-              <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newcsv']) ?>
-              <div class="row">
-                <div class="col-9">
-                  <input type="file" class="form-control" name="importcsv" accept=".csv" />
-                </div>
-                <div class="col-3">
-                  <input type="submit" class="form-control btn btn-primary" id="btncsv" value="Upload" />
-                </div>
-              </div>
-              <?= $this->Form->end() ?>
-            </div>
-            <div class="col-3">
-              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;'>New Lead</button>
-              <a type="button" href="/leads/export" class="btn btn-dark mx-2" style='float: right;'>Download CSV</a>
+
+            <div class="col-md-8">
+              <button type="button" class="btn btn-dark mx-2" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;'>New Lead</button>
+              <button type="button" style='float: right;' class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#csvModal">
+                Export/Import Lead File
+              </button>
             </div>
           </div>
         </div>
@@ -83,7 +72,6 @@
           <div class="table-responsive p-0 lead" id="myapp">
             <?= $this->element('flash/lead'); ?>
           </div>
-
         </div>
       </div>
     </div>
@@ -173,7 +161,41 @@
     background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
   }
 </style>
+<!-- ==============================export/import ========================= -->
+<div class="modal fade" id="csvModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Lead</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
 
+            <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newcsv']) ?>
+            <div class="row">
+              <div class="col-9">
+                <input type="file" class="form-control" name="importcsv" accept=".csv" />
+              </div>
+              <div class="col-3">
+                <input type="submit" class="form-control btn btn-primary" id="btncsv" value="Upload" />
+              </div>
+            </div>
+            <?= $this->Form->end() ?>
+          </div>
+          <div class="col-md-12">
+            <a type="button" href="/leads/export" class="btn btn-dark mx-2" style='float: right;'>Download Lead File</a>
+            <a type="button" href="/leads/sampleCsv" class="btn btn-dark mx-2" style='float: right;'>Sample Format CSV</a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--------------------------------------------------------Edit Lead With Modal------------------------------------------------------>
 
@@ -183,7 +205,7 @@
     <div class="modal-content">
       <div class="modal-header">
 
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">View Lead</h5>
 
         <button type="button" class="btn-close text-dark" data-dismiss="modal" aria-label="Close">
 
@@ -252,6 +274,10 @@
       </div>
     </div>
   </div>
+
+
+
+
 
   <script>
     $(document).on("click", "#stage", function() {

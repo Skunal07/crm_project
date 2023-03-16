@@ -1,7 +1,7 @@
  <aside class="sidebar">
      <div class="toggle">
-         <a href="#" class="js-menu-toggle menu-toggle" data-bs-toggle="tooltip tooltip-primary" data-bs-placement="bottom" title="Click Here To Contact us">
-             <span class="icon-mode_comment text-black"></span>
+         <a href="#" class="js-menu-toggle text-white fw-bold menu-toggle" data-bs-toggle="tooltip tooltip-primary" data-bs-placement="bottom" title="Click Here To Contact us">
+             Click Here <span class="icon-mode_comment align-middle text-black"></span>
          </a>
      </div>
      <div class="side-inner">

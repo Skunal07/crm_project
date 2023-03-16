@@ -240,7 +240,7 @@ function paymentval(formData) {
 
         },
         submitHandler: function (form) {
-            alert("jjjjjjjjjjjjjj");
+            // alert("jjjjjjjjjjjjjj");
             // return false;
             $('#exampleModal').hide();
             $('.modal-backdrop').hide();
@@ -265,6 +265,7 @@ function paymentval(formData) {
                     $('#contactusform')[0].reset();
                 },
             });
+            return false;
         },
     });
 }

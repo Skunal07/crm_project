@@ -124,7 +124,7 @@ class ContactsController extends AppController
     {
         if ($this->request->is('ajax')) {
             $user = $this->Contacts->get($id);
-            if ($delete_status == 1)
+            if ($user->delete_status == 1)
                 $user->delete_status = 0;
             else
                 $user->delete_status = 1;

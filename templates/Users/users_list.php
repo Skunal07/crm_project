@@ -1,6 +1,6 @@
 <!-- modal for Add Staff -->
-<div class="container-fluid py-4">
-  <div class="row" id="staff_update">
+<div class="container-fluid py-4" id="staff_update">
+  <div class="row" >
     
     <div class="modal fade" id="addstaff" tabindex="-1" role="dialog" aria-labelledby="addstaffTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -67,7 +67,7 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="mytable">
                 <?php
                 if (count($users) > 0) {
                   foreach ($users as $user) :

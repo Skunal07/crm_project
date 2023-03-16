@@ -22013,9 +22013,10 @@ html {
   animation: gradient 10s ease infinite;
 }
 
-hr {
-  border-top: none;
-  height: 1px;
+
+  hr {
+    border-top: 2px solid;
+    height: 1px;
 }
 
 hr.vertical {
@@ -26956,4 +26957,18 @@ ul.dropdown-menu.list-group.table-responsive.dropdown-menu-end.px-2.py-3.me-sm-n
   height: 300px !important;
 }
 
+.col-12.search-div {
+  position: absolute !important;
+  z-index: 99 !important;
+  width: 230px !important;
+}
+
+.search-div ul li a {
+  color: #ffffff !important;
+}
+
+.search-div h4 {
+  /* color: #14cfc7 !important; */
+  color: #87a3ff !important;
+}
 /* # sourceMappingURL=dashboard-free.css.map */

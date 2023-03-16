@@ -1,9 +1,5 @@
-<?php
-
-use Cake\Core\Configure;
-?>
-<div class="container-fluid py-4">
-  <div class="row" id="category">
+<div class="container-fluid py-4" id="category" >
+  <div class="row" >
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
@@ -49,7 +45,7 @@ use Cake\Core\Configure;
 
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="mytable">
                 <?php foreach ($categories as $category) :
 
                   if ($category->delete_status == 1) {
@@ -103,17 +99,14 @@ use Cake\Core\Configure;
   </div>
 </div>
 
+<!--======================== View Categories With Modal =====================------->
 
 
-
-
-
-<!--======================== View Profile With Modal =====================------->
-<div class="modal fade" id="viewCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewCategoryModal" tabindex="-1" aria-labelledby="viewCategoryModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">View Category Details</h5>
+        <h5 class="modal-title" id="viewCategoryModalLabel">View Category Details</h5>
         <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -124,7 +117,7 @@ use Cake\Core\Configure;
                 <div class="row g-0">
                   <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                     <img src="" alt="Avatar" id="userPic" class="img-fluid my-5" style="width: 80px;" />
-                    <h5>Addeded By</h5>
+                    <h5>Added By</h5>
                     <p id="addedby"> </p>
                   </div>
                   <div class="col-md-8">
@@ -141,8 +134,6 @@ use Cake\Core\Configure;
                           <p id="created" class="text-muted"></p>
                         </div>
                       </div>
-
-
                     </div>
                   </div>
                 </div>
@@ -161,13 +152,15 @@ use Cake\Core\Configure;
 </div>
 
 <!---======================== Edit Category With Modal ============================-------->
-<div class="modal fade" id="editcategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+<div class="modal fade" id="editcategoryModal" tabindex="-1" role="dialog" aria-labelledby="editcategoryModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
 
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="btn-close text-dark" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="editcategoryModalLongTitle">Modal title</h5>
+        <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+
 
           <span aria-hidden="true">&times;</span>
         </button>
@@ -194,10 +187,6 @@ use Cake\Core\Configure;
       </div>
     </div>
   </div>
-
-
-
-
 
   <style>
     .gradient-custom {

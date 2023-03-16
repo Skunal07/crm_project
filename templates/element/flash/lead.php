@@ -13,7 +13,7 @@
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="mytable">
     <?php
     // print_r($products);die;
     $i = 1;

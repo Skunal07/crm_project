@@ -21,10 +21,10 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Query</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Message</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
-                                    <th class="text-secondary opacity-7"></th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="mytable">
                                 <!-- <pre> -->
                                 <?php foreach ($contactUs as $contactU) :
                                     if ($contactU->delete_status == 1) {
@@ -55,7 +55,7 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>
                                         </td>
-                                        <td class="align-middle"><?php
+                                        <td class="align-middle text-center"><?php
                                                                     if ($contactU->work_status == 1) {
                                                                         echo '<span class="btn btn-success ml-3">Replyed</span>';
                                                                     } else { ?>

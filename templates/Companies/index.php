@@ -1,5 +1,5 @@
-<div class="container-fluid py-4">
-  <div class="row" id="company">
+<div class="container-fluid py-4" id="company">
+  <div class="row" >
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
@@ -43,7 +43,7 @@
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="mytable">
                 <?php foreach ($companies as $company) :
                   if ($company->delete_status == 1) {
                     continue;
@@ -172,19 +172,9 @@
               "id" => "companyname",
             ]
           ); ?>
+
         </div>
       </div>
-
-      <!-- <div class="modal fade" id="companyEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Company</h5>
-          <button type="button"  class="btn-close text-dark" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-
-        </div> -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <?= $this->Form->button("Submit", ["class" => "btn btn-primary", "id" => "edit"]) ?>
@@ -192,6 +182,7 @@
       <?= $this->Form->end() ?>
     </div>
   </div>
+>>>>>>> 935dda96dfa7e5eb5d6da76f257d0d40e947f446
 </div>
 
 

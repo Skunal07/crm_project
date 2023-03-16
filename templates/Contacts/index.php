@@ -70,8 +70,12 @@
 
                 </tr>
               </thead>
-              <tbody>
-                <?php foreach ($contacts as $contact) : ?>
+              <tbody id="mytable">
+                <?php foreach ($contacts as $contact) : 
+                  if ($contact->delete_status==1) {
+                  continue;
+                  }
+                  ?>
                   <tr id="data<?= $contact->id ?>">
 
 

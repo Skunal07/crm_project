@@ -153,10 +153,11 @@ $(document).ready(function () {
                     swal("Updated!", "User details Has been updated!", "success");
                     $('#companyEdit').hide();
                     $('.modal-backdrop').hide();
+                    swal("Updated!", "User details Has been updated!", "success");
 
                 },
             });
-            return false;
+            // return false;
         },
     });
 });
@@ -254,6 +255,7 @@ $(document).ready(function () {
 });
 
 //----------------------------------- Fetch Details For Categories Edit Using ajax -------------------------//
+
 $(document).on("click", ".editCategories", function () {
     var user_id = $(this).data("id");
     $.ajax({
@@ -295,6 +297,7 @@ $(document).ready(function () {
 
         },
         submitHandler: function (form) {
+            // var formData = new FormData(form);
             var formData = $(form).serialize();
 
             $.ajax({
@@ -308,8 +311,8 @@ $(document).ready(function () {
                 success: function (response) {
                     var data = JSON.parse(response);
 
-                    $("#category").load("/categories/index #category");
                     swal("Updated!", "User details Has been updated!", "success");
+                    $("#category").load("/categories/index #category");
                     $('#editcategoryModal').hide();
                     $('.modal-backdrop').hide();
 
@@ -1467,7 +1470,7 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     var data = JSON.parse(response);
-                    $('.lead').load('/leads/index .lead')
+                    $('.lead').load('/leads/index .lead');
                     swal("Updated!", "Lead details Has been updated Successfully!", "success");
                     $('#editLeadModal').hide();
                     $('.modal-backdrop').hide();
@@ -1524,17 +1527,70 @@ $(document).on("click", ".btn-delete-lead", function () {
 
 //-------------------------------------Serch function---------------------------------------//
 
+//------------------------------------- Localy Serch function Using Filter---------------------------------------//
+
 $(document).ready(function () {
     // alert('dfgfdg');
-    $("#key").on("keyup", function () {
+    var key = $('#key').val();
+    if (key !=null) {
         var value = $(this).val().toLowerCase();
-        $("tr").filter(function () {
+        $("#mytable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
+        // $('#key').trigger('keyup');
+
+            // $("#mytable tr").filter(function () {
+            //     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            // });
+        }
+        
+        $("#key").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#mytable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
     });
+
 });
 
+//------------------------------------- Globaly Serch function---------------------------------------//
 
+$(document).ready(function() {
+
+            $('#key1').keyup(function() {
+                // alert('dd0');
+                var key = $('#key1').val();
+                // alert(key);
+                // alert(status);
+                // return false;
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken 
+                    }
+                });
+                // e.preventDefault();
+                $.ajax({
+                    url: "/Users/dashboard",
+                    type: "JSON",
+                    method: "GET",
+                    data: {
+                        'key1': key,
+                    },
+                    success: function(response) {
+                        console.log(response)
+                        if(response == '' ){
+
+                            $('.s_result').hide();
+                        }else{
+                        $('.s_result').show();
+                        $('.s_result').html('');
+                        $('.s_result').append(response);
+                    }}
+                });
+            })
+        })
+  
+//-------------------------------------End Serch function---------------------------------------//
 
 $(document).ready(function () {
     $("#newcsv").validate({

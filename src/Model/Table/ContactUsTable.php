@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -40,6 +41,10 @@ class ContactUsTable extends Table
         $this->setTable('contact_us');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->hasOne('Payments', [
+            'foreignKey' => 'contact_us_id',
+        ]);
     }
 
     /**

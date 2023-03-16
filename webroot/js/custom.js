@@ -1621,15 +1621,16 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
 
-            //         var data = JSON.parse(response);
-            //         if (data["status"] == 0) {
-            //             // alert(data["message"]);
-            //             $('#AddProductModal').modal('hide');
-            //         } else {
-            //             $('#AddProductModal').modal('hide');
-            // swal("Success!", "Product  Has been Saved!", "success");
-            //             $('.product').load('/products/index .product')
-            //         }
+                    var data = JSON.parse(response);
+                    if (data["status"] == 0) {
+                        // alert(data["message"]);
+                       swal ( "Oops" ,  "Something went wrong!" ,  "error" )
+                        // $('#csvModal').modal('hide');
+                    } else {
+                        swal("Success!", data['count']+" Leads  Has been Saved!", "success");
+                        $('.lead').load('/leads/index .lead')
+                    }
+                    $('#csvModal').modal('hide');
                 },
             });
             return false;

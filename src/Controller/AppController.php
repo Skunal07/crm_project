@@ -54,15 +54,16 @@ class AppController extends Controller
         $this->loadModel('Companies');
         $this->loadModel('Categories');
         $this->loadModel('Products');
+        $this->loadModel('Payments');
         $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
         $i = 0;
         foreach ($contactus as $a) {
             $i++;
         }
         $count = $i;
-        $result = $this->Authentication->getIdentity();
-        $uid = $result->id;
-        if ($uid != null) {
+        if ($this->Authentication->getIdentity() != null) {
+            $result = $this->Authentication->getIdentity();
+            $uid = $result->id;
             $user = $this->Users->get($uid, [
                 'contain' => ['UserProfile']
             ]);
@@ -76,6 +77,6 @@ class AppController extends Controller
         parent::beforeFilter($event);
         // for all controllers in our application, make index and view
         // actions public, skipping the authentication check
-        $this->Authentication->addUnauthenticatedActions(['index', 'viewproduct', 'about', 'contact']);
+        $this->Authentication->addUnauthenticatedActions(['index', 'viewproduct', 'about', 'contact', 'stripe', 'payment']);
     }
 }

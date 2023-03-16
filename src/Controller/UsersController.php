@@ -120,10 +120,13 @@ class UsersController extends AppController
                 ));
                 exit;
             }
+            // $data =$this->request->getData();
 
             $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
             $email = $contactU->email;
             $name = $contactU->name;
+            // dd($contactU);
+            $session = $this->getRequest()->getSession();
             if ($this->ContactUs->save($contactU)) {
                 $mailer = new Mailer('default');
                 $mailer->setTransport('gmail'); //your email configuration name

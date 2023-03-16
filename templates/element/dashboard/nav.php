@@ -95,9 +95,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                                                 <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal text-dark mb-1">
+                                                <h5 class="text-sm font-weight-normal text-dark mb-1">
                                                     <span class="font-weight-bold ">New Request</span> for <?= $list->query_type ?>
-                                                </h6>
+                                                </h5>
                                                 <p class="text-xs text-secondary mb-0">
                                                     <i class="fa fa-clock me-1"></i>
                                                     <?= $list->created_date ?>

@@ -12,7 +12,7 @@
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                 <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
+                  <span aria-hidden="true">&times;</span></button>
               </div>
               <?= $this->Form->create(null, ['id' => 'newcategory']) ?>
               <div class="modal-body">
@@ -160,6 +160,7 @@
 
         <h5 class="modal-title" id="editcategoryModalLongTitle">Modal title</h5>
         <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+
 
           <span aria-hidden="true">&times;</span>
         </button>

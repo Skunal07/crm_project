@@ -26,7 +26,7 @@ class LeadsController extends AppController
 
                 // dd($leads);
             } else {
-                $leads = $this->paginate($this->Leads);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts']);
             }
         } else {
             if ($id != null) {
@@ -65,14 +65,13 @@ class LeadsController extends AppController
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
         $lead = $this->Leads->newEmptyEntity();
-        dd([$lead, $this->request->getData()]);
+       
         if ($this->request->is('ajax')) {
             $lead = $this->Leads->patchEntity($lead, $this->request->getData());
             // pr($lead);
             // die;
             $lead->user_id = $uid;
 
-            dd($lead);
 
             if ($this->Leads->save($lead)) {
 
@@ -173,62 +172,80 @@ class LeadsController extends AppController
     public function export()
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
-
+        
         $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
         $_serialize = 'data';
-        $_header = ['ID', 'Name', 'Added by', 'Price', 'Worked Title', 'Contact'];
-        $_extract = ['id', 'name', 'user_id', 'price', 'work_title', 'lead_contact.contact'];
-
+        $_header = ['ID', 'Name',  'Price', 'Worked Title', 'Contact'];
+        $_extract = ['id', 'name', 'price', 'work_title', 'lead_contact.contact'];
+        
         $this->viewBuilder()->setClassName('CsvView.Csv');
         $this->set(compact('data', '_serialize', '_header', '_extract'));
+    }
+    public function sampleCsv()
+    {
+        $this->setResponse($this->getResponse()->withDownload('format.csv'));
+        // $data = [];
+        $data = [['ID', 'Name', 'Price', 'Worked Title', 'Contact']];
+    
+        $this->set(compact('data'));
+        $this->viewBuilder()
+            ->setClassName('CsvView.Csv')
+            ->setOptions([
+                'serialize' => 'data',             
+            ]);
     }
 
 
 
     public function import()
     {
-
+        $user = $this->Authentication->getIdentity();
+        $uid = $user->id;
+        // dd($uid);
         if ($this->request->is('post')) {
             $tmpFileName = $_FILES['importcsv']['tmp_name'];
             $data = [];
-            $counter = 1;
+            $counter = 0;
             if (($handle = fopen($tmpFileName, "r")) !== FALSE) {
                 // $headers = fgetcsv($handle);
                 while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
                     $counter++;
+                    if($counter == 1){
+                        continue;
+                    }
                     $data[] = [
 
                         'name' => $row[1],
-                        'user_id' => $row[2],
-                        'price' => $row[3],
-                        'work_title' => $row[4],
-
-                        'lead_contact' => ['contact' => $row[5]],
+                        'user_id'=>$uid,
+                        'price' => $row[2],
+                        'work_title' => $row[3],
+                        'lead_contact' => ['contact' => $row[4]],
                     ];
-                    // $lead['lead_contact'] = ['contact' => $row[5]];
-
-
-
-                }
+                }   
+                $counter--;
                 fclose($handle);
             }
             // dd($data);
             $lead = $this->Leads->newEntities($data);
+            // dd($lead->user_id);
             // foreach ($data as $val){
             // $lead = $this->Leads->patchEntities($lead, $data);
             if ($this->Leads->saveMany($lead)) {
-            }
-            // }
-            // dd([$lead, $data]);
-            if ($counter != 0) {
                 echo json_encode(array(
                     "status" => 1,
-                    "message" => "$counter Lead has been save."
+                    "message" => "$counter Leads has been save.",
+                    "count" => $counter,
+                ));
+                exit;
+            }else{
+                echo json_encode(array(
+                    "status" => 0,
+                    "message" => "Lead has not been save."
                 ));
                 exit;
             }
-
-           
+            
+            
         }
     }
 }

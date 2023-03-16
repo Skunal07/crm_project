@@ -65,11 +65,15 @@ class LeadsController extends AppController
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
         $lead = $this->Leads->newEmptyEntity();
+        dd([$lead, $this->request->getData()]);
         if ($this->request->is('ajax')) {
             $lead = $this->Leads->patchEntity($lead, $this->request->getData());
             // pr($lead);
             // die;
             $lead->user_id = $uid;
+
+            dd($lead);
+
             if ($this->Leads->save($lead)) {
 
                 $this->Flash->success(__('The Lead has been saved.'));
@@ -169,70 +173,62 @@ class LeadsController extends AppController
     public function export()
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
-        // $data = $this->Leads->find('all')->w;
 
         $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
-        // dd($data);
-        // foreach ($data as $row) {
-        //     $row['name'];
-        //     $row['price'];
-        //     $row['work_title'];
-        //     $row['user_id'];
-        //     $row['lead_contact']['contact'];
-        // }
+        $_serialize = 'data';
+        $_header = ['ID', 'Name', 'Added by', 'Price', 'Worked Title', 'Contact'];
+        $_extract = ['id', 'name', 'user_id', 'price', 'work_title', 'lead_contact.contact'];
 
-        $this->viewBuilder()
-            ->setClassName('CsvView.Csv')
-            ->setOption('serialize', 'data');
-        $this->set(compact('data'));
+        $this->viewBuilder()->setClassName('CsvView.Csv');
+        $this->set(compact('data', '_serialize', '_header', '_extract'));
     }
 
 
 
     public function import()
     {
-        if ($this->request->is('ajax')) {
-            // dd($_FILES);
+
+        if ($this->request->is('post')) {
             $tmpFileName = $_FILES['importcsv']['tmp_name'];
-            $this->viewBuilder()->setClassName("Json");
-            $row = 1;
+            $data = [];
+            $counter = 1;
             if (($handle = fopen($tmpFileName, "r")) !== FALSE) {
+                // $headers = fgetcsv($handle);
                 while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                    $data = [
-                        // 'id' => $row[0],
-                        'user_id' => $row[1],
-                        'name' => $row[2],
+                    $counter++;
+                    $data[] = [
+
+                        'name' => $row[1],
+                        'user_id' => $row[2],
                         'price' => $row[3],
                         'work_title' => $row[4],
-                        // 'lead_contact.lead_id' => 5,
-                    ];
 
-                    // $data = ['lead_contact.lead_id' => 16];
+                        'lead_contact' => ['contact' => $row[5]],
+                    ];
+                    // $lead['lead_contact'] = ['contact' => $row[5]];
+
+
+
                 }
-                $lead = $this->Leads->newEntity($data);
-                // dd($lead);
-                $this->Leads->save($lead);
                 fclose($handle);
             }
-            // dd($handle);
-            // $csvFile = $this->request->getData('importcsv');
-            // dd($csvFile);
-
-            // $csv = array_map('str_getcsv', file($csvFile));
-            // dd($csv);
-            // foreach ($csv as $row) {
-            //     $data = [
-            //         // 'id' => $row[0],
-            //         'user_id' => $row[1],
-            //         'company_id' => $row[2],
-            //         'name' => $row[3],
-            //         'price' => $row[4],
-
-            //     ];
-            //     $this->Leads->newEntity($data);
-            //     $this->Leads->save($this->Users->newEntity);
+            // dd($data);
+            $lead = $this->Leads->newEntities($data);
+            // foreach ($data as $val){
+            // $lead = $this->Leads->patchEntities($lead, $data);
+            if ($this->Leads->saveMany($lead)) {
+            }
             // }
-            // $this->Flash->success('CSV imported successfully.');
+            // dd([$lead, $data]);
+            if ($counter != 0) {
+                echo json_encode(array(
+                    "status" => 1,
+                    "message" => "$counter Lead has been save."
+                ));
+                exit;
+            }
+
+           
         }
     }
 }

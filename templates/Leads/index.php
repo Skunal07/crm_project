@@ -6,21 +6,34 @@
       <div class="card mb-4">
         <div class="card-header pb-0">
           <h6>Leads</h6>
-          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;margin-top: -35px;'>New Lead</button>
-          <a type="button" href="/leads/export" class="btn btn-dark mx-2" style='float: right;margin-top: -35px;'>Download CSV</a>
-          <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newcsv']) ?>
-          <input type="file" name="importcsv" accept=".csv" />
-          <input type="submit" id="btncsv" value="Upload" />
-          <?= $this->Form->end() ?>
-
-          <div class="col-md-3">
-            <select id="stage" class="form-control" width="200px">
-              <option class="stage" value="" selected>All</option>
-              <option class="stage" value="1">Awerness</option>
-              <option class="stage" value="2">Quilified</option>
-              <option class="stage" value="3">Lost</option>
-              <option class="stage" value="4">Completed</option>
-            </select>
+          <div class="row">
+            <div class="col-4">
+              <!-- <div class="col-md-3"> -->
+              <select id="stage" class="form-control" width="200px">
+                <option class="stage" value="" selected>All</option>
+                <option class="stage" value="1">Awerness</option>
+                <option class="stage" value="2">Quilified</option>
+                <option class="stage" value="3">Lost</option>
+                <option class="stage" value="4">Completed</option>
+              </select>
+              <!-- </div> -->
+            </div>
+            <div class="col-5">
+              <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newcsv']) ?>
+              <div class="row">
+                <div class="col-9">
+                  <input type="file" class="form-control" name="importcsv" accept=".csv" />
+                </div>
+                <div class="col-3">
+                  <input type="submit" class="form-control btn btn-primary" id="btncsv" value="Upload" />
+                </div>
+              </div>
+              <?= $this->Form->end() ?>
+            </div>
+            <div class="col-3">
+              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddLeadModal" style='float: right;'>New Lead</button>
+              <a type="button" href="/leads/export" class="btn btn-dark mx-2" style='float: right;'>Download CSV</a>
+            </div>
           </div>
         </div>
         <!------------------------------------------ Add-----Lead----Modal ------------------------------------->

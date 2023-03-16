@@ -1,3 +1,13 @@
+<style>
+    .active{
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: black;
+}
+</style>
+<?php $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1); ?>
+
 <div class="min-height-300 bg-primary position-absolute w-100"></div>
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
@@ -17,18 +27,22 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
+      
+            
             <li class="nav-item">
-                <a class="nav-link" href="/users/dashboard">
-                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa-solid fa-tv text-primary text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Dashboard</span>
-                </a>
-            </li>
+            <a class="nav-link  <?php echo $page == "dashboard"?'active bg-gradient-secondary':'';?>" href="/users/dashboard">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-tv text-primary text-sm opacity-10"></i>
+                </div>
+               
+                <span class="nav-link-text ms-1">Dashboard</span>
+            </a>
+        </li>
+            
             <?php if ($user->role == 1) { ?>
 
                 <li class="nav-item">
-                    <a class="nav-link " href="/users/users_list">
+                    <a class="nav-link  <?php echo $page == "users_list"?'active bg-gradient-secondary':'';?>" href="/users/users_list">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="fa-solid fa-user text-primary text-sm opacity-10"></i>
                         </div>
@@ -37,7 +51,7 @@
                 </li>
             <?php } ?>
             <li class="nav-item">
-                <a class="nav-link " href="/categories">
+                <a class="nav-link  <?php echo $page == "categories"?'active bg-gradient-secondary':'';?>" href="/categories">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-calendar-days text-primary text-sm opacity-10"></i>
                     </div>
@@ -45,7 +59,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/products">
+                <a class="nav-link  <?php echo $page == "products"?'active bg-gradient-secondary':'';?>" href="/products">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-credit-card text-primary text-sm opacity-10"></i>
                     </div>
@@ -53,7 +67,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/contactUs">
+                <a class="nav-link  <?php echo $page == "contactUs"?'active bg-gradient-secondary':'';?>" href="/contactUs">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
                         <i class="fa-solid fa-message text-primary text-sm opacity-10"></i>
@@ -62,7 +76,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/Companies">
+                <a class="nav-link  <?php echo $page == "Companies"?'active bg-gradient-secondary':'';?>" href="/Companies">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                         <i class="fa-solid fa-building text-primary text-sm opacity-10"></i>
@@ -71,7 +85,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/contacts">
+                <a class="nav-link  <?php echo $page == "contacts"?'active bg-gradient-secondary':'';?>" href="/contacts">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-address-book text-primary text-sm opacity-10"></i>
                     </div>
@@ -79,7 +93,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/leads">
+                <a class="nav-link  <?php echo $page == "leads"?'active bg-gradient-secondary':'';?>" href="/leads">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-sharp fa-solid fa-file text-primary text-sm opacity-10"></i>
                     </div>
@@ -90,7 +104,7 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">My Profile / logout</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/users/user_profile">
+                <a class="nav-link  <?php echo $page == "user_profile"?'active bg-gradient-secondary':'';?>" href="/users/user_profile">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-user text-primary text-sm opacity-10"></i>
                     </div>
@@ -98,7 +112,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/users/logout">
+                <a class="nav-link  <?php echo $page == "logout"?'active bg-gradient-secondary':'';?>" href="/users/logout">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa-solid fa-right-from-bracket text-primary text-sm opacity-10"></i>
                     </div>
@@ -109,3 +123,5 @@
     </div>
    
 </aside>
+
+

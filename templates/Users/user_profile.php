@@ -8,7 +8,7 @@
     <div class="card-body p-3">
       <div class="row gx-4">
         <div class="col-auto">
-          <div class="avatar avatar-xl position-relative">
+          <div class="avatar-xl position-relative avatar-pic">
             <?= $this->Html->image($user->user_profile->profile_image, ["class" => "w-100 border-radius-lg shadow-sm "]) ?>
           </div>
         </div>

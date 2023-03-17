@@ -19,7 +19,6 @@ class UsersController extends AppController
     public function initialize(): void
     {
         $this->loadComponent('Authentication.Authentication');
-
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
@@ -56,26 +55,24 @@ class UsersController extends AppController
         ]);
         $result = $this->Authentication->getIdentity();
         $key = $this->request->getQuery('key');
-        
-        
+
+
         // dd($key);        
         $countall = array();
 
         if ($key != null) {
-                $countall['user']  = $this->Users->find('all')->contain('UserProfile')->where(['Or' => ['first_name like' => '%' . $key . '%']]);
+            $countall['user']  = $this->Users->find('all')->contain('UserProfile')->where(['Or' => ['first_name like' => '%' . $key . '%']]);
 
-                $countall['product']  = $this->Products->find('all')->contain(['Categories','Users.UserProfile'])->where(['Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);
+            $countall['product']  = $this->Products->find('all')->contain(['Categories', 'Users.UserProfile'])->where(['Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);
 
-                // $countall['companies']  = $this->Companies->find('all')->contain('Users')->where(['Companies.delete_status' => 0, 'Or' => ['company_name like' => '%' . $key . '%']]);
-                
-                $countall['lead']  = $this->Leads->find('all')->contain(['LeadContacts','Users.UserProfile'])->where(['Leads.delete_status' => 0, 'Or' => ['name like' => '%' . $key . '%']]);
+            // $countall['companies']  = $this->Companies->find('all')->contain('Users')->where(['Companies.delete_status' => 0, 'Or' => ['company_name like' => '%' . $key . '%']]);
 
-            }
-        $this->set(compact('countall','user'));
-
+            $countall['lead']  = $this->Leads->find('all')->contain(['LeadContacts', 'Users.UserProfile'])->where(['Leads.delete_status' => 0, 'Or' => ['name like' => '%' . $key . '%']]);
+        }
+        $this->set(compact('countall', 'user'));
     }
 
-    
+
     public function index($id = null)
     {
         $this->viewBuilder()->setLayout("home");
@@ -169,24 +166,25 @@ class UsersController extends AppController
         $user = $this->Users->get($uid, [
             'contain' => ['UserProfile']
         ]);
-        
+
         $key = $this->request->getQuery('key1');
-        
-        
+
+
         $countall = array();
 
         if ($key != null) {
             // dd($key);        
-                $countall['user']  = $this->UserProfile->find('all')->where(['Or' => ['first_name like' => '%' . $key . '%']]);
+            $countall['user']  = $this->UserProfile->find('all')->where(['Or' => ['first_name like' => '%' . $key . '%']]);
+
 
                 $countall['product']  = $this->Products->find('all')->where(['Products.delete_status' => 0,'Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);
 
-                // $countall['companies']  = $this->Companies->find('all')->contain('Users')->where(['Companies.delete_status' => 0, 'Or' => ['company_name like' => '%' . $key . '%']]);
-                
-                $countall['lead']  = $this->Leads->find('all')->where(['Leads.delete_status' => 0, 'Or' => ['name like' => '%' . $key . '%']]);
 
-            }
-            // pr($countall);
+            // $countall['companies']  = $this->Companies->find('all')->contain('Users')->where(['Companies.delete_status' => 0, 'Or' => ['company_name like' => '%' . $key . '%']]);
+
+            $countall['lead']  = $this->Leads->find('all')->where(['Leads.delete_status' => 0, 'Or' => ['name like' => '%' . $key . '%']]);
+        }
+        // pr($countall);
         if ($result->role == 1) {
 
 
@@ -196,15 +194,17 @@ class UsersController extends AppController
             $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
             $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0]);
             $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0]);
+            $totalawerness = $this->Leads->find('all')->where(['stages' => 1, 'delete_status' => 0]);
+            $totalquilified = $this->Leads->find('all')->where(['stages' => 2, 'delete_status' => 0]);
             $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
             $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
             $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4])->order(['id' => 'DESC']);
-
-      
         } else {
             $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
             $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
             $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0, 'user_id' => $uid]);
+            $totalawerness = $this->Leads->find('all')->where(['stages' => 1, 'delete_status' => 0, 'user_id' => $uid]);
+            $totalquilified = $this->Leads->find('all')->where(['stages' => 2, 'delete_status' => 0, 'user_id' => $uid]);
             $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0, 'user_id' => $uid]);
             $totallead = $this->Leads->find('all')->where(['delete_status' => 0, 'user_id' => $uid]);
             $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0, 'user_id' => $uid]);
@@ -215,7 +215,9 @@ class UsersController extends AppController
             $i++;
         }
         $count = $i;
-        $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead','key', 'totalwon', 'totallost', 'category', 'leads','countall'));
+
+        $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'totalawerness','totalquilified','key', 'totalwon', 'totallost', 'category', 'leads','countall'));
+
         if ($this->request->is('ajax')) {
             // $this->autoRender = false;
             //$this->layout = false;
@@ -526,13 +528,13 @@ class UsersController extends AppController
         if ($user && $user->isValid()) {
 
             $user = $this->Authentication->getIdentity();
-            $id = $user->id;
-            $user = $this->Users->get($id, [
+            $uid = $user->id;
+            $user = $this->Users->get($uid, [
                 'contain' => ['UserProfile'],
             ]);
             $users = $this->request->getData();
 
-            $users['id'] = $id;
+            $users['id'] = $uid;
             // pr($id);
             // die;
 

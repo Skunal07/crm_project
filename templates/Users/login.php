@@ -1,9 +1,10 @@
 <body class="">
-  <div class="container position-sticky z-index-sticky top-0">
-    <div class="row">
-      <div class="col-12">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
+  <!-- <div class="container position-sticky z-index-sticky top-0"> -->
+  <div class="row">
+    <div class="col-12">
+
+      <!-- Navbar -->
+      <!-- <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
           <div class="container-fluid">
             <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/users">
               DoorsDekho.com
@@ -22,8 +23,8 @@
                     <i class="fa-solid fa-house opacity-6 text-dark me-1 fa-lg"></i>
                     Home
                   </a>
-                </li>
-                <!-- <li class="nav-item">
+                </li> -->
+      <!-- <li class="nav-item">
                   <a class="nav-link me-2" href="../pages/profile.html">
                     <i class="fa fa-user opacity-6 text-dark me-1"></i>
                     Profile
@@ -41,7 +42,7 @@
                     Sign In
                   </a>
                 </li> -->
-              </ul>
+      <!-- </ul>
               <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
                   <i class="fa-solid fa-face-smile fa-lg"></i>
@@ -49,11 +50,11 @@
               </ul>
             </div>
           </div>
-        </nav>
-        <!-- End Navbar -->
-      </div>
+        </nav> -->
+      <!-- End Navbar -->
     </div>
   </div>
+  <!-- </div> -->
   <main class="main-content  mt-0">
     <section>
       <div class="page-header min-vh-100">
@@ -67,22 +68,25 @@
                 </div>
                 <div class="card-body">
                   <?= $this->Flash->render() ?>
-                  <?= $this->Form->create() ?>
+                  <?= $this->Form->create(null, ['class' => 'login-form']) ?>
                   <!-- <form role="form"> -->
                   <div class="mb-3">
-                    <?= $this->Form->control('email', ['required' => true, 'class' => 'form-control']) ?>
+                    <?= $this->Form->control('email', ['required' => false, 'class' => 'form-control']) ?>
 
                     <!-- <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email"> -->
                   </div>
                   <div class="mb-3">
-                    <?= $this->Form->control('password', ['required' => true, 'class' => 'form-control']) ?>
+                    <?= $this->Form->control('password', ['required' => false, 'class' => 'form-control']) ?>
                   </div>
-                  <div class="form-check form-switch">
+                  <!-- <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="rememberMe">
                     <label class="form-check-label" for="rememberMe">Remember me</label>
-                  </div>
+                  </div> -->
                   <div class="text-center">
                     <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                  </div>
+                  <div class="text-center">
+                    <a href="/users/index" type="button" class="btn btn-white btn-lg w-100 mt-4 mb-0">Home</a>
                   </div>
                   </form>
                 </div>

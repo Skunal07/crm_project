@@ -4,6 +4,7 @@
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
+
 $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1);
 //  dd($page);
 //  dd(substr($_SERVER['REQUEST_URI'], 1 ));
@@ -12,12 +13,13 @@ if (isset($_REQUEST['key'])) {
     $key = $_REQUEST['key'];
 }
 ?>
+
 <?= $page == "dashboard" ? 'active bg-gradient-primary' : ''; ?>
 <main class="main-content position-relative border-radius-lg ">
 
     <!-- Navbar -->
 
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false" >
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -85,7 +87,9 @@ if (isset($_REQUEST['key'])) {
                     } else { ?>
                         <div class="input-group">
                             <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+
                             <input type="text" class="form-control" value="<?php echo $key ?>" name="key" id="key" placeholder="Type here...">
+
 
                         </div>
 
@@ -93,7 +97,9 @@ if (isset($_REQUEST['key'])) {
 
                 </div>
 
+
                 <ul class="navbar-nav  justify-content-end">
+
                     <li class="nav-item d-flex align-items-center">
                         <a href="/users/logout" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
@@ -115,12 +121,21 @@ if (isset($_REQUEST['key'])) {
                             <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count">
+                    <li class="nav-item dropdown pe-2 d-flex align-items-center"id="count" >
                         <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell fa-lg cursor-pointer"></i><?php if ($count != null) {  ?><sup class="text-white bg-danger  px-1 rounded"><?= $count ?></sup><?php } ?>
+                      <i class="fa fa-bell fa-lg cursor-pointer"></i>
+                            <?php
+                            if ($count != null) {
+                            ?>
+                                <sup class="text-white bg-danger  px-1 rounded">
+                                    <?= $count ?></sup>
+                            <?php
+                            }
+                            ?>
+
                         </a>
                         <ul class="dropdown-menu list-group table-responsive dropdown-menu-end notify px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                            <?php if ($count == null) {
+                            <?php if ($count == 0) {
                                 echo 'No Message Yet';
                             }
                             foreach ($contactus as $list) { ?>
@@ -140,7 +155,7 @@ if (isset($_REQUEST['key'])) {
                                                 </p>
                                             </div>
                                         </div>
-                                        </buttons>
+                                    </button>
                                 </li>
                             <?php  } ?>
                         </ul>
@@ -155,6 +170,7 @@ if (isset($_REQUEST['key'])) {
     <script>
         $(document).on("click", ".clear", function() {
             var id = $(this).attr("data");
+            // alert(id)
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,
@@ -164,6 +180,9 @@ if (isset($_REQUEST['key'])) {
                 method: "POST",
                 data: id,
                 success: function(response) {
+                    console.log(response);
+                    $('.clear' + id).hide();
+
                     $('#count').load('/users/dashboard #count')
                 },
             });

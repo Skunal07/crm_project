@@ -98,3 +98,7 @@ define('CAPTCHA_SECRET_KEY', '6LdrauskAAAAAJxRRsWtJd_8_Nd0BquTCBPrckMk');
 defined("VENDOR_PATH") || define('VENDOR_PATH', ROOT . DS . 'vendor');
 defined("STRIPE_KEY") || define('STRIPE_KEY', "pk_test_51MlWovDaRK6l3iOS6Vr7PzTOrRL4ZmRqAFFAe2HvJqEd5GTQeUuEBkcgZKYmHbHu2NskRQuCC6iIEOSuBxbMGd4600rHQ5qdhC");
 defined("STRIPE_SECRET") || define('STRIPE_SECRET', "sk_test_51MlWovDaRK6l3iOSSI1rKkfCpvsgOTrDPhJ7VL9IxCx02RueLdIGbyucVzR4U2LNDEJGfvMn3YL35oNdSK6vQRal00aOl6gSLJ");
+
+// defined("VENDOR_PATH") || define('VENDOR_PATH', ROOT . DS . 'vendor');
+// defined("STRIPE_KEY") || define('STRIPE_KEY', "pk_test_MaQhP2b8XqG9R7PTL6VUmipt");
+// defined("STRIPE_SECRET") || define('STRIPE_SECRET', "sk_test_MtVxg0tJfCGJXQY8xZlu69Ie");

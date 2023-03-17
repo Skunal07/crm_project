@@ -1625,8 +1625,11 @@ $(document).ready(function () {
                     var data = JSON.parse(response);
                     if (data["status"] == 0) {
                         // alert(data["message"]);
-                       swal ( "Oops" ,  "Something went wrong!" ,  "error" )
-                        // $('#csvModal').modal('hide');
+                       swal ( "Error" ,  "please check your file before Uploading!" ,  "error" )
+                       // $('#csvModal').modal('hide');
+                    } else if(data["status"] == 2) {
+                        swal ( "Error" ,  "File Should not be empty" ,  "error" )
+                        $('.lead').load('/leads/index .lead')
                     } else {
                         swal("Success!", data['count']+" Leads  Has been Saved!", "success");
                         $('.lead').load('/leads/index .lead')

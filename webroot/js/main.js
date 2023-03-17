@@ -64,16 +64,24 @@ $(document).ready(function () {
     });
 
     // click outisde offcanvas
-    $(document).mouseup(function (e) {
-        var container = $(".sidebar");
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-            if ($('body').hasClass('show-sidebar')) {
-                $('body').removeClass('show-sidebar');
-                $('body').find('.js-menu-toggle').removeClass('active');
-            }
-        }
-    });
+    // $(document).mouseup(function (e) {
+    //     var container = $(".sidebar");
+    //     if (!container.is(e.target) && container.has(e.target).length === 0) {
+    //         if ($('body').hasClass('show-sidebar')) {
+    //             $('body').removeClass('show-sidebar');
+    //             $('body').find('.js-menu-toggle').removeClass('active');
+    //         }
+    //     }
+    // });
 
+    $(".contact-toggle").click(function () {
+        $('.close-toggle').show();
+        $(this).hide();
+    });
+    $(".close-toggle").click(function () {
+        $('.contact-toggle').show();
+        $(this).hide();
+    });
 
 
 });
@@ -109,20 +117,20 @@ $(document).ready(function () {
         },
         messages: {
             email: {
-                required: " Please enter Email",
+                required: " Please enter email",
             },
             name: {
-                required: "Please enter Name ",
+                required: "Please enter name ",
                 regex: "Please enter characters only"
             },
             query_type: {
-                required: "Please srlect Query Type ",
+                required: "Please select query type ",
             },
             'payment[priority]': {
-                required: "Please srlect Priority",
+                required: "Please select priority",
             },
             phone: {
-                required: " Please enter Phone Number ",
+                required: " Please enter phone number ",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
             },
@@ -136,7 +144,8 @@ $(document).ready(function () {
                 return false
             } else {
                 $('#cptcha-checkbox').hide();
-                $('#exampleModal').modal('show');
+                $('#staticBackdrop').modal('show');
+
                 // return false
                 var formData = $(form).serialize();
                 paymentval(formData);
@@ -209,32 +218,32 @@ function paymentval(formData) {
         },
         messages: {
             'card-name': {
-                required: " Please enter Name as per card",
+                required: " Please enter name as per card",
                 regex: "Please enter characters only"
             },
             'card-no': {
-                required: "Please enter Card Number ",
-                digits: "Alphabates Are Not Allowed",
-                minlength: "Please Enter Valid card Number",
-                maxlength: "Card Must Be 16 digits",
+                required: "Please enter card number ",
+                digits: "Alphabates are not allowed",
+                minlength: "Please enter valid card number",
+                maxlength: "Card must be 16 digits",
             },
             cvc: {
-                required: "Please enter CVC ",
-                digits: "Alphabates Are Not Allowed",
-                minlength: "Please Enter Valid CVC",
-                maxlength: "Please Enter Valid CVC",
+                required: "Please enter cvc ",
+                digits: "Alphabates are not allowed",
+                minlength: "Please enter valid cvc",
+                maxlength: "Please enter valid cvc",
             },
             month: {
-                required: "Please enter Expiry Month",
-                digits: "Alphabates Are Not Allowed",
-                minlength: "Please Enter Valid month",
-                maxlength: "Please Enter Valid month",
+                required: "Please enter expiry month",
+                digits: "Alphabates are not allowed",
+                minlength: "Please enter valid month",
+                maxlength: "Please enter valid month",
             },
             year: {
                 required: " Please enter year ",
-                digits: "Alphabates Are Not Allowed",
-                minlength: "Please Enter Valid Year",
-                maxlength: "Please Enter Valid Year",
+                digits: "Alphabates are not allowed",
+                minlength: "Please enter valid year",
+                maxlength: "Please enter valid year",
             },
 
 
@@ -259,7 +268,7 @@ function paymentval(formData) {
                 success: function (response) {
                     var data = JSON.parse(response);
                     console.log(data)
-                    swal("Submitted!", "Your details Has been Submitted Successfully!", "success");
+                    swal("Submitted!", "Your details has been submitted successfully!", "success");
                     $('.gif-loader').hide();
                     grecaptcha.reset();
                     $('#contactusform')[0].reset();
@@ -269,3 +278,4 @@ function paymentval(formData) {
         },
     });
 }
+

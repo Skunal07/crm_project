@@ -240,10 +240,16 @@ class LeadsController extends AppController
                     "count" => $counter,
                 ));
                 exit;
+            }elseif($counter == 0){
+                echo json_encode(array(
+                    "status" => 2,
+                    "message" => "there is no lead in this file"
+                ));
+                exit;
             }else{
                 echo json_encode(array(
                     "status" => 0,
-                    "message" => "Lead has not been save."
+                    "message" => " Lead has not been save."
                 ));
                 exit;
             }

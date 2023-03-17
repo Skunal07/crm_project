@@ -57,7 +57,7 @@
     </style>
 </head>
 
-<body>
+<body class="contact-panel">
     <?php echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
     <script>
         var csrfToken = $('meta[name="csrfToken"]').attr('content');

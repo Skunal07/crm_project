@@ -1,11 +1,10 @@
-
 <!-- Get Page URl -->
 
 <?php
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
- $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1); ?>
+$page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1); ?>
 <?= $page == "dashboard" ? 'active bg-gradient-primary' : ''; ?>
 <main class="main-content position-relative border-radius-lg ">
 
@@ -18,45 +17,46 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
                     <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
                 </ol>
-                <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php 
-                // if ($page=='dashboard' ) {
-                //     echo '';
-                // }else{
-                //     echo $page;
-                // }?></h6>
+                <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php
+                                                                                // if ($page=='dashboard' ) {
+                                                                                //     echo '';
+                                                                                // }else{
+                                                                                //     echo $page;
+                                                                                // }
+                                                                                ?></h6>
 
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                     <?php if ($page == 'dashboard') {
-                   ?>
-                   <div class="">
-                    <div class="col-12">
-                        <div class="input-group ">
-                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="key1" id="key1" placeholder="Type here...">
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 search-div ">
-                            <ul class="s_result search bg-dark rounded  px-2 py-3 me-sm-n4 text-white" aria-labelledby="dropdownMenuButton" >
-                                <?= $this->element('/flash/search'); ?>
-                                    </ul>
-                    </div>
-                   </div>
-                       
-                        <?php
-                    }else{?>
-                        <div class="input-group">
-                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" value="<?php if(isset($_REQUEST['key'])) echo $_REQUEST['key'] ?>" name="key" id="key" placeholder="Type here...">
-                           
+                    ?>
+                        <div class="">
+                            <div class="col-12">
+                                <div class="input-group ">
+                                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="key1" id="key1" placeholder="Type here...">
+
+                                </div>
+                            </div>
+                            <div class="col-12 search-div ">
+                                <ul class="s_result search bg-dark rounded  px-2 py-3 me-sm-n4 text-white" aria-labelledby="dropdownMenuButton">
+                                    <?= $this->element('/flash/search'); ?>
+                                </ul>
+                            </div>
                         </div>
 
-                    <?php }?>
-                    
+                    <?php
+                    } else { ?>
+                        <div class="input-group">
+                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" value="<?php if (isset($_REQUEST['key'])) echo $_REQUEST['key'] ?>" name="key" id="key" placeholder="Type here...">
+
+                        </div>
+
+                    <?php } ?>
+
                 </div>
-                
+
                 <ul class="navbar-nav  justify-content-end">
                     <li class="nav-item d-flex align-items-center">
                         <a href="/users/logout" class="nav-link text-white font-weight-bold px-0">
@@ -81,7 +81,15 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
                     </li>
                     <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count">
                         <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell fa-lg cursor-pointer"></i><?php if ($count != null) {  ?><sup class="text-white bg-danger  px-1 rounded"><?= $count ?></sup><?php } ?>
+                            <i class="fa fa-bell fa-lg cursor-pointer"></i>
+                            <?php
+                            if ($count != null) {
+                            ?>
+                                <sup class="text-white bg-danger  px-1 rounded">
+                                    <?= $count ?></sup>
+                            <?php
+                            }
+                            ?>
                         </a>
                         <ul class="dropdown-menu list-group table-responsive dropdown-menu-end notify px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                             <?php if ($count == null) {
@@ -115,7 +123,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     </nav>
 
     <!-- End Navbar -->
-    
+
     <script>
         $(document).on("click", ".clear", function() {
             var id = $(this).attr("data");
@@ -137,11 +145,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 
-<style>
-
-    ul.s_result.search.px-2.py-3.me-sm-n4 {
-        background: white;
-        width: 100%;
-        display:none;
-    }
+    <style>
+        ul.s_result.search.px-2.py-3.me-sm-n4 {
+            background: white;
+            width: 100%;
+            display: none;
+        }
     </style>

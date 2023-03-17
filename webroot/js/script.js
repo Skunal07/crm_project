@@ -3,7 +3,7 @@ jQuery.validator.addMethod(
     function (value, element) {
         return value == '' || value.trim().length != 0;
     },
-    "No space please and don't leave it empty"); 
+    "No space please and don't leave it empty");
 
 
 function imgSelect() {
@@ -47,7 +47,7 @@ $(document).ready(function () {
         rules: {
             "user_profile[profile_image]": {
                 required: true,
-                noSpace:true,
+                noSpace: true,
             },
         },
         messages: {
@@ -83,9 +83,9 @@ $(document).ready(function () {
                             "Updated Successfully!",
                             "Image Has Been Updated SuccessFully!",
                             "success"
-                            );
-                            $(".card-profile").load("/users/user_profile .card-profile");
-                        $(".avatar").load("/users/user_profile .avatar");
+                        );
+                        $(".card-profile").load("/users/user_profile .card-profile");
+                        $(".avatar-pic").load("/users/user_profile .avatar-pic");
                         $("#ProfileImage").hide();
                         $("div.modal-backdrop").remove();
                     }
@@ -95,29 +95,29 @@ $(document).ready(function () {
         },
     });
 
-    
+
     //====================== update User Details in modal Using ajax =================
     $("#updateInfo").validate({
         rules: {
             "user_profile[first_name]": {
                 required: true,
-                noSpace:true,
+                noSpace: true,
             },
             "user_profile[last_name]": {
                 required: true,
-                noSpace:true,
+                noSpace: true,
             },
             "email": {
                 required: true,
-                noSpace:true,
+                noSpace: true,
             },
             "user_profile[contact]": {
                 required: true,
-                noSpace:true,
+                noSpace: true,
             },
             "user_profile[address]": {
                 required: true,
-                noSpace:true,
+                noSpace: true,
             },
         },
         messages: {

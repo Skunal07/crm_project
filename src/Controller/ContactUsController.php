@@ -25,7 +25,7 @@ class ContactUsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
- 
+
     public function index()
     {
         $contactUs = $this->paginate($this->ContactUs);
@@ -53,7 +53,7 @@ class ContactUsController extends AppController
     public function response($id = null)
     {
         $result = $this->Authentication->getIdentity();
-        $uid=$result->id;
+        $uid = $result->id;
         $this->request->allowMethod(['post']);
         $contact = $this->ContactUs->get($id);
         $contact->work_status = 1;
@@ -63,7 +63,7 @@ class ContactUsController extends AppController
         if ($this->ContactUs->save($contact)) {
             $mailer = new Mailer('default');
             $mailer->setTransport('gmail'); //your email configuration name
-            $mailer->setFrom(['kunal02chd@gmail.com' => 'Code The Pixel']);
+            $mailer->setFrom(['kunal02chd@gmail.com' => 'DoorsDekho.com']);
             $mailer->setTo($email);
             $mailer->setEmailFormat('html');
             $mailer->setSubject('Team DoorDekho.com');

@@ -19,7 +19,6 @@ class UsersController extends AppController
     public function initialize(): void
     {
         $this->loadComponent('Authentication.Authentication');
-
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadModel('ContactUs');
@@ -193,6 +192,8 @@ class UsersController extends AppController
             $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
             $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0]);
             $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0]);
+            $totalawerness = $this->Leads->find('all')->where(['stages' => 1, 'delete_status' => 0]);
+            $totalquilified = $this->Leads->find('all')->where(['stages' => 2, 'delete_status' => 0]);
             $totallead = $this->Leads->find('all')->where(['delete_status' => 0]);
             $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
             $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4])->order(['id' => 'DESC']);
@@ -200,6 +201,8 @@ class UsersController extends AppController
             $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
             $totalcontact = $this->ContactUs->find('all')->where(['delete_status' => 0]);
             $totalwon = $this->Leads->find('all')->where(['stages' => 4, 'delete_status' => 0, 'user_id' => $uid]);
+            $totalawerness = $this->Leads->find('all')->where(['stages' => 1, 'delete_status' => 0, 'user_id' => $uid]);
+            $totalquilified = $this->Leads->find('all')->where(['stages' => 2, 'delete_status' => 0, 'user_id' => $uid]);
             $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0, 'user_id' => $uid]);
             $totallead = $this->Leads->find('all')->where(['delete_status' => 0, 'user_id' => $uid]);
             $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0, 'user_id' => $uid]);
@@ -210,7 +213,9 @@ class UsersController extends AppController
             $i++;
         }
         $count = $i;
-        $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'key', 'totalwon', 'totallost', 'category', 'leads', 'countall'));
+
+        $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'totalawerness','totalquilified','key', 'totalwon', 'totallost', 'category', 'leads','countall'));
+
         if ($this->request->is('ajax')) {
             // $this->autoRender = false;
             //$this->layout = false;

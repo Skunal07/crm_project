@@ -38,9 +38,9 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <div class="gif-loader text-center">
+    <!-- <div class="gif-loader text-center">
         <img src="img/output-onlinegiftools.gif" alt="" width="80px">
-    </div>
+    </div> -->
     <div class="container my-3">
         <?php
         if ($id == 0) {

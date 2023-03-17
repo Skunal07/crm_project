@@ -2,11 +2,11 @@
     <div class="card">
         <div class="row g-0">
             <div class="col-md-12 border-end">
-                <div class="d-flex flex-column justify-content-center">
-                    <div class="main_image my-3">
-                        <!-- <img src="https://i.imgur.com/TAzli1U.jpg" id="main_product_image" width="100%"> -->
-                        <?= $this->Html->image(h($product->product_image), array('id' => 'main_product_image')) ?>
-                    </div>
+                <div class="d-flex flex-column justify-content-center float-start mx-3 my-3">
+                    <!-- <div class="main_image mx-2 my-3"> -->
+                    <!-- <img src="https://i.imgur.com/TAzli1U.jpg" id="main_product_image" width="100%"> -->
+                    <?= $this->Html->image(h($product->product_image), array('id' => 'main_product_image')) ?>
+                    <!-- </div> -->
                     <!-- <div class="thumbnail_images">
                         <ul id="thumbnail">
                             <li><img onclick="changeImage(this)" src="https://i.imgur.com/TAzli1U.jpg" width="70"></li>
@@ -17,6 +17,7 @@
                     </div> -->
                 </div>
             </div>
+            <hr class="my-1">
             <div class="col-md-6">
                 <div class="p-3 right-side">
                     <div class=" align-items-center">

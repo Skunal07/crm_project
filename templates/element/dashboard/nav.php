@@ -57,7 +57,9 @@ $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 
 
                 </div>
 
+
                 <ul class="navbar-nav  justify-content-end" >
+
                     <li class="nav-item d-flex align-items-center">
                         <a href="/users/logout" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
@@ -81,8 +83,16 @@ $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 
                     </li>
                     <li class="nav-item dropdown pe-2 d-flex align-items-center"id="count" >
                         <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell fa-lg cursor-pointer"></i><?php
-                                                                            if ($count != 0) {  ?><sup class="text-white bg-danger  px-1 rounded"><?= $count ?></sup><?php } ?>
+                      <i class="fa fa-bell fa-lg cursor-pointer"></i>
+                            <?php
+                            if ($count != null) {
+                            ?>
+                                <sup class="text-white bg-danger  px-1 rounded">
+                                    <?= $count ?></sup>
+                            <?php
+                            }
+                            ?>
+
                         </a>
                         <ul class="dropdown-menu list-group table-responsive dropdown-menu-end notify px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                             <?php if ($count == 0) {

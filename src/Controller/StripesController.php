@@ -31,10 +31,13 @@ class StripesController extends AppController
         ]);
         // dd($stripe);
         // after successfull payment, you can store payment related information into your database
-        $this->Flash->success(__('Payment done successfully'));
+        // $this->Flash->success(__('Payment done successfully'));
 
         return $this->redirect(['controller' => 'users', 'action' => 'index']);
     }
+
+
+
     // public function payment()
     // {
     //     if ($_POST['tokenId']) {

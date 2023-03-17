@@ -103,7 +103,7 @@ aside {
 
 aside .toggle {
   padding-right: 30px;
-  padding-top: 30px;
+  margin-top: 30px;
   position: absolute;
   left: 0;
   -webkit-transform: translateX(-100%);

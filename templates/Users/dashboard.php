@@ -6,10 +6,10 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Contact Us Request</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Leads</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $i = 0;
-                                    foreach ($totalcontact as $total) {
+                                <?php $i = 0;
+                                    foreach ($totallead as $lead) {
                                         $i++;
                                     }
                                     echo $i; ?>
@@ -35,10 +35,10 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Project</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Quilified</p>
                                 <h5 class="font-weight-bolder">
                                     <?php $j = 0;
-                                    foreach ($totallead as $lead) {
+                                    foreach ($totalquilified as $quilified) {
                                         $j++;
                                     }
                                     echo $j; ?>
@@ -192,7 +192,7 @@
                     <table class="table align-items-center ">
                         <tbody>
                             <?php foreach ($leads as $lead) {
-                            ?>
+                                ?>
                                 <tr>
                                     <td class="w-30">
                                         <div class="d-flex px-2 py-1 align-items-center">
@@ -250,7 +250,7 @@
                                         foreach ($cat->products as $p) {
                                             $no++;
                                         } ?>
-                                        <span class="text-xs"><?= $no ?> in stock</span>
+                                        <span class="text-xs"><?= $no ?> Products</span>
 
                                     </div>
                                 </div>
@@ -265,6 +265,11 @@
         </div>
     </div>
 
+                                        <?php $m = 0;
+                                        foreach ($totalawerness as $aw) {
+                                            $m++;
+                                        }
+                                       ?>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -277,9 +282,9 @@
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
                     ['sales', 'Hours per Day'],
-                    ['ContactUs', <?= $i ?>],
+                    ['Awernaess', <?= $m ?>],
                     ['Lost ', <?= $k ?>],
-                    ['Project', <?= $j ?>],
+                    ['Quilified', <?= $j ?>],
                     ['Won', <?= $l ?>],
 
                 ]);

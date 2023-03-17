@@ -16,30 +16,32 @@ class LeadsController extends AppController
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
         $this->paginate = [
-            'contain' => ['Users.UserProfile', 'LeadContacts'],
+            'contain' => ['Users.UserProfile', 'LeadContacts','Companies'],
         ];
+        $companies = $this->Companies->find('all')->where(['delete_status' => 0]);
+
         // $id = $this->request->getQuery('user_id');
         if ($user->role == 1) {
             if ($id != null) {
 
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts'])->where(['stages' => $id]);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies','LeadContacts'])->where(['stages' => $id])->order(['Leads.id' => 'DESC']);
 
                 // dd($leads);
             } else {
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts']);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies','LeadContacts'])->order(['Leads.id' => 'DESC']);
             }
         } else {
             if ($id != null) {
 
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts'])->where(['stages' => $id, 'Leads.user_id' => $uid]);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile','Companies', 'LeadContacts'])->where(['stages' => $id, 'Leads.user_id' => $uid])->order(['Leads.id' => 'DESC']);
 
                 // dd($leads);
             } else {
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'LeadContacts'])->where(['Leads.user_id' => $uid]);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile','Companies', 'LeadContacts'])->where(['Leads.user_id' => $uid])->order(['Leads.id' => 'DESC']);
             }
         }
 
-        $this->set(compact('leads'));
+        $this->set(compact('leads','companies'));
         if ($this->request->is('ajax')) {
             $this->autoRender = false;
             //$this->layout = false;
@@ -75,7 +77,8 @@ class LeadsController extends AppController
 
             if ($this->Leads->save($lead)) {
 
-                $this->Flash->success(__('The Lead has been saved.'));
+
+                // $this->Flash->success(__('The Lead has been saved.'));
                 $this->autoRender = false;
                 $this->viewBuilder()->setLayout(null);
 

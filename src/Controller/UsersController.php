@@ -176,7 +176,9 @@ class UsersController extends AppController
             // dd($key);        
             $countall['user']  = $this->UserProfile->find('all')->where(['Or' => ['first_name like' => '%' . $key . '%']]);
 
-            $countall['product']  = $this->Products->find('all')->where(['Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);
+
+                $countall['product']  = $this->Products->find('all')->where(['Products.delete_status' => 0,'Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);
+
 
             // $countall['companies']  = $this->Companies->find('all')->contain('Users')->where(['Companies.delete_status' => 0, 'Or' => ['company_name like' => '%' . $key . '%']]);
 
@@ -260,7 +262,7 @@ class UsersController extends AppController
         // pr($result);
         // die;
         if ($result->role == '1') {
-            $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0]));
+            $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0])->order(["Users.id"=>"DESC"]));
 
             $this->set(compact('users', 'user'));
         } else {

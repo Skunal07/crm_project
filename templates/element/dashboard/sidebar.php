@@ -72,11 +72,11 @@
                         <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
                         <i class="fa-solid fa-message text-primary text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Contact Us Request</span>
+                    <span class="nav-link-text ms-1">Contact Us Requests</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  <?php echo $page == "Companies"?'active bg-gradient-secondary':'';?>" href="/Companies">
+                <a class="nav-link  <?php echo $page == "companies"?'active bg-gradient-secondary':'';?>" href="/companies">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                         <i class="fa-solid fa-building text-primary text-sm opacity-10"></i>

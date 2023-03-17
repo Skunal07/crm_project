@@ -23,7 +23,7 @@ class ProductsController extends AppController
         $this->paginate = [
             'contain' => ['Users.UserProfile', 'Categories'],
         ];
-        $products = $this->paginate($this->Products);
+        $products =$this->Products->find('all')->contain(['Users.UserProfile', 'Categories'])->order(["Products.id"=>"DESC"]);
 
         $categories = $this->Categories->find('all')->where(['delete_status' => 0]);
 

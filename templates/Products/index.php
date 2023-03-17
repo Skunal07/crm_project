@@ -11,6 +11,7 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Name</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category Name</th>
@@ -24,19 +25,23 @@
                             <tbody id="mytable">
                                 <!-- <pre> -->
                                 <?php
-                                if (count($products) > 0) {
-                                    foreach ($products as $product) :
+                                $i =1;
+                                
+                                foreach ($products as $product) :
                                         if ($product->delete_status == 1) {
                                             continue;
                                         }
                                 ?>
                                         <tr>
+                                        <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
+                    </td>  
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div>
                                                         <?= $this->Html->image($product->product_image, ['class' => "avatar avatar-sm me-3"]); ?>
                                                     </div>
-                                                    <div class="d-flex flex-column justify-content-center">
+                                                    <div class="text-capitalize d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm"><?= h($product->product_name) ?></h6>
                                                     </div>
                                                 </div>
@@ -109,13 +114,6 @@
                                         </tr>
                                     <?php
                                     endforeach;
-                                } else {
-                                    ?>
-                                    <tr class="align-middle">
-                                        <td colspan="7" class="text-center fw-bold">No Results To Show</td>
-                                    </tr>
-                                <?php
-                                }
                                 ?>
                             </tbody>
                         </table>

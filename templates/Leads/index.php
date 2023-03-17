@@ -44,6 +44,16 @@
                 <?php
                 echo $this->Form->control('name', ['class' => 'form-control']);
                 ?>
+                 <br>
+                <label for="company_id" class="form-label">Company Name</label>
+                <select name="company_id" id="company_id" class="form-control">
+                    <option value="-1" disabled selected>--Choose Company--</option>
+                    <?php
+                    foreach ($companies as $company) {
+                        echo "<option value='$company->id' >$company->company_name</option>";
+                    } ?>
+                </select>
+                
                 <br>
                 <?php
                 echo $this->Form->control('price', ['class' => 'form-control']);

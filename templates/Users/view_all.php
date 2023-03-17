@@ -38,7 +38,7 @@ if ($countall != null) {
                                                         <div>
                                                             <?= $this->Html->image($user->user_profile->profile_image, ["class" => "avatar avatar-sm me-3 border-radius-lg "]) ?>
                                                         </div>
-                                                        <div class="d-flex flex-column justify-content-center">
+                                                        <div class="text-capitalize d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm"><?= h($user->user_profile->first_name) ?></h6>
                                                         </div>
                                                     </div>
@@ -49,12 +49,12 @@ if ($countall != null) {
                                                 <td>
                                                     <h6 class="mb-0 text-sm"><?= h($user->user_profile->contact) ?></h6>
                                                 </td>
-                                                <td class="align-middle text-center">
+                                                <td class="">
                                                     <h6 class="mb-0 text-sm"><?= h($user->user_profile->address) ?></h6>
                                                 </td>
 
 
-                                                <td class="align-middle text-center">
+                                                <td class="">
                                                     <h6 class="mb-0 text-sm"><?= h($user->created_date) ?></h6>
                                                 </td>
 
@@ -120,13 +120,13 @@ if ($countall != null) {
                                                             <div>
                                                                 <?= $this->Html->image($product->product_image, ['class' => "avatar avatar-sm me-3"]); ?>
                                                             </div>
-                                                            <div class="d-flex flex-column justify-content-center">
+                                                            <div class="text-capitalize d-flex flex-column justify-content-center">
                                                                 <h6 class="mb-0 text-sm"><?= h($product->product_name) ?></h6>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <p class="text-xs font-weight-bold mb-0"><?= ($product->user->user_profile['first_name']) ?> <?= ($product->user->user_profile['last_name']) ?></p>
+                                                        <p class="text-capitalize text-xs font-weight-bold mb-0"><?= ($product->user->user_profile['first_name']) ?> <?= ($product->user->user_profile['last_name']) ?></p>
                                                     </td>
                                                     <td class="align-middle text-center">
                                                         <span class="text-secondary text-xs font-weight-bold"><?= h($product->category->category_name) ?></span>
@@ -239,7 +239,7 @@ if ($countall != null) {
                                                     <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
                                                 </td>
 
-                                                <td class="align-middle text-center">
+                                                <td class="text-capitalize align-middle text-center">
                                                     <span class="text-secondary text-xs font-weight-bold"><?= h($lead->name) ?></span>
                                                 </td>
 
@@ -247,7 +247,7 @@ if ($countall != null) {
                                                     <span class="text-secondary text-xs font-weight-bold"><?= ($lead->price) ?></span>
                                                 </td>
 
-                                                <td class="align-middle text-center">
+                                                <td class="text-capitalize align-middle text-center">
                                                     <span class="text-secondary text-xs font-weight-bold"><?= h($lead->work_title) ?></span>
                                                 </td>
                                                 <td class="align-middle text-center">

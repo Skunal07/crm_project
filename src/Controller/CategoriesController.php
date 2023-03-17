@@ -11,10 +11,10 @@ class CategoriesController extends AppController
     
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users.UserProfile'],
-        ];
-        $categories = $this->paginate($this->Categories->find('all')->where(['Categories.delete_status' => 0]));
+        // $this->paginate = [
+        //     'contain' => ['Users.UserProfile'],
+        // ];
+        $categories =$this->Categories->find('all')->contain('Users.UserProfile')->where(['Categories.delete_status' => 0])->order(["Categories.id"=>"DESC"]);
 
         $this->set(compact('categories'));
     }

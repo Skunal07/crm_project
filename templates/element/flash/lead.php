@@ -4,6 +4,7 @@
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">S.no</th>
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price($)</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Company Name</th>
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Work Title</th>
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Progress Stages</th>
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
@@ -27,15 +28,18 @@
           <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
         </td>
 
-        <td class="align-middle text-center">
+        <td class="text-capitalize ">
           <span class="text-secondary text-xs font-weight-bold"><?= h($lead->name) ?></span>
         </td>
 
         <td class="align-middle text-center">
           <span class="text-secondary text-xs font-weight-bold"><?= ($lead->price) ?></span>
         </td>
+        <td class="">
+          <span class="text-secondary text-xs font-weight-bold"><?= ($lead->company->company_name) ?></span>
+        </td>
 
-        <td class="align-middle text-center">
+        <td class="text-capitalize">
           <span class="text-secondary text-xs font-weight-bold"><?= h($lead->work_title) ?></span>
         </td>
         <td class="align-middle text-center">

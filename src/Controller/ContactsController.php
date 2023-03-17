@@ -12,16 +12,16 @@ class ContactsController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
-        $this->paginate = [
-            'contain' => ['Companies', 'Users.UserProfile'],
+        // $this->paginate = [
+        //     'contain' => ['Companies', 'Users.UserProfile'],
 
-        ];
+        // ];
         if ($user->role == 1) {
-            $contacts = $this->paginate($this->Contacts);
-            $companies = $this->Companies->find('all');
+            $contacts = $this->Contacts->find('all')->contain(['Companies', 'Users.UserProfile'])->where('Contacts.id')->order(['Contacts.id' => 'DESC']);
+            $companies = $this->Companies->find('all')->where(['Companies.delete_status' => 0]);
         } else {
             $contacts = $this->Contacts->find('all')->contain(['Companies', 'Users.UserProfile'])->where(['Contacts.user_id' => $uid])->order(['Contacts.id' => 'DESC']);
-            $companies = $this->Companies->find('all');
+            $companies = $this->Companies->find('all')->where(['Companies.delete_status' => 0]);
         }
 
 

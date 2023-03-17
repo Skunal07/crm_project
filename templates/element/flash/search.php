@@ -12,7 +12,7 @@ if ($countall != null) {
                 echo '<hr class="my-0">';
             }
             $i++;
-            echo '<li class="nav-link py-1">' . '<a href="/users/usersList">' . $user->first_name . '</a>' . '</li>';
+            echo '<li class="nav-link py-1">' . '<a href="/users/usersList?key='.$user->first_name.'">' . $user->first_name . '</a>' . '</li>';
         } else {
             echo '';
         }
@@ -38,7 +38,7 @@ if ($countall != null) {
                 echo '<hr class="my-0">';
             }
             $k++;
-                    echo '<li class="nav-link py-1">' . '<a href="/products/index">'. $product->product_name . '</a></li>';
+                    echo '<li class="nav-link py-1">' . '<a href="/products/index?key='.$product->product_name.'">'. $product->product_name . '</a></li>';
                 } else {
                     echo '';
                 }

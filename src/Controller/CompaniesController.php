@@ -18,10 +18,11 @@ class CompaniesController extends AppController
   public function index()
 
     {
-        $this->paginate = [
-            'contain' => ['Users.UserProfile'],
-        ];
-        $companies = $this->paginate($this->Companies);
+        // $this->paginate = [
+        //     'contain' => ['Users.UserProfile'],
+        // ];
+        $companies = $this->Companies->find('all')->contain('Users.UserProfile')->where(['Companies.delete_status' => 0])->order(["Companies.id"=>"DESC"]);
+
         // echo '<pre>';print_r($companies);die;
         $this->set(compact('companies'));
     }
@@ -41,7 +42,7 @@ class CompaniesController extends AppController
             if ($this->Companies->save($company)) {
 
 
-                $this->Flash->success(__('company has been created'));
+                // $this->Flash->success(__('company has been created'));
 
                 echo json_encode(array(
                     "status" => 1,
@@ -50,7 +51,7 @@ class CompaniesController extends AppController
                 die;
             }
 
-            $this->Flash->error(__('Failed to save company name'));
+            // $this->Flash->error(__('Failed to save company name'));
 
             echo json_encode(array(
                 "status" => 0,

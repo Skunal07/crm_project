@@ -36,6 +36,7 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Company Name</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
@@ -44,19 +45,24 @@
                 </tr>
               </thead>
               <tbody id="mytable">
-                <?php foreach ($companies as $company) :
+                <?php 
+                $i =1;
+                foreach ($companies as $company) :
                   if ($company->delete_status == 1) {
                     continue;
                   }
                 ?>
                   <tr id="data<?= $company->id ?>">
+                  <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
+                    </td>  
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
                           <img src="/img/company-logo.jpg" class="avatar avatar-sm me-3" alt="user1">
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm"><?= h($company->company_name) ?></h6>
+                          <h6 class=" text-capitalize mb-0 text-sm"><?= h($company->company_name) ?></h6>
                         </div>
                       </div>
                     </td>

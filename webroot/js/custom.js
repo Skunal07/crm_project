@@ -150,10 +150,10 @@ $(document).ready(function () {
                     var data = JSON.parse(response);
 
                     $(".company-div").load("/companies/index .company-div");
-                    swal("Updated!", "User details Has been updated!", "success");
+                    // swal("Updated!", "Company details Has been updated!", "success");
                     $('#companyEdit').hide();
                     $('.modal-backdrop').hide();
-                    swal("Updated!", "User details Has been updated!", "success");
+                    swal("Updated!", "Company details Has been updated!", "success");
 
                 },
             });
@@ -180,7 +180,7 @@ $(document).on("click", ".btn-delete-company", function () {
 
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, you will not be able to recover this company data!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -197,7 +197,7 @@ $(document).on("click", ".btn-delete-company", function () {
                     success: function (response) {
 
                         $('#data' + postdata).hide();
-                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                        swal("Company data deleted succesfully!", "Success!", "success");
                     }
                 });
             }
@@ -311,7 +311,7 @@ $(document).ready(function () {
                 success: function (response) {
                     var data = JSON.parse(response);
 
-                    swal("Updated!", "User details Has been updated!", "success");
+                    swal("Updated!", "Category details has been updated!", "success");
                     $("#category").load("/categories/index #category");
                     $('#editcategoryModal').hide();
                     $('.modal-backdrop').hide();
@@ -334,7 +334,7 @@ $(document).on("click", ".btn-delete-category", function () {
 
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, are you sure you want to delete this category!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -354,7 +354,7 @@ $(document).on("click", ".btn-delete-category", function () {
                     success: function (response) {
 
                         $('#data' + postdata).hide();
-                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                        swal("Category deleted succesfully!", "Success!", "success");
                     }
                 });
             }
@@ -437,6 +437,8 @@ $(document).ready(function () {
                         $('#AddProductModal').modal('hide');
                     } else {
                         $('#AddProductModal').modal('hide');
+                        $('#AddProductModal form')[0].reset();
+
             swal("Success!", "Product  Has been Saved!", "success");
                         $('.product').load('/products/index .product')
                     }
@@ -698,7 +700,7 @@ $(document).on("click", ".deleteProducts", function () {
 
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, you will not be able add this product!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -718,9 +720,9 @@ $(document).on("click", ".deleteProducts", function () {
                         if (status == "1") {
                             hide_tr.hide();
                             $('#data' + postdata).hide();
-                            swal("Data Deleted Succesfully!", "success");
+                            swal("Product Deleted Succesfully!", "success");
                         }else {
-                        swal("Your file is not deleted");
+                        swal("Your product is not deleted");
                     }
                     }
                 });
@@ -837,7 +839,7 @@ $(document).ready(function () {
 });
 
 
-//------------------------------------- Delete Staff using ajax ---------------------------------------//
+//------------------------------------- Email Sent using ajax ---------------------------------------//
 
 
 $(document).on("click", ".response", function () {
@@ -864,6 +866,8 @@ $(document).on("click", ".response", function () {
     });
 })
 
+//------------------------------------- Delete Contactus using ajax ---------------------------------------//
+
 $(document).on("click", ".delete", function () {
     var csrfToken = $('meta[name="csrfToken"]').attr('content');
     $.ajaxSetup({
@@ -876,7 +880,7 @@ $(document).on("click", ".delete", function () {
 
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, you will not be able to recover contactus data!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -893,7 +897,7 @@ $(document).on("click", ".delete", function () {
                     success: function (response) {
 
                         $('.productss').load('/contactUs/index .productss')
-                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                        swal("ContactUs data deleted succesfully!", "success!", "success");
                     }
                 });
             }
@@ -950,7 +954,7 @@ $(document).on("click", ".btn-delete-student", function () {
 
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, you will not be able to recover this staff data!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -967,7 +971,7 @@ $(document).on("click", ".btn-delete-student", function () {
                     success: function (response) {
 
                         $('#data' + postdata).hide();
-                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                        swal("Staff data deleted succesfully!", "success!", "success");
                     }
                 });
             }
@@ -1146,7 +1150,9 @@ $(document).ready(function () {
                         swal("Error", "There is Some Problem to Save Contact!", "error");
                     } else {
                         $('#AddContact').modal('hide');
+                        
                         $('#contact').load('/contacts/index #contact')
+                        $('#AddContact form')[0].reset();
                         swal("Success!", "Contact has been saved!", "success");
 
                     }
@@ -1264,7 +1270,7 @@ $(document).on("click", ".btn-delete-contact", function () {
 
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, you will not be able to recover this contact!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -1281,7 +1287,7 @@ $(document).on("click", ".btn-delete-contact", function () {
                     success: function (response) {
 
                         $('#data' + postdata).hide();
-                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                        swal("Contact deleted succesfully!", "Success!", "success");
                     }
                 });
             }
@@ -1499,7 +1505,7 @@ $(document).on("click", ".btn-delete-lead", function () {
 
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, you will not be able to recover this lead!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -1516,7 +1522,7 @@ $(document).on("click", ".btn-delete-lead", function () {
                     success: function (response) {
 
                         $('#data' + postdata).hide();
-                        swal("Data Deleted Succesfully!", "You clicked the button!", "success");
+                        swal("Lead deleted succesfully!", "success!", "success");
                     }
                 });
             }
@@ -1530,20 +1536,7 @@ $(document).on("click", ".btn-delete-lead", function () {
 //------------------------------------- Localy Serch function Using Filter---------------------------------------//
 
 $(document).ready(function () {
-    // alert('dfgfdg');
-    var key = $('#key').val();
-    if (key !=null) {
-        var value = $(this).val().toLowerCase();
-        $("#mytable tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-        // $('#key').trigger('keyup');
-
-            // $("#mytable tr").filter(function () {
-            //     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            // });
-        }
-        
+            
         $("#key").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#mytable tr").filter(function () {
@@ -1556,6 +1549,14 @@ $(document).ready(function () {
 //------------------------------------- Globaly Serch function---------------------------------------//
 
 $(document).ready(function() {
+
+    if($('input#key').length > 0 && $('input#key').val() != '') {
+        var value = $("#key").val().toLowerCase();
+        $("#mytable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    }
+
 
             $('#key1').keyup(function() {
                 // alert('dd0');

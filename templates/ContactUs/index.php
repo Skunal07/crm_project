@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h5>Contact Us Request</h5>
+                    <h5>Contact Us Requests</h5>
                 </div>
                 <div class="text-center spinner" style="display: none;">
                     <div class="spinner-border" role="status">
@@ -15,6 +15,7 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Sr. No.</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Name</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone No</th>
@@ -26,25 +27,30 @@
                             </thead>
                             <tbody id="mytable">
                                 <!-- <pre> -->
-                                <?php foreach ($contactUs as $contactU) :
+                                <?php 
+                                $i =1;
+                                foreach ($contactUs as $contactU) :
                                     if ($contactU->delete_status == 1) {
                                         continue;
                                     }
                                 ?>
                                     <tr>
-                                        <td class="align-middle text-center">
+                                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
+                    </td>  
+                                        <td class="">
                                             <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
                                         </td>
-                                        <td class="align-middle text-center">
+                                        <td class="">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->email) ?></span>
                                         </td>
-                                        <td class="align-middle text-center">
+                                        <td class="">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->phone) ?></span>
                                         </td>
-                                        <td class="align-middle text-center">
+                                        <td class="">
                                             <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->query_type) ?></span>
                                         </td>
-                                        <td class="align-middle text-center">
+                                        <td class="">
                                             <span class="text-secondary text-xs font-weight-bold"><?php if ($contactU->message) {
                                                                                                         echo $contactU->message;
                                                                                                     } else {

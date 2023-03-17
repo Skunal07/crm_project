@@ -59,6 +59,7 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr.No</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact Number</th>
@@ -69,16 +70,20 @@
               </thead>
               <tbody id="mytable">
                 <?php
+                 $i = 1;
                 if (count($users) > 0) {
                   foreach ($users as $user) :
                 ?>
                     <tr id='data<?= $user->id ?>'>
+                        <td class="align-middle text-center">
+                          <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
+                        </td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
                             <?= $this->Html->image($user->user_profile->profile_image, ["class" => "avatar avatar-sm me-3 border-radius-lg "]) ?>
                           </div>
-                          <div class="d-flex flex-column justify-content-center">
+                          <div class=" text-capitalize  d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"><?= h($user->user_profile->first_name) ?></h6>
                           </div>
                         </div>
@@ -89,7 +94,7 @@
                       <td>
                         <h6 class="mb-0 text-sm"><?= h($user->user_profile->contact) ?></h6>
                       </td>
-                      <td class="align-middle text-center">
+                      <td class="text-capitalize">
                         <h6 class="mb-0 text-sm"><?= h($user->user_profile->address) ?></h6>
                       </td>
 

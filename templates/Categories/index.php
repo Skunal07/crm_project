@@ -37,6 +37,7 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category Name</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created at</th>
@@ -46,18 +47,25 @@
                 </tr>
               </thead>
               <tbody id="mytable">
-                <?php foreach ($categories as $category) :
+              
+                <?php 
+                $i = 1;
+                foreach ($categories as $category) :
 
                   if ($category->delete_status == 1) {
                     continue;
                   } ?>
                   <tr id="data<?= $category->id ?>">
-                    <td>
+                  <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
+                    </td>  
+                  <td>
+                       
                       <div class="d-flex px-2 py-1">
                         <div>
                           <img src="/img/company-logo.jpg" class="avatar avatar-sm me-3" alt="user1">
                         </div>
-                        <div class="d-flex flex-column justify-content-center">
+                        <div class="text-capitalize d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm"><?= h($category->category_name) ?></h6>
                         </div>
                       </div>

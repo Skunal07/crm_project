@@ -13,7 +13,7 @@
       <div class="modal-body">
         <label for="company_id" class="form-label">Company Name</label>
         <select name="company_id" id="company_id" class="form-control">
-          <option value="-1" disabled selected>--Choose Category (Optional)--</option>
+          <option value="-1" disabled selected>--Choose Company (Optional)--</option>
           <?php
           foreach ($companies as $comp) {
             echo "<option value='$comp->id' >$comp->company_name</option>";
@@ -58,53 +58,57 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Company Name</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Added By</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</th>
-                  <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th> -->
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created Date</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modified date</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder ">Sr. No.</th>
+                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Company Name</th>
+                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Added By</th>
+                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Address</th>
+                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Email</th>
+                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Phone</th>
+                  <!-- <th clenter text-uppercase text-secondary text-xxs font-weight-bity-7">Status</th> -->
+                  <th class=" text-center text-uppercase text-secondary text-xxs font-weight-bolder">Created Date</th>
+                  <th class=" text-center text-uppercase text-secondary text-xxs font-weight-bolder">Modified date</th>
+                  <th class=" text-center text-uppercase text-secondary text-xxs font-weight-bolder">Action</th>
 
                 </tr>
               </thead>
               <tbody id="mytable">
-                <?php foreach ($contacts as $contact) : 
+                <?php $i=1;
+                foreach ($contacts as $contact) : 
                   if ($contact->delete_status==1) {
                   continue;
                   }
                   ?>
                   <tr id="data<?= $contact->id ?>">
+                  <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
+                    </td> 
 
 
-
-                    <td class="align-middle text-center">
-                      <p> <?php  if($contact->company_id!= null){
+                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
+                       <?php  if($contact->company_id!= null){
                         echo $contact->company->company_name;
                       }else{
                         echo '--';
-                      } ?></p>
+                      } ?>
                     </td>
-                    <td class="align-middle text-center">
-                      <p> <?= ($contact->user->user_profile['first_name']) ?> <?= ($contact->user->user_profile['last_name']) ?></p>
+                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
+                      <?= ($contact->user->user_profile['first_name']) ?> <?= ($contact->user->user_profile['last_name']) ?>
                     </td>
 
-                    <td class="align-middle text-center">
+                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
                       <?= h($contact->address) ?></td>
 
-                    <td class="align-middle text-center">
+                    <td class=" text-secondary text-xxs font-weight-bolder opacity-7">
                       <?= h($contact->email) ?></td>
 
-                    <td class="align-middle text-center">
+                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
                       <?= h($contact->phone) ?></td>
 
 
-                    <td class="align-middle text-center">
+                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
                       <?= h($contact->create_date) ?></td>
 
-                    <td class="align-middle text-center">
+                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
                       <span class="text-secondary text-xs font-weight-bold"><?php
                                                                             if ($contact->modified_date == null) {
                                                                               echo '--';

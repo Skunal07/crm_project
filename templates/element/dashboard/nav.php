@@ -1,11 +1,17 @@
-
 <!-- Get Page URl -->
 
 <?php
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
- $page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1); ?>
+$page = substr($_SERVER['REQUEST_URI'], strrpos($_SERVER['REQUEST_URI'], "/") + 1);
+//  dd($page);
+//  dd(substr($_SERVER['REQUEST_URI'], 1 ));
+$key = "";
+if (isset($_REQUEST['key'])) {
+    $key = $_REQUEST['key'];
+}
+?>
 <?= $page == "dashboard" ? 'active bg-gradient-primary' : ''; ?>
 <main class="main-content position-relative border-radius-lg ">
 
@@ -16,47 +22,77 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-                    <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+                    <!-- <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li> -->
+
+                    <?php
+                    if ($page == 'dashboard') { ?>
+                        <li class="text-capitalize breadcrumb-item text-sm text-white">
+                            <?php
+                            echo 'Dashboard'; ?></li><?php
+                                        } else { ?><li class="text-capitalize breadcrumb-item text-sm text-white"><?php
+                            if ($page == 'users_list') {
+                                echo 'Users List';
+                            } else if ($page == 'contactUs') {
+                                echo 'Contact Us Request';
+                            } else if ($page == 'categories') {
+                                echo 'Categories';
+                            } else if ($page == 'products') {
+                                echo 'Products';
+                            } else if ($page == 'companies') {
+                                echo 'companies';
+                            } else if ($page == 'contacts') {
+                                echo 'contacts';
+                            } else if ($page == 'index?key=' . $key) {
+                                $url = (substr($_SERVER['REQUEST_URI'], 1));
+                                if ($url = 'lead/index?key=' . $key) {
+                                    echo 'Leads';
+                                }
+                            } elseif ($page == 'usersList?key=' . $key) {
+                                if ($url = 'users/usersList?key=' . $key) {
+                                    echo 'Users';
+                                }
+                            }else if ($url = 'products/index?key=' . $key) {
+                                echo 'Products';
+                            }else{
+                                echo $page;
+                            }
+                        }
+                    ?></li>
                 </ol>
-                <h6 class="font-weight-bolder text-white mb-0 text-capitalize"><?php 
-                // if ($page=='dashboard' ) {
-                //     echo '';
-                // }else{
-                //     echo $page;
-                // }?></h6>
+
 
             </nav>
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                     <?php if ($page == 'dashboard') {
-                   ?>
-                   <div class="">
-                    <div class="col-12">
-                        <div class="input-group ">
-                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="key1" id="key1" placeholder="Type here...">
-                           
-                        </div>
-                    </div>
-                    <div class="col-12 search-div ">
-                            <ul class="s_result search bg-dark rounded  px-2 py-3 me-sm-n4 text-white" aria-labelledby="dropdownMenuButton" >
-                                <?= $this->element('/flash/search'); ?>
-                                    </ul>
-                    </div>
-                   </div>
-                       
-                        <?php
-                    }else{?>
-                        <div class="input-group">
-                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" value="<?php if(isset($_REQUEST['key'])) echo $_REQUEST['key'] ?>" name="key" id="key" placeholder="Type here...">
-                           
+                    ?>
+                        <div class="">
+                            <div class="col-12">
+                                <div class="input-group ">
+                                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="key1" id="key1" placeholder="Type here...">
+
+                                </div>
+                            </div>
+                            <div class="col-12 search-div ">
+                                <ul class="s_result search bg-dark rounded  px-2 py-3 me-sm-n4 text-white" aria-labelledby="dropdownMenuButton">
+                                    <?= $this->element('/flash/search'); ?>
+                                </ul>
+                            </div>
                         </div>
 
-                    <?php }?>
-                    
+                    <?php
+                    } else { ?>
+                        <div class="input-group">
+                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" value="<?php echo $key ?>" name="key" id="key" placeholder="Type here...">
+
+                        </div>
+
+                    <?php } ?>
+
                 </div>
-                
+
                 <ul class="navbar-nav  justify-content-end">
                     <li class="nav-item d-flex align-items-center">
                         <a href="/users/logout" class="nav-link text-white font-weight-bold px-0">
@@ -115,7 +151,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     </nav>
 
     <!-- End Navbar -->
-    
+
     <script>
         $(document).on("click", ".clear", function() {
             var id = $(this).attr("data");
@@ -137,11 +173,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 
-<style>
-
-    ul.s_result.search.px-2.py-3.me-sm-n4 {
-        background: white;
-        width: 100%;
-        display:none;
-    }
+    <style>
+        ul.s_result.search.px-2.py-3.me-sm-n4 {
+            background: white;
+            width: 100%;
+            display: none;
+        }
     </style>

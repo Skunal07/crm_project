@@ -19,7 +19,7 @@ if (isset($_REQUEST['key'])) {
 
     <!-- Navbar -->
 
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false" >
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -30,8 +30,14 @@ if (isset($_REQUEST['key'])) {
                     if ($page == 'dashboard') { ?>
                         <li class="text-capitalize breadcrumb-item text-sm text-white">
                             <?php
-                            echo 'Dashboard'; ?></li><?php
-                                        } else { ?><li class="text-capitalize breadcrumb-item text-sm text-white"><?php
+                            echo 'Dashboard'; ?></li>
+                    <?php
+                    } else {
+                    ?>
+                        <li class="text-capitalize breadcrumb-item text-sm text-white">
+
+                            <?php
+                            $url = (substr($_SERVER['REQUEST_URI'], 1));
                             if ($page == 'users_list') {
                                 echo 'Users List';
                             } else if ($page == 'contactUs') {
@@ -44,22 +50,17 @@ if (isset($_REQUEST['key'])) {
                                 echo 'companies';
                             } else if ($page == 'contacts') {
                                 echo 'contacts';
-                            } else if ($page == 'index?key=' . $key) {
-                                $url = (substr($_SERVER['REQUEST_URI'], 1));
-                                if ($url = 'lead/index?key=' . $key) {
-                                    echo 'Leads';
-                                }
-                            } elseif ($page == 'usersList?key=' . $key) {
-                                if ($url = 'users/usersList?key=' . $key) {
-                                    echo 'Users';
-                                }
-                            }else if ($url = 'products/index?key=' . $key) {
+                            } else if ($url = 'leads/index?key=' . $key) {
+                                echo 'Leads';
+                            } elseif ($url = 'users/usersList?key=' . $key) {
+                                echo 'Users';
+                            } else if ($url = 'products/index?key=' . $key) {
                                 echo 'Products';
-                            }else{
+                            } else {
                                 echo $page;
                             }
-                        }
-                    ?></li>
+                            ?></li>
+                    <?php } ?>
                 </ol>
 
 
@@ -100,13 +101,13 @@ if (isset($_REQUEST['key'])) {
 
                 <ul class="navbar-nav  justify-content-end">
 
-                    <li class="nav-item d-flex align-items-center">
+                    <!-- <li class="nav-item d-flex align-items-center">
                         <a href="/users/logout" class="nav-link text-white font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
 
                             <span class="d-sm-inline d-none">Sign Out</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                             <div class="sidenav-toggler-inner">
@@ -121,43 +122,64 @@ if (isset($_REQUEST['key'])) {
                             <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count" >
-                        <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-bell fa-lg cursor-pointer"></i>
+
+                    <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count">
+                        <a href="javascript:;" class="nav-link text-white p-0 count" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-bell fa-lg cursor-pointer"></i>
+
                             <?php
                             if ($count != null) {
                             ?>
                                 <sup class="text-white bg-danger  px-1 rounded">
-                                    <?= $count ?></sup>
+                                    <?= $count ?>
+                                </sup>
                             <?php
                             }
                             ?>
 
                         </a>
-                        <ul class="dropdown-menu list-group table-responsive dropdown-menu-end notify px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                            <?php if ($count == 0) {
+                        <ul class="dropdown-menu list-group table-responsive dropdown-menu-end notify px-2 py-3 me-sm-n4" id="menu" aria-labelledby="dropdownMenuButton">
+                            <?php
+                            if ($count == 0) {
                                 echo 'No Message Yet';
                             }
-                            foreach ($contactus as $list) { ?>
-                                    <button class="dropdown-item border-radius-md flex clear" data="<?= $list->id ?>">
+
+                            foreach ($contactus as $list) {
+                            ?>
                                 <li class="mb-2">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
+                                    <!-- <button class="dropdown-item border-radius-md flex clear" data="<?= $list->id ?>"> -->
+                                    <div class="dropdown-item border-radius-md d-flex">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <div class="my-auto">
+                                                    <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
+                                                </div>
                                             </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h5 class="text-sm font-weight-normal text-dark mb-1">
-                                                    <span class="font-weight-bold ">New Request</span> for <?= $list->query_type ?>
-                                                </h5>
-                                                <p class="text-xs text-secondary mb-0">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    <?= $list->created_date ?>
-                                                </p>
+                                            <div class="col-9">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h5 class="text-sm font-weight-normal text-dark mb-1">
+                                                        <span class="font-weight-bold ">New Request</span> for <?= $list->query_type ?>
+                                                    </h5>
+                                                    <p class="text-xs text-secondary mb-0">
+                                                        <i class="fa fa-clock me-1"></i>
+                                                        <?= $list->created_date ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="notification-close">
+                                                    <button class="text-dark fw-bold clear" data="<?= $list->id ?>">
+                                                        <span class="fa-solid fa-rectangle-xmark fa-xl align-middle text-danger"></span>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </li>
-                                </button>
-                            <?php  } ?>
+                                    </div>
+                                    <!-- </button> -->
+                                </li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                     </li>
                 </ul>
@@ -168,7 +190,9 @@ if (isset($_REQUEST['key'])) {
     <!-- End Navbar -->
 
     <script>
-        $(document).on("click", ".clear", function() {
+        // $(document).ready(function() {
+
+        $(".clear").click(function() {
             var id = $(this).attr("data");
             // alert(id)
             $.ajax({
@@ -182,12 +206,21 @@ if (isset($_REQUEST['key'])) {
                 success: function(response) {
                     console.log(response);
                     $('.clear' + id).hide();
-
-                    $('#count').load('/users/dashboard #count')
+                    $(".count").load(location.href + " .count");
+                    $('#menu').show();
+                    // $('#count').load('/users/dashboard #count')
                 },
             });
 
         })
+        // })
+        // $(document).ready(function() {
+
+        // $(".clear").click(function() {
+        //     alert('dd');
+        //         // $(this).hide();
+        //     });
+        // });
     </script>
 
 

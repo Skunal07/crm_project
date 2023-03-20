@@ -22014,9 +22014,9 @@ html {
 }
 
 
-  hr {
-    border-top: 2px solid;
-    height: 1px;
+hr {
+  border-top: 2px solid;
+  height: 1px;
 }
 
 hr.vertical {
@@ -26955,6 +26955,12 @@ ul.pagination li a {
 
 ul.dropdown-menu.list-group.table-responsive.dropdown-menu-end.px-2.py-3.me-sm-n4.show {
   height: 300px !important;
+  width: 430px !important;
+}
+
+button.text-dark.fw-bold.clear {
+  background: none !important;
+  border: none !important;
 }
 
 .col-12.search-div {
@@ -26971,4 +26977,5 @@ ul.dropdown-menu.list-group.table-responsive.dropdown-menu-end.px-2.py-3.me-sm-n
   /* color: #14cfc7 !important; */
   color: #87a3ff !important;
 }
+
 /* # sourceMappingURL=dashboard-free.css.map */

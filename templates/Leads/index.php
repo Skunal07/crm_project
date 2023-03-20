@@ -260,7 +260,6 @@
                 [
                   "required" => false,
                   "class" => "form-control work_title",
-
                 ]
               ); ?>
               <div class="col-12 my-3">

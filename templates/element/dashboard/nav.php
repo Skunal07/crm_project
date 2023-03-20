@@ -121,7 +121,7 @@ if (isset($_REQUEST['key'])) {
                             <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown pe-2 d-flex align-items-center"id="count" >
+                    <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count" >
                         <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-bell fa-lg cursor-pointer"></i>
                             <?php
@@ -139,8 +139,8 @@ if (isset($_REQUEST['key'])) {
                                 echo 'No Message Yet';
                             }
                             foreach ($contactus as $list) { ?>
-                                <li class="mb-2">
                                     <button class="dropdown-item border-radius-md flex clear" data="<?= $list->id ?>">
+                                <li class="mb-2">
                                         <div class="d-flex py-1">
                                             <div class="my-auto">
                                                 <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
@@ -155,8 +155,8 @@ if (isset($_REQUEST['key'])) {
                                                 </p>
                                             </div>
                                         </div>
-                                    </button>
-                                </li>
+                                    </li>
+                                </button>
                             <?php  } ?>
                         </ul>
                     </li>

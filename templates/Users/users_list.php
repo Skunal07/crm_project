@@ -219,6 +219,7 @@
 
           <div class="col-12 my-3">
             <?php echo $this->Form->control('email', ["type" => "email", 'required' => false, 'class' => 'form-control px-3', "id" => "editemail"]); ?>
+            <span id="email-error" class="text-danger"></span>
           </div>
         </div>
         <div class="modal-footer">

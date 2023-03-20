@@ -122,9 +122,11 @@ if (isset($_REQUEST['key'])) {
                             <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                         </a>
                     </li>
+
                     <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count">
                         <a href="javascript:;" class="nav-link text-white p-0 count" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-bell fa-lg cursor-pointer"></i>
+
                             <?php
                             if ($count != null) {
                             ?>
@@ -141,6 +143,7 @@ if (isset($_REQUEST['key'])) {
                             if ($count == 0) {
                                 echo 'No Message Yet';
                             }
+
                             foreach ($contactus as $list) {
                             ?>
                                 <li class="mb-2">

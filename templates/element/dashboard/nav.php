@@ -46,7 +46,7 @@ if (isset($_REQUEST['key'])) {
                                 echo 'contacts';
                             } else if ($page == 'index?key=' . $key) {
                                 $url = (substr($_SERVER['REQUEST_URI'], 1));
-                                if ($url = 'lead/index?key=' . $key) {
+                                if ($url = 'leads/index?key=' . $key) {
                                     echo 'Leads';
                                 }
                             } elseif ($page == 'usersList?key=' . $key) {
@@ -72,7 +72,7 @@ if (isset($_REQUEST['key'])) {
                             <div class="col-12">
                                 <div class="input-group ">
                                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="key1" id="key1" placeholder="Type here...">
+                                    <input type="search" class="form-control" name="key1" id="key1" placeholder="Type here...">
 
                                 </div>
                             </div>

@@ -55,6 +55,7 @@ if (isset($_REQUEST['key'])) {
                             } elseif ($url = 'users/usersList?key=' . $key) {
                                 echo 'Users';
                             } else if ($url = 'products/index?key=' . $key) {
+
                                 echo 'Products';
                             } else {
                                 echo $page;
@@ -73,7 +74,7 @@ if (isset($_REQUEST['key'])) {
                             <div class="col-12">
                                 <div class="input-group ">
                                     <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="key1" id="key1" placeholder="Type here...">
+                                    <input type="search" class="form-control" name="key1" id="key1" placeholder="Type here...">
 
                                 </div>
                             </div>

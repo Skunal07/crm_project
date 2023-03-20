@@ -1555,12 +1555,16 @@ $(document).ready(function() {
         $("#mytable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
+    }else{
+                            $('.s_result').hide();
     }
 
-
-            $('#key1').keyup(function() {
-                // alert('dd0');
+    
+    $('#key1').keyup(function() {
                 var key = $('#key1').val();
+                var keys = key.trim();
+                // alert(key);
+                // alert('dd0');
                 // alert(key);
                 // alert(status);
                 // return false;
@@ -1575,7 +1579,7 @@ $(document).ready(function() {
                     type: "JSON",
                     method: "GET",
                     data: {
-                        'key1': key,
+                        'key1': keys,
                     },
                     success: function(response) {
                         console.log(response)

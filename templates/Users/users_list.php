@@ -1,15 +1,15 @@
 <!-- modal for Add Staff -->
 <div class="container-fluid py-4" id="staff_update">
-  <div class="row" >
-    
+  <div class="row">
+
     <div class="modal fade" id="addstaff" tabindex="-1" role="dialog" aria-labelledby="addstaffTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="addstaff">Add Staff</h5>
-            <button type="button" class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+            <button type="button" class="btn-close text-dark" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-        </button>
+            </button>
           </div>
           <div class="modal-body">
             <?php echo $this->Flash->render() ?>
@@ -24,12 +24,12 @@
               <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => "form-control"]); ?>
             </div>
             <div class="mb-3">
-              <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'type'=>'number','class' => "form-control"]); ?>
+              <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'type' => 'number', 'class' => "form-control"]); ?>
             </div>
             <div class="mb-3">
               <?php echo $this->Form->control('email', ['required' => false, 'class' => "form-control"]); ?>
-              <b><small class="text-danger error-message" id="error_email" ></small></b>
-    
+              <b><small class="text-danger error-message" id="error_email"></small></b>
+
             </div>
             <div class="mb-3">
               <?php echo $this->Form->control('password', ['required' => false, 'class' => "form-control"]); ?>
@@ -40,7 +40,7 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Submit Form</button>
             <?php echo $this->Form->end(); ?>
-    
+
           </div>
         </div>
       </div>
@@ -70,14 +70,14 @@
               </thead>
               <tbody id="mytable">
                 <?php
-                 $i = 1;
+                $i = 1;
                 if (count($users) > 0) {
                   foreach ($users as $user) :
                 ?>
                     <tr id='data<?= $user->id ?>'>
-                        <td class="align-middle text-center">
-                          <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                        </td>
+                      <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
+                      </td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
@@ -193,7 +193,7 @@
 
 
   <!-- ======================= update user details ================ -->
-  
+
   <div class="modal fade" id="updateDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -210,7 +210,7 @@
             <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control px-3', "id" => "lastname"]); ?>
           </div>
           <div class="col-12 my-3">
-            <?php echo $this->Form->control('user_profile.contact', ['required' => false,  'type'=>'number','class' => 'form-control px-3', "id" => "contact"]); ?>
+            <?php echo $this->Form->control('user_profile.contact', ['required' => false,  'type' => 'number', 'class' => 'form-control px-3', "id" => "contact"]); ?>
           </div>
 
           <div class="col-12 my-3">

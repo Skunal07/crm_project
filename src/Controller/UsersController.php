@@ -282,9 +282,28 @@ class UsersController extends AppController
 
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('ajax')) {
+            $data=$this->request->getData();
+            $password=$data['password'];
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user->added_by = $uid;
             $user->users_id = $uid;
+            $name=$user->user_profile['first_name'].' '.$user->user_profile['last_name'];
+            $email=$user->email;
+            $mailer = new Mailer('default');
+            $mailer->setTransport('gmail'); //your email configuration name
+            $mailer->setFrom(['kunal02chd@gmail.com' => 'Team Doors Dekho']);
+            $mailer->setTo($email);
+            $mailer->setEmailFormat('html');
+            $mailer->setSubject('Team DoorsDekho.com');
+            $mailer->deliver("<h3 class=''>Hi Mr/Mrs $name, </h3>
+            <p>Greetings for the day !!</p>
+            <p>Congratulations on being a part of Doors Dekho Company.  We are pleased to appoint you as Lead Manager.Through the Doors Dekho online portal you will be able to take care of most of your work and activities. </p><p>To access you information you will need following information :</p>
+            <p>Email :- $email</p>
+            <p>Password :- $password</p>
+            <p>Note- You are urged to keep this information confidential . You can change your ID Password after logging in for the first time. </p>
+            <p>If you need any help feel free to contact</p>
+            <p>Click Here to <a href='http://localhost:8765/Users/login'>Login</a>.</p>
+            ");
             if ($this->Users->save($user)) {
 
                 echo json_encode(array(
@@ -370,9 +389,9 @@ class UsersController extends AppController
                 $mailer->setTo($email);
                 $mailer->setEmailFormat('html');
                 $mailer->setSubject('Team DoorDekho.com');
-                $mailer->deliver("<h3>Thanks Mr/Mrs $name for Contact Us.</h3>
-                <p>Your Message has been Submitted Successfully.</p>
-                <p>Our Team Contact you Soon.</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
+                $mailer->deliver("<h3>Hi Mr/Mrs $name, </h3>
+                <p>That`s a great feature Idea!Thank Youfor sharing it with us </p>
+            <p>I willbring this upwith my Product Manager during our next metting.I`m sure she will be as exicted as I am about this idea.i will update you on the  progress with in one week</p><p>For New Update please <a href='http://localhost:8765/users'>click here</a>.</p>
                 ");
                 $this->Flash->success(__('The contact u has been saved.'));
 

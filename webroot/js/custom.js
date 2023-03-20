@@ -1013,7 +1013,7 @@ $(document).ready(function () {
             email: {
                 required: true,
                 email: true,
-                 noSpace: true,
+                noSpace: true,
                 noSpace: true,
             },
             'user_profile[first_name]': {
@@ -1078,10 +1078,14 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     var data = JSON.parse(response);
-                    swal("Updated!", "User details Has been updated Successfully!", "success");
-                    $("#staff_update").load("/users/users_list #staff_update");
-                    $('#updateDetails').hide();
-                    $('.modal-backdrop').hide();
+                    if(data['status']== 1){
+                        swal("Updated!", "User details Has been updated Successfully!", "success");
+                        $("#staff_update").load("/users/users_list #staff_update");
+                        $('#updateDetails').hide();
+                        $('.modal-backdrop').hide();
+                    }else{
+                        $("#email-error").html("Email Already in Use")
+                    }
                 },
             });
             return false;

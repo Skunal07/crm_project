@@ -20,10 +20,12 @@ class StripesController extends AppController
     public function payment()
     {
         // require_once VENDOR_PATH . '/stripe/stripe-php/init.php';
-
+        $data = $this->request->getData();
+        $pay = $data['payment'] * 100;
+        // dd($pay);
         Stripe\Stripe::setApiKey(STRIPE_SECRET);
         $stripe = Stripe\Charge::create([
-            "amount" => 1 * 100,
+            "amount" => $pay,
             "currency" => "usd",
             // "customer" => 'default',
             "source" => $_REQUEST["stripeToken"],

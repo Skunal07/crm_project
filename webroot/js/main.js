@@ -145,7 +145,10 @@ $(document).ready(function () {
             } else {
                 $('#cptcha-checkbox').hide();
                 $('#staticBackdrop').modal('show');
-
+                var price = $('#payment_priority').val();
+                $('#pay-now').html(price);
+                $('#payment').val(price);
+                // alert(price)
                 // return false
                 var formData = $(form).serialize();
                 paymentval(formData);

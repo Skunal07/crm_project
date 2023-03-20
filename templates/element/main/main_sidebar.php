@@ -95,6 +95,7 @@
                     "data-stripe-publishable-key" => STRIPE_KEY,
                     "id" => "payment-form"
                 ]) ?>
+             <input type="hidden" id="payment" name="payment">
              <div class="modal-body">
                  <div class="gif-loader text-center">
                      <img src="img/output-onlinegiftools.gif" alt="" width="80px">
@@ -137,7 +138,7 @@
              <div class="modal-footer pay">
                  <div class="row">
                      <div class="col-xs-12">
-                         <button class="btn btn-primary btn-lg btn-block w-100 contact-form" type="submit">Pay Now</button>
+                         <button class="btn btn-primary btn-lg btn-block w-100 contact-form" type="submit">Pay $<span id="pay-now"></span></button>
                      </div>
                  </div>
              </div>

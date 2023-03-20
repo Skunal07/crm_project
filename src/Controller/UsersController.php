@@ -177,7 +177,7 @@ class UsersController extends AppController
             $countall['user']  = $this->UserProfile->find('all')->where(['Or' => ['first_name like' => '%' . $key . '%']]);
 
 
-                $countall['product']  = $this->Products->find('all')->where(['Products.delete_status' => 0,'Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);
+            $countall['product']  = $this->Products->find('all')->where(['Products.delete_status' => 0, 'Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);
 
 
             // $countall['companies']  = $this->Companies->find('all')->contain('Users')->where(['Companies.delete_status' => 0, 'Or' => ['company_name like' => '%' . $key . '%']]);
@@ -216,7 +216,7 @@ class UsersController extends AppController
         }
         $count = $i;
 
-        $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'totalawerness','totalquilified','key', 'totalwon', 'totallost', 'category', 'leads','countall'));
+        $this->set(compact('contactus', 'user', 'count', 'totalcontact', 'totallead', 'totalawerness', 'totalquilified', 'key', 'totalwon', 'totallost', 'category', 'leads', 'countall'));
 
         if ($this->request->is('ajax')) {
             // $this->autoRender = false;
@@ -228,22 +228,25 @@ class UsersController extends AppController
 
     //-----------------------------Notification--------------------------//
 
-    public function notification($id = null)
+    public function notification()
     {
 
         if ($this->request->is('ajax')) {
-            $contactus = $this->ContactUs->find('all')->where(['delete_status' => '0', 'id' => $id])->first();
-            $contactus->notification = 1;
+            $contactus = $this->ContactUs->find('all')->where(['delete_status' => '0', 'notification' => 2])->toArray();
+            foreach ($contactus as $contactus) {
+                $contactus->notification = 1;
+                $this->ContactUs->save($contactus);
+            }
             if ($this->ContactUs->save($contactus)) {
                 echo json_encode(array(
                     "status" => 1,
-                    "message" => "The User has been saved.",
+                    "message" => "Notification seen",
                 ));
                 exit;
             }
             echo json_encode(array(
                 "status" => 0,
-                "message" => "The User  could not be saved. Please, try again.",
+                "message" => "Notification not seen",
             ));
             exit;
         }
@@ -262,7 +265,7 @@ class UsersController extends AppController
         // pr($result);
         // die;
         if ($result->role == '1') {
-            $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0])->order(["Users.id"=>"DESC"]));
+            $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0])->order(["Users.id" => "DESC"]));
 
             $this->set(compact('users', 'user'));
         } else {

@@ -123,64 +123,84 @@ if (isset($_REQUEST['key'])) {
                             <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                         </a>
                     </li>
-
-                    <li class="nav-item dropdown pe-2 d-flex align-items-center" id="count">
-                        <a href="javascript:;" class="nav-link text-white p-0 count" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                        <a href="javascript:;" class="nav-link text-white p-0 " id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-bell fa-lg cursor-pointer"></i>
 
                             <?php
+                            // dd($count);
                             if ($count != null) {
                             ?>
-                                <sup class="text-white bg-danger  px-1 rounded">
+                                <sup class="text-white bg-danger count px-1 rounded">
+                                    <?= $count ?>
+                                </sup>
+                            <?php
+                            } else {
+                            ?>
+                                <sup class="text-white bg-danger count px-1 rounded">
                                     <?= $count ?>
                                 </sup>
                             <?php
                             }
-                            ?>
+                            if ($count >= 4) { ?>
+                                <style>
+                                    ul.dropdown-menu.list-group.table-responsive.dropdown-menu-end.px-2.py-3.me-sm-n4.show {
+                                        height: 300px !important;
+                                    }
+                                </style>
+                            <?php } ?>
 
                         </a>
                         <ul class="dropdown-menu list-group table-responsive dropdown-menu-end notify px-2 py-3 me-sm-n4" id="menu" aria-labelledby="dropdownMenuButton">
                             <?php
                             if ($count == 0) {
-                                echo 'No Message Yet';
+                            ?>
+                                <li class="mb-2 clear">
+                                    <div class="dropdown-item border-radius-md d-flex">
+                                        <div class="my-auto">
+                                            <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h5 class="text-sm font-weight-normal text-dark mb-1">
+                                                <span class="font-weight-bold ">No Messages Yet</span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </li>
+                            <?php
                             }
+                            ?>
+
+                            <?php
 
                             foreach ($contactus as $list) {
                             ?>
-                                <li class="mb-2">
+                                <li class="mb-2 clear" data="<?= $list->id ?>">
                                     <!-- <button class="dropdown-item border-radius-md flex clear" data="<?= $list->id ?>"> -->
                                     <div class="dropdown-item border-radius-md d-flex">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <div class="my-auto">
-                                                    <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
-                                                </div>
-                                            </div>
-                                            <div class="col-9">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h5 class="text-sm font-weight-normal text-dark mb-1">
-                                                        <span class="font-weight-bold ">New Request</span> for <?= $list->query_type ?>
-                                                    </h5>
-                                                    <p class="text-xs text-secondary mb-0">
-                                                        <i class="fa fa-clock me-1"></i>
-                                                        <?= $list->created_date ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="col-1">
-                                                <div class="notification-close">
-                                                    <button class="text-dark fw-bold clear" data="<?= $list->id ?>">
-                                                        <span class="fa-solid fa-rectangle-xmark fa-xl align-middle text-danger"></span>
-                                                    </button>
-                                                </div>
-                                            </div>
+                                        <div class="my-auto">
+                                            <img src="/img/default.jpg" class="avatar avatar-sm  me-3 ">
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h5 class="text-sm font-weight-normal text-dark mb-1">
+                                                <span class="font-weight-bold ">New Request</span> for <?= $list->query_type ?>
+                                            </h5>
+                                            <p class="text-xs text-secondary mb-0">
+                                                <i class="fa fa-clock me-1"></i>
+                                                <?= $list->created_date ?>
+                                            </p>
                                         </div>
                                     </div>
                                     <!-- </button> -->
                                 </li>
                             <?php
                             }
+                            if ($count != 0) {
                             ?>
+                                <div class="list-footer">
+                                    <a href="javascript:void(0)" type="submit" id="read-all" class="btn btn-secondary w-100 mt-4 mb-0">Read All</a>
+                                </div>
+                            <?php } ?>
                         </ul>
                     </li>
                 </ul>
@@ -193,23 +213,21 @@ if (isset($_REQUEST['key'])) {
     <script>
         // $(document).ready(function() {
 
-        $(".clear").click(function() {
-            var id = $(this).attr("data");
-            // alert(id)
+        $("#read-all").click(function() {
+            // var id = $(this).attr("data");
+            alert('id')
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,
                 },
-                url: "/users/notification/" + id,
+                url: "/users/notification/",
                 type: "JSON",
                 method: "POST",
-                data: id,
                 success: function(response) {
                     console.log(response);
-                    $('.clear' + id).hide();
-                    $(".count").load(location.href + " .count");
-                    $('#menu').show();
-                    // $('#count').load('/users/dashboard #count')
+                    $('.clear').empty();
+                    $('.count').html('0');
+                    // $(".count").load(location.href + " .count");
                 },
             });
 

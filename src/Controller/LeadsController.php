@@ -15,9 +15,6 @@ class LeadsController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
-        $this->paginate = [
-            'contain' => ['Users.UserProfile', 'LeadContacts','Companies'],
-        ];
         $companies = $this->Companies->find('all')->where(['delete_status' => 0]);
 
         // $id = $this->request->getQuery('user_id');

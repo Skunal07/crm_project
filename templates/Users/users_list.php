@@ -51,6 +51,7 @@
         <div class="card-header pb-0">
 
           <a href="javascript:void(0)" data-toggle="modal" data-target="#addstaff" class="btn btn-primary float-end editUser">Add Staff</a>
+          <?php echo $this->Html->link('DomPdf',array('controller'=>'Users','action'=>'generatePdf'));?>
 
           <h6>Users List</h6>
         </div>

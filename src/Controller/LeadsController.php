@@ -173,10 +173,10 @@ class LeadsController extends AppController
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
         
-        $data = $this->Leads->find('all')->contain(['LeadContacts'])->where(['delete_status' => 0]);
+        $data = $this->Leads->find('all')->contain(['LeadContacts','Companies'])->where(['Leads.delete_status' => 0]);
         $_serialize = 'data';
-        $_header = ['ID', 'Name',  'Price', 'Worked Title', 'Contact'];
-        $_extract = ['id', 'name', 'price', 'work_title', 'lead_contact.contact'];
+        $_header = ['ID', 'Name',"Company Name",  'Price', 'Worked Title', 'Contact'];
+        $_extract = ['id', 'name','company.company_name' ,'price', 'work_title', 'lead_contact.contact'];
         
         $this->viewBuilder()->setClassName('CsvView.Csv');
         $this->set(compact('data', '_serialize', '_header', '_extract'));
@@ -185,7 +185,7 @@ class LeadsController extends AppController
     {
         $this->setResponse($this->getResponse()->withDownload('format.csv'));
         // $data = [];
-        $data = [['ID', 'Name', 'Price', 'Worked Title', 'Contact']];
+        $data = [['ID', 'Name','Company Name', 'Price', 'Worked Title', 'Contact']];
     
         $this->set(compact('data'));
         $this->viewBuilder()
@@ -213,13 +213,26 @@ class LeadsController extends AppController
                     if($counter == 1){
                         continue;
                     }
+                    $company=$this->Companies->find("all")->Where(['Or' =>['company_name like'=>'%'.$row[2].'%']])->toArray();
+                    if($company != null){
+                        $cid=$company[0]['id'];
+                    }else{
+                        $array=array();
+                        $array['user_id']=$uid;
+                        $array['company_name']=$row[2];
+                        $company = $this->Companies->newEntity($array);
+                        $company=$this->Companies->save($company);
+                        $cid=$company[0]['id'];
+                    }
+                    
                     $data[] = [
-
+                        
                         'name' => $row[1],
                         'user_id'=>$uid,
-                        'price' => $row[2],
-                        'work_title' => $row[3],
-                        'lead_contact' => ['contact' => $row[4]],
+                        'company_id'=>$cid,
+                        'price' => $row[3],
+                        'work_title' => $row[4],
+                        'lead_contact' => ['contact' => $row[5]],
                     ];
                 }   
                 $counter--;

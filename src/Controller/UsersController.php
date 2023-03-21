@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use Dompdf\Dompdf;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\Email;
@@ -131,9 +131,9 @@ class UsersController extends AppController
                 $mailer->setTo($email);
                 $mailer->setEmailFormat('html');
                 $mailer->setSubject('Team DoorDekho.com');
-                $mailer->deliver("<h3>Thanks Mr/Mrs $name for Contact Us.</h3>
-                <p>Your Message has been Submitted Successfully.</p>
-                <p>Our Team Contact you Soon.</p><p>For New Update please  <a href='http://localhost:8765/users'>click here</a>.</p>
+                $mailer->deliver("<h3>Hi Mr/Mrs $name, </h3>
+                <p>That`s a great feature Idea!Thank Youfor sharing it with us </p>
+            <p>I willbring this upwith my Product Manager during our next metting.I`m sure she will be as exicted as I am about this idea.i will update you on the  progress with in one week</p><p>For New Update please <a href='http://localhost:8765/users'>click here</a>.</p>
                 ");
                 echo json_encode(array(
                     "status" => 1,
@@ -632,4 +632,23 @@ class UsersController extends AppController
             $this->set(compact('user'));
         }
     }
+    public function generatePdf()
+    {
+        // Get the HTML content that you want to convert to PDF
+        $html = $this->render('pdf_template');
+
+        // Create a new instance of Dompdf
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+
+        // Set the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF
+        $dompdf->render();
+
+        // Output the generated PDF to the browser
+        $dompdf->stream('my_pdf_document.pdf');
+    }
+
 }

@@ -28,7 +28,7 @@ class ContactUsController extends AppController
 
     public function index()
     {
-        $contactUs = $this->paginate($this->ContactUs);
+        $contactUs = $this->ContactUs->find('all');
 
         $this->set(compact('contactUs'));
     }

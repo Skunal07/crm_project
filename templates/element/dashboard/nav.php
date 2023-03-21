@@ -215,7 +215,7 @@ if (isset($_REQUEST['key'])) {
 
         $("#read-all").click(function() {
             // var id = $(this).attr("data");
-            alert('id')
+            // alert('id')
             $.ajax({
                 headers: {
                     "X-CSRF-TOKEN": csrfToken,

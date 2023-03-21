@@ -59,12 +59,12 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr.No</th>
+                  <th class="text-uppercase text-secondary text-xxs text-center font-weight-bolder opacity-7">Sr.No</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact Number</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created Date</th>
+                  <th class="text-center text-uppercase text-secondary float-start text-xxs font-weight-bolder opacity-7">Address</th>
+                  <th class="text-center text-uppercase text-secondary text-start text-xxs font-weight-bolder opacity-7">Created Date</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                 </tr>
               </thead>
@@ -89,13 +89,13 @@
                         </div>
                       </td>
                       <td>
-                        <h6 class="mb-0 text-sm"><?= h($user->email) ?></h6>
+                        <h6 class="mb-0 text-sm ps-2"><?= h($user->email) ?></h6>
                       </td>
                       <td>
                         <h6 class="mb-0 text-sm"><?= h($user->user_profile->contact) ?></h6>
                       </td>
                       <td class="text-capitalize">
-                        <h6 class="mb-0 text-sm"><?= h($user->user_profile->address) ?></h6>
+                        <h6 class="mb-0 text-sm ps-2"><?= h($user->user_profile->address) ?></h6>
                       </td>
 
 

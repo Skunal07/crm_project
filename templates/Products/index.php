@@ -12,10 +12,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Name</th>
+                                    <th class="text-center text-uppercase text-secondary float-start text-xxs font-weight-bolder opacity-7">Product Name</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category Name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Short Discription</th>
+                                    <th class="text-center text-uppercase text-secondary ps-4 text-xxs font-weight-bolder opacity-7 ps-2">Category Name</th>
+                                    <th class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Short Discription</th>
                                     <!-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th> -->
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">modified at</th>
@@ -25,53 +25,53 @@
                             <tbody id="mytable">
                                 <!-- <pre> -->
                                 <?php
-                                $i =1;
-                                
+                                $i = 1;
+
                                 foreach ($products as $product) :
-                                        if ($product->delete_status == 1) {
-                                            continue;
-                                        }
+                                    if ($product->delete_status == 1) {
+                                        continue;
+                                    }
                                 ?>
-                                        <tr>
+                                    <tr>
                                         <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                    </td>  
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <?= $this->Html->image($product->product_image, ['class' => "avatar avatar-sm me-3"]); ?>
-                                                    </div>
-                                                    <div class="text-capitalize d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm"><?= h($product->product_name) ?></h6>
-                                                    </div>
+                                            <span class="text-sm text-dark  font-weight-bold"><?= $i++ ?></span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div>
+                                                    <?= $this->Html->image($product->product_image, ['class' => "avatar avatar-sm me-3"]); ?>
                                                 </div>
-                                            </td>
-                                            <td>
-                                                <p class="text-xs font-weight-bold mb-0"><?= ($product->user->user_profile['first_name']) ?> <?= ($product->user->user_profile['last_name']) ?></p>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><?= h($product->category->category_name) ?></span>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><?= h($product->short_discription) ?></span>
-                                            </td>
-                                            <!-- <?php if ($product->status == 1) : ?>
+                                                <div class="text-capitalize d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm"><?= h($product->product_name) ?></h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm text-dark ps-4 font-weight-bold mb-0"><?= ($product->user->user_profile['first_name']) ?> <?= ($product->user->user_profile['last_name']) ?></p>
+                                        </td>
+                                        <td class="align-middle text-start ps-4">
+                                            <span class="text-dark text-sm font-weight-bold"><?= h($product->category->category_name) ?></span>
+                                        </td>
+                                        <td class="align-middle text-start">
+                                            <span class="text-dark text-sm font-weight-bold"><?= h($product->short_discription) ?></span>
+                                        </td>
+                                        <!-- <?php if ($product->status == 1) : ?>
                                                 <td class="align-middle text-center text-sm">
                                                     <?= $this->Form->postLink(
-                                                            __("InActive"),
-                                                            [
-                                                                "action" => "productstatus",
-                                                                $product->id,
-                                                                $product->status,
-                                                            ],
-                                                            ["class" => "badge badge-sm bg-gradient-danger"],
-                                                            [
-                                                                "confirm" => __(
-                                                                    "Are you sure you want to Active # {0}?",
-                                                                    $product->id
-                                                                ),
-                                                            ]
-                                                        ) ?>
+                                                        __("InActive"),
+                                                        [
+                                                            "action" => "productstatus",
+                                                            $product->id,
+                                                            $product->status,
+                                                        ],
+                                                        ["class" => "badge badge-sm bg-gradient-danger"],
+                                                        [
+                                                            "confirm" => __(
+                                                                "Are you sure you want to Active # {0}?",
+                                                                $product->id
+                                                            ),
+                                                        ]
+                                                    ) ?>
                                                 </td>
                                             <?php else : ?>
                                                 <td class="align-middle text-center text-sm"><?= $this->Form->postLink(
@@ -91,29 +91,29 @@
                                                                                                 ) ?>
                                                 </td>
                                             <?php endif; ?> -->
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><?= h($product->created_date) ?></span>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold"><?php
-                                                                                                        if ($product->modified_date == null) {
-                                                                                                            echo '--';
-                                                                                                        } else {
-                                                                                                            echo h($product->modified_date);
-                                                                                                        }
+                                        <td class="align-middle text-center">
+                                            <span class="text-dark text-sm font-weight-bold"><?= h($product->created_date) ?></span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-dark text-sm font-weight-bold"><?php
+                                                                                                if ($product->modified_date == null) {
+                                                                                                    echo '--';
+                                                                                                } else {
+                                                                                                    echo h($product->modified_date);
+                                                                                                }
 
-                                                                                                        ?></span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ViewProduct" class="btn btn-success productView" data-id="<?= $product->id ?>">View</a>
+                                                                                                ?></span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ViewProduct" class="btn btn-success productView" data-id="<?= $product->id ?>">View</a>
 
-                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#EditProduct" class="btn btn-primary productEdit" data-id="<?= $product->id ?>">Edit</a>
+                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#EditProduct" class="btn btn-primary productEdit" data-id="<?= $product->id ?>">Edit</a>
 
-                                                <a href="javascript:void(0)" class="btn btn-danger deleteProducts" data-id="<?= $product->id ?>">Delete</a>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                    endforeach;
+                                            <a href="javascript:void(0)" class="btn btn-danger deleteProducts" data-id="<?= $product->id ?>">Delete</a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                endforeach;
                                 ?>
                             </tbody>
                         </table>
@@ -206,10 +206,10 @@
                                     </div>
                                     <div>
                                         <div class="d-flex justify-content-between">
-                                            <span class="text-info">Added By</span><span class="text-secondary" id="userName"></span>
+                                            <span class="text-info">Added By</span><span class="text-dark" id="smerName"></span>
                                         </div>
                                         <div class="d-flex justify-content-between">
-                                            <span class="text-info">Created At</span><span class="text-secondary" id="created"></span>
+                                            <span class="text-info">Created At</span><span class="text-dark" id="smeated"></span>
                                         </div>
                                         <span class="text-info">short Description</span>
                                         <div class="d-flex justify-content-between">

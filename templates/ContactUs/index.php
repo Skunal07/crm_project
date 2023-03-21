@@ -16,55 +16,59 @@
                             <thead>
                                 <tr>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Sr. No.</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"> Name</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone No</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Query</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Message</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"> Name</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Phone No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Query</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Message</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="mytable">
                                 <!-- <pre> -->
-                                <?php 
-                                $i =1;
+                                <?php
+                                $i = 1;
                                 foreach ($contactUs as $contactU) :
                                     if ($contactU->delete_status == 1) {
                                         continue;
                                     }
                                 ?>
                                     <tr>
-                                    <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                    </td>  
-                                        <td class="">
-                                            <p class="text-xs font-weight-bold mb-0"><?= h($contactU->name) ?></p>
+                                        <td class="align-middle text-center">
+                                            <span class="text-dark text-sm font-weight-bold"><?= $i++ ?></span>
                                         </td>
                                         <td class="">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->email) ?></span>
+                                            <p class="text-dark text-sm font-weight-bold mb-0"><?= h($contactU->name) ?></p>
                                         </td>
                                         <td class="">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->phone) ?></span>
+                                            <span class="text-dark text-sm font-weight-bold"><?= h($contactU->email) ?></span>
                                         </td>
                                         <td class="">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->query_type) ?></span>
+                                            <span class="text-dark text-sm font-weight-bold"><?= h($contactU->phone) ?></span>
                                         </td>
                                         <td class="">
-                                            <span class="text-secondary text-xs font-weight-bold"><?php if ($contactU->message) {
-                                                                                                        echo $contactU->message;
-                                                                                                    } else {
-                                                                                                        echo '--';
-                                                                                                    } ?></span>
+                                            <span class="text-dark text-sm font-weight-bold"><?= h($contactU->query_type) ?></span>
+                                        </td>
+                                        <td class="">
+                                            <span class="text-dark text-sm font-weight-bold"><?php if ($contactU->message) {
+                                                                                                    echo $contactU->message;
+                                                                                                } else {
+                                                                                                    echo '--';
+                                                                                                } ?></span>
 
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold"><?= h($contactU->created_date) ?></span>
+                                            <span class="text-dark text-sm font-weight-bold"><?= h($contactU->created_date) ?></span>
                                         </td>
-                                        <td class="align-middle text-center"><?php
-                                                                    if ($contactU->work_status == 1) {
-                                                                        echo '<span class="btn btn-success ml-3">Replyed</span>';
-                                                                    } else { ?>
+                                        <td class="align-middle text-center">
+                                            <?php
+                                            if ($contactU->work_status == 1) {
+                                            ?>
+                                                <!-- '<span class="btn btn-success w-100 mx-5">Replyed</span>'; -->
+                                                <span class="btn btn-success w-85">Replyed</span>
+                                            <?php
+                                            } else { ?>
                                                 <a href="javascript:void(0)" class="response btn btn-dark" data-id="<?= $contactU->id ?>">Reply</a>
 
                                                 <a href="javascript:void(0)" class="delete btn btn-dark ml-3" data-id="<?= $contactU->id ?>">Delete</a>

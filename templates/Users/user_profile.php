@@ -71,7 +71,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label>Email</label>
+                  <label>Address</label>
                   <h5><?php echo h($user->user_profile->address) ?></h5>
                 </div>
               </div>
@@ -178,7 +178,7 @@
           <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control']); ?>
         </div>
 
-        <div class="col-12 my-3">
+        <div class="col-12 my-3" style="display:none;">
           <?php echo $this->Form->control('email', ['required' => false, 'class' => 'form-control']); ?>
         </div>
 

@@ -1,5 +1,5 @@
 <div class="container-fluid py-4" id="company">
-  <div class="row" >
+  <div class="row">
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
@@ -36,7 +36,7 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Company Name</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">created at</th>
@@ -45,17 +45,17 @@
                 </tr>
               </thead>
               <tbody id="mytable">
-                <?php 
-                $i =1;
+                <?php
+                $i = 1;
                 foreach ($companies as $company) :
                   if ($company->delete_status == 1) {
                     continue;
                   }
                 ?>
                   <tr id="data<?= $company->id ?>">
-                  <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                    </td>  
+                    <td class="align-middle text-center">
+                      <span class="text-dark text-sm font-weight-bold"><?= $i++ ?></span>
+                    </td>
                     <td>
                       <div class="d-flex px-2 py-1">
                         <div>
@@ -67,20 +67,24 @@
                       </div>
                     </td>
                     <td>
-                      <p class="text-xs font-weight-bold mb-0"><?= ($company->user->user_profile['first_name']) ?> <?= ($company->user->user_profile['last_name']) ?></p>
+                      <p class="text-dark text-sm font-weight-bold mb-0">
+                        <?= ($company->user->user_profile['first_name']) ?> <?= ($company->user->user_profile['last_name']) ?>
+                      </p>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= h($company->created_date) ?></span>
+                      <span class="text-dark text-sm font-weight-bold"><?= h($company->created_date) ?></span>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?php
-                                                                            if ($company->modified_date == null) {
-                                                                              echo '--';
-                                                                            } else {
-                                                                              echo h($company->modified_date);
-                                                                            }
+                      <span class="text-dark text-sm font-weight-bold">
+                        <?php
+                        if ($company->modified_date == null) {
+                          echo '--';
+                        } else {
+                          echo h($company->modified_date);
+                        }
 
-                                                                            ?></span>
+                        ?>
+                      </span>
                     </td>
                     <td class="align-middle text-center">
                       <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#companyView" class="btn btn-success viewCompany" data-id="<?= $company->id ?>">View</a>
@@ -188,7 +192,6 @@
       <?= $this->Form->end() ?>
     </div>
   </div>
->>>>>>> 935dda96dfa7e5eb5d6da76f257d0d40e947f446
 </div>
 
 

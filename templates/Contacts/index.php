@@ -58,65 +58,70 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder ">Sr. No.</th>
-                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Company Name</th>
-                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Added By</th>
-                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Address</th>
-                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Email</th>
-                  <th class=" text-uppercase text-secondary text-xxs font-weight-bolder">Phone</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder ">Sr. No.</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Company Name</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Added By</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Address</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Email</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Phone</th>
                   <!-- <th clenter text-uppercase text-secondary text-xxs font-weight-bity-7">Status</th> -->
-                  <th class=" text-center text-uppercase text-secondary text-xxs font-weight-bolder">Created Date</th>
-                  <th class=" text-center text-uppercase text-secondary text-xxs font-weight-bolder">Modified date</th>
-                  <th class=" text-center text-uppercase text-secondary text-xxs font-weight-bolder">Action</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Created Date</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Modified date</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder">Action</th>
 
                 </tr>
               </thead>
               <tbody id="mytable">
-                <?php $i=1;
-                foreach ($contacts as $contact) : 
-                  if ($contact->delete_status==1) {
-                  continue;
+                <?php $i = 1;
+                foreach ($contacts as $contact) :
+                  if ($contact->delete_status == 1) {
+                    continue;
                   }
-                  ?>
+                ?>
                   <tr id="data<?= $contact->id ?>">
-                  <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                    </td> 
+                    <td class="align-middle text-center">
+                      <span class="text-dark text-sm font-weight-bold"><?= $i++ ?></span>
+                    </td>
 
 
-                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
-                       <?php  if($contact->company_id!= null){
-                        echo $contact->company->company_name;
-                      }else{
+                    <td class="text-capitalize text-dark text-sm font-weight-bolder ps-3">
+                      <?php if ($contact->company_id != null) {
+                        echo  $contact->company->company_name;
+                      } else {
                         echo '--';
                       } ?>
                     </td>
-                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
+                    <td class="text-capitalize text-dark text-sm font-weight-bolder ps-3">
                       <?= ($contact->user->user_profile['first_name']) ?> <?= ($contact->user->user_profile['last_name']) ?>
                     </td>
 
-                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
-                      <?= h($contact->address) ?></td>
+                    <td class="text-capitalize text-dark text-sm font-weight-bolder ps-4">
+                      <?= h($contact->address) ?>
+                    </td>
 
-                    <td class=" text-secondary text-xxs font-weight-bolder opacity-7">
+                    <td class=" text-dark text-sm font-weight-bolder ps-3">
                       <?= h($contact->email) ?></td>
 
-                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
-                      <?= h($contact->phone) ?></td>
+                    <td class="text-capitalize text-dark text-sm font-weight-bolder ps-3">
+                      <?= h($contact->phone) ?>
+                    </td>
 
 
-                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
-                      <?= h($contact->create_date) ?></td>
+                    <td class="text-capitalize text-dark text-sm font-weight-bolder ps-4">
+                      <?= h($contact->create_date) ?>
+                    </td>
 
-                    <td class="text-capitalize text-secondary text-xxs font-weight-bolder opacity-7">
-                      <span class="text-secondary text-xs font-weight-bold"><?php
-                                                                            if ($contact->modified_date == null) {
-                                                                              echo '--';
-                                                                            } else {
-                                                                              echo h($contact->modified_date);
-                                                                            }
+                    <td class="text-capitalize">
+                      <span class="text-dark text-sm font-weight-bolder ps-3">
+                        <?php
+                        if ($contact->modified_date == null) {
+                          echo '--';
+                        } else {
+                          echo ($contact->modified_date);
+                        }
 
-                                                                            ?></span>
+                        ?>
+                      </span>
                     </td>
                     <td class="align-middle text-center">
                       <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#contactView" class="btn btn-success viewcontact" data-id="<?= $contact->id ?>">View</a>
@@ -151,7 +156,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">View Contacts Details</h5>
-     <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -218,7 +223,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Update Contacts Details</h5>
-        <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close text-dark" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

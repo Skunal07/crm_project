@@ -1,5 +1,5 @@
-<div class="container-fluid py-4" id="category" >
-  <div class="row" >
+<div class="container-fluid py-4" id="category">
+  <div class="row">
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
@@ -37,7 +37,7 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                  <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Sr. No.</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category Name</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Added By</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created at</th>
@@ -47,8 +47,8 @@
                 </tr>
               </thead>
               <tbody id="mytable">
-              
-                <?php 
+
+                <?php
                 $i = 1;
                 foreach ($categories as $category) :
 
@@ -56,11 +56,11 @@
                     continue;
                   } ?>
                   <tr id="data<?= $category->id ?>">
-                  <td class="align-middle text-center">
+                    <td class="align-middle text-center">
                       <span class="text-secondary text-xs font-weight-bold"><?= $i++ ?></span>
-                    </td>  
-                  <td>
-                       
+                    </td>
+                    <td>
+
                       <div class="d-flex px-2 py-1">
                         <div>
                           <img src="/img/company-logo.jpg" class="avatar avatar-sm me-3" alt="user1">
@@ -167,7 +167,7 @@
       <div class="modal-header">
 
         <h5 class="modal-title" id="editcategoryModalLongTitle">Modal title</h5>
-        <button type="button"class="btn-close text-dark"data-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close text-dark" data-dismiss="modal" aria-label="Close">
 
 
           <span aria-hidden="true">&times;</span>

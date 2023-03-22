@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\I18n\FrozenTime;
 // use Cake\Datasource\ConnectionManager;
 
 class LeadsController extends AppController
@@ -30,15 +31,14 @@ class LeadsController extends AppController
         } else {
             if ($id != null) {
 
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile','Companies', 'LeadContacts'])->where(['stages' => $id, 'Leads.user_id' => $uid])->order(['Leads.id' => 'DESC']);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies', 'LeadContacts'])->where(['stages' => $id, 'Leads.user_id' => $uid])->order(['Leads.id' => 'DESC']);
 
                 // dd($leads);
             } else {
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile','Companies', 'LeadContacts'])->where(['Leads.user_id' => $uid])->order(['Leads.id' => 'DESC']);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies', 'LeadContacts'])->where(['Leads.user_id' => $uid])->order(['Leads.id' => 'DESC']);
             }
         }
-
-        $this->set(compact('leads','companies'));
+        $this->set(compact('leads', 'companies'));
         if ($this->request->is('ajax')) {
             $this->autoRender = false;
             //$this->layout = false;
@@ -64,7 +64,7 @@ class LeadsController extends AppController
         $user = $this->Authentication->getIdentity();
         $uid = $user->id;
         $lead = $this->Leads->newEmptyEntity();
-       
+
         if ($this->request->is('ajax')) {
             $lead = $this->Leads->patchEntity($lead, $this->request->getData());
             // pr($lead);
@@ -172,12 +172,12 @@ class LeadsController extends AppController
     public function export()
     {
         $this->setResponse($this->getResponse()->withDownload('my-file.csv'));
-        
-        $data = $this->Leads->find('all')->contain(['LeadContacts','Companies'])->where(['Leads.delete_status' => 0]);
+
+        $data = $this->Leads->find('all')->contain(['LeadContacts', 'Companies'])->where(['Leads.delete_status' => 0]);
         $_serialize = 'data';
-        $_header = ['ID', 'Name',"Company Name",  'Price', 'Worked Title', 'Contact'];
-        $_extract = ['id', 'name','company.company_name' ,'price', 'work_title', 'lead_contact.contact'];
-        
+        $_header = ['ID', 'Name', "Company Name",  'Price', 'Worked Title', 'Contact'];
+        $_extract = ['id', 'name', 'company.company_name', 'price', 'work_title', 'lead_contact.contact'];
+
         $this->viewBuilder()->setClassName('CsvView.Csv');
         $this->set(compact('data', '_serialize', '_header', '_extract'));
     }
@@ -185,13 +185,13 @@ class LeadsController extends AppController
     {
         $this->setResponse($this->getResponse()->withDownload('format.csv'));
         // $data = [];
-        $data = [['ID', 'Name','Company Name', 'Price', 'Worked Title', 'Contact']];
-    
+        $data = [['ID', 'Name', 'Company Name', 'Price', 'Worked Title', 'Contact']];
+
         $this->set(compact('data'));
         $this->viewBuilder()
             ->setClassName('CsvView.Csv')
             ->setOptions([
-                'serialize' => 'data',             
+                'serialize' => 'data',
             ]);
     }
 
@@ -210,31 +210,31 @@ class LeadsController extends AppController
                 // $headers = fgetcsv($handle);
                 while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
                     $counter++;
-                    if($counter == 1){
+                    if ($counter == 1) {
                         continue;
                     }
-                    $company=$this->Companies->find("all")->Where(['Or' =>['company_name like'=>'%'.$row[2].'%']])->toArray();
-                    if($company != null){
-                        $cid=$company[0]['id'];
-                    }else{
-                        $array=array();
-                        $array['user_id']=$uid;
-                        $array['company_name']=$row[2];
+                    $company = $this->Companies->find("all")->Where(['Or' => ['company_name like' => '%' . $row[2] . '%']])->first();
+                    if ($company != null) {
+                        $cid = $company['id'];
+                    } else {
+                        $array = array();
+                        $array['user_id'] = $uid;
+                        $array['company_name'] = $row[2];
                         $company = $this->Companies->newEntity($array);
-                        $company=$this->Companies->save($company);
-                        $cid=$company[0]['id'];
+                        $company = $this->Companies->save($company);
+                        $cid = $company['id'];
+                        // $cid=$company[0]['id'] . "new";
                     }
-                    
+                    // dd($cid);
                     $data[] = [
-                        
                         'name' => $row[1],
-                        'user_id'=>$uid,
-                        'company_id'=>$cid,
+                        'user_id' => $uid,
+                        'company_id' => $cid,
                         'price' => $row[3],
                         'work_title' => $row[4],
                         'lead_contact' => ['contact' => $row[5]],
                     ];
-                }   
+                }
                 $counter--;
                 fclose($handle);
             }
@@ -250,21 +250,19 @@ class LeadsController extends AppController
                     "count" => $counter,
                 ));
                 exit;
-            }elseif($counter == 0){
+            } elseif ($counter == 0) {
                 echo json_encode(array(
                     "status" => 2,
                     "message" => "there is no lead in this file"
                 ));
                 exit;
-            }else{
+            } else {
                 echo json_encode(array(
                     "status" => 0,
                     "message" => " Lead has not been save."
                 ));
                 exit;
             }
-            
-            
         }
     }
 }

@@ -72,10 +72,19 @@ if (isset($_REQUEST['key'])) {
                     ?>
                         <div class="">
                             <div class="col-12">
-                                <div class="input-group ">
-                                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                                    <input type="search" class="form-control" name="key1" id="key1" placeholder="Type here...">
-
+                                <div class="cls input-group ">
+                                    <form>
+                                        <div class="searchBox-fakeInput">
+                                        <span class="input-group-text global text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                            <div class="searchBox-inputWrapper">
+                                            <input type="text" name="key1" id="key1" class="form-control searchBox-input js-searchBox-input" placeholder="Type here....">
+                                            </div>
+                                            <div class="searchBox-clearWrapper">
+                                            
+                                            <span class="cls searchBox-clear js-clearSearchBox" id="cls" name="cls"><i class="fa fa-times-circle" style="color:black;"></i></span>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-12 search-div ">
@@ -101,14 +110,6 @@ if (isset($_REQUEST['key'])) {
 
 
                 <ul class="navbar-nav  justify-content-end">
-
-                    <!-- <li class="nav-item d-flex align-items-center">
-                        <a href="/users/logout" class="nav-link text-white font-weight-bold px-0">
-                            <i class="fa fa-user me-sm-1"></i>
-
-                            <span class="d-sm-inline d-none">Sign Out</span>
-                        </a>
-                    </li> -->
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                         <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
                             <div class="sidenav-toggler-inner">
@@ -232,14 +233,7 @@ if (isset($_REQUEST['key'])) {
             });
 
         })
-        // })
-        // $(document).ready(function() {
-
-        // $(".clear").click(function() {
-        //     alert('dd');
-        //         // $(this).hide();
-        //     });
-        // });
+       
     </script>
 
 
@@ -250,4 +244,70 @@ if (isset($_REQUEST['key'])) {
             width: 100%;
             display: none;
         }
+        span.input-group-text.global.text-body {
+            margin: 5px;
+            border: none;
+            width: 1px;
+        }
+
+
+
+        @import url('https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
+
+
+form {
+  width: 14.4rem;
+}
+
+.searchBox-fakeInput {
+	background: white;
+	border: 1px solid #d6dadc;
+	border-radius: 10px;
+	display: table;
+}
+
+.searchBox-fakeInput.is-focussed {
+  border: 2px solid #5474df !important;
+}
+.searchBox-inputWrapper,
+.searchBox-clearWrapper {
+	width: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+.searchBox-input {
+ 	background-color: transparent;
+	border: none;
+  box-shadow: none;
+  outline: none;
+	width: 100%;
+	padding: 0.5rem;
+	font-size: inherit;
+}
+.searchBox-input:focus {
+  outline: none;
+	background: #FFF;
+  box-shadow: none;
+}
+.searchBox-clearWrapper {
+  padding-right: 0.5rem;
+}
+.searchBox-clear {
+	color: #CCC;
+	padding: 0;
+	cursor: pointer;
+	font-size: inherit;
+	cursor: pointer;
+	line-height: 1.5;
+ 	-webkit-transition: all 3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+.searchBox-clearInput:hover {
+	color: #AAA;
+}
     </style>
+
+
+

@@ -1,17 +1,17 @@
 <footer class="text-center text-lg-start my-5" style="background-color: #162144;">
     <div class="container d-flex justify-content-center py-5">
-        <button type="button" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2">
+        <a href="https://www.facebook.com/" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2" target="_blank">
             <i class="fab fa-facebook-f"></i>
-        </button>
-        <button type="button" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2">
+        </a>
+        <a href="https://www.youtube.com/" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2" target="_blank">
             <i class="fab fa-youtube"></i>
-        </button>
-        <button type="button" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2">
+        </a>
+        <a href="https://www.instagram.com/" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2" target="_blank">
             <i class="fab fa-instagram"></i>
-        </button>
-        <button type="button" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2">
+        </a>
+        <a href="https://www.twitter.com/" class="social btn btn-outline-light text-white btn-lg btn-floating mx-2" target="_blank">
             <i class="fab fa-twitter"></i>
-        </button>
+        </a>
     </div>
 
     <!-- Copyright -->

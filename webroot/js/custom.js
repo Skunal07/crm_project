@@ -1554,24 +1554,54 @@ $(document).ready(function () {
 
 $(document).ready(function() {
 
+    //Global serch key send the local serch and filter the data
+
     if($('input#key').length > 0 && $('input#key').val() != '') {
         var value = $("#key").val().toLowerCase();
         $("#mytable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     }else{
-                            $('.s_result').hide();
+            $('.s_result').hide();
     }
 
-    
+    //Global serch input box close button
+
+        $('.js-clearSearchBox').hide();
+
+        $('.js-searchBox-input').focus(function() {
+        $('.searchBox-fakeInput').toggleClass("is-focussed");
+        });
+
+        $('.js-searchBox-input').keyup(function() {
+            if ($(this).val() !='' ) {
+            $('.js-clearSearchBox').show();
+            } else {
+            $('.js-clearSearchBox').hide();
+            };
+  
+        $(window).bind('keydown', function(e)  {
+            if(e.keyCode === 27) {
+            $('.js-searchBox-input').val('');
+            };
+        });
+    });
+
+    // click the button 
+    $('.js-clearSearchBox').click(function() {
+    $('.js-searchBox-input').val('');
+    $('.js-searchBox-input').focus();
+    $('.js-clearSearchBox').hide();
+    $('.s_result').hide();
+    });
+
+    //Global serch List function Ajax call
+
     $('#key1').keyup(function() {
-                var key = $('#key1').val();
-                var keys = key.trim();
-                // alert(key);
-                // alert('dd0');
-                // alert(key);
-                // alert(status);
-                // return false;
+        var key = $('#key1').val();
+        var keys = key.trim();
+   
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': csrfToken 
@@ -1586,7 +1616,7 @@ $(document).ready(function() {
                         'key1': keys,
                     },
                     success: function(response) {
-                        console.log(response)
+                        // console.log(response)
                         if(response == '' ){
 
                             $('.s_result').hide();
@@ -1596,6 +1626,8 @@ $(document).ready(function() {
                         $('.s_result').append(response);
                     }}
                 });
+            
+            // }
             })
         })
   

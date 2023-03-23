@@ -117,7 +117,7 @@
                   <div class="row g-0">
                     <div class="col-md-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                       <img src="" alt="Avatar" id="userPic" class="img-fluid my-5" style="width: 80px;" />
-                      <h5>Addeded By</h5>
+                      <h5>Added By</h5>
                       <p id="addedby"></p>
                     </div>
                     <div class="col-md-8">
@@ -142,8 +142,6 @@
                             <p id="contact-phone" class="text-muted"></p>
                           </div>
                         </div>
-
-
                       </div>
                     </div>
                   </div>

@@ -44,6 +44,7 @@ class UsersController extends AppController
         $this->Authentication->addUnauthenticatedActions(['login', 'index', 'viewProduct']);
     }
 
+    //================ view all details on search ===============
     public function viewAll($key = null)
     {
         // pr($result);
@@ -174,7 +175,7 @@ class UsersController extends AppController
 
         if ($key != null) {
             // dd($key);        
-            $countall['user']  = $this->UserProfile->find('all')->where(['Or' => ['first_name like' => '%' . $key . '%']]);
+            $countall['user']  = $this->UserProfile->find('all')->contain('Users')->where(['Users.role' => 0, 'Or' => ['first_name like' => '%' . $key . '%']]);
 
 
             $countall['product']  = $this->Products->find('all')->where(['Products.delete_status' => 0, 'Products.status' => 0, 'Or' => ['product_name like' => '%' . $key . '%']]);

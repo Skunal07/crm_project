@@ -85,12 +85,28 @@
           </span>
         </td>
         <td class="align-middle text-center">
+          <?php if ($lead->stages == 4) {?>
+          <a disabled class="btn btn-info deactive w-100 ">Completed</a>
+       <?php }elseif ($lead->stages == 3) {?>
+          <a  class="btn btn-danger w-100 deactive ">lost</a><?php
+        }else{?>
           <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success viewLead" data-id="<?= $lead->id ?>">View</a>
           <a href="javascript:void(0)" data-toggle="modal" data-target="#editLeadModal" class="btn btn-primary editLead" data-id="<?= $lead->id ?>">Edit</a>
 
           <a href="javascript:void(0)" class="btn-delete-lead btn btn-danger" data-id="<?= $lead->id ?>">Delete</a>
-        </td>
+        <?php }?></td>
       </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
+
+
+
+<style>
+  .deactive{
+  pointer-events: none;
+  /* cursor: default; */
+  text-decoration: none;
+  /* color: black; */
+  }
+</style>

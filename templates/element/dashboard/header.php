@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- <html itemscope itemtype="https://schema.org/QAPage" class="html__responsive"> -->
 <html lang="en">
 
 <head>

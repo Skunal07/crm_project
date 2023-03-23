@@ -75,13 +75,13 @@ if (isset($_REQUEST['key'])) {
                                 <div class="cls input-group ">
                                     <form>
                                         <div class="searchBox-fakeInput">
-                                        <span class="input-group-text global text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                            <span class="input-group-text global text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                                             <div class="searchBox-inputWrapper">
-                                            <input type="text" name="key1" id="key1" class="form-control searchBox-input js-searchBox-input" placeholder="Type here....">
+                                                <input type="text" name="key1" id="key1" class="form-control searchBox-input js-searchBox-input" placeholder="Type here....">
                                             </div>
                                             <div class="searchBox-clearWrapper">
-                                            
-                                            <span class="cls searchBox-clear js-clearSearchBox" id="cls" name="cls"><i class="fa fa-times-circle" style="color:black;"></i></span>
+
+                                                <span class="cls searchBox-clear js-clearSearchBox" id="cls" name="cls"><i class="fa fa-times-circle" style="color:black;"></i></span>
                                             </div>
                                         </div>
                                     </form>
@@ -233,7 +233,6 @@ if (isset($_REQUEST['key'])) {
             });
 
         })
-       
     </script>
 
 
@@ -244,6 +243,7 @@ if (isset($_REQUEST['key'])) {
             width: 100%;
             display: none;
         }
+
         span.input-group-text.global.text-body {
             margin: 5px;
             border: none;
@@ -254,60 +254,58 @@ if (isset($_REQUEST['key'])) {
 
         @import url('https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css');
 
+        .searchBox-fakeInput {
+            background: white;
+            border: 1px solid #d6dadc;
+            border-radius: 10px;
+            display: table;
+        }
 
-form {
-  width: 14.4rem;
-}
+        .searchBox-fakeInput.is-focussed {
+            border: 2px solid #5474df !important;
+        }
 
-.searchBox-fakeInput {
-	background: white;
-	border: 1px solid #d6dadc;
-	border-radius: 10px;
-	display: table;
-}
+        .searchBox-inputWrapper,
+        .searchBox-clearWrapper {
+            width: 100%;
+            display: table-cell;
+            vertical-align: middle;
+        }
 
-.searchBox-fakeInput.is-focussed {
-  border: 2px solid #5474df !important;
-}
-.searchBox-inputWrapper,
-.searchBox-clearWrapper {
-	width: 100%;
-	display: table-cell;
-	vertical-align: middle;
-}
-.searchBox-input {
- 	background-color: transparent;
-	border: none;
-  box-shadow: none;
-  outline: none;
-	width: 100%;
-	padding: 0.5rem;
-	font-size: inherit;
-}
-.searchBox-input:focus {
-  outline: none;
-	background: #FFF;
-  box-shadow: none;
-}
-.searchBox-clearWrapper {
-  padding-right: 0.5rem;
-}
-.searchBox-clear {
-	color: #CCC;
-	padding: 0;
-	cursor: pointer;
-	font-size: inherit;
-	cursor: pointer;
-	line-height: 1.5;
- 	-webkit-transition: all 3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-}
-.searchBox-clearInput:hover {
-	color: #AAA;
-}
+        .searchBox-input {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            outline: none;
+            width: 100%;
+            padding: 0.5rem;
+            font-size: inherit;
+        }
+
+        .searchBox-input:focus {
+            outline: none;
+            background: #FFF;
+            box-shadow: none;
+        }
+
+        .searchBox-clearWrapper {
+            padding-right: 0.5rem;
+        }
+
+        .searchBox-clear {
+            color: #CCC;
+            padding: 0;
+            cursor: pointer;
+            font-size: inherit;
+            cursor: pointer;
+            line-height: 1.5;
+            -webkit-transition: all 3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .searchBox-clearInput:hover {
+            color: #AAA;
+        }
     </style>
-
-
-

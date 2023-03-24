@@ -847,7 +847,8 @@ $(document).ready(function () {
 $(document).on("click", ".response", function () {
     // alert('dgkhdfhg');
     var user_id = $(this).data("id");
-    $('.spinner').show();
+    // $('.spinner').show();
+    $('.gif-loader').show();
 
 
     $.ajax({
@@ -861,7 +862,8 @@ $(document).on("click", ".response", function () {
         success: function (response) {
             console.log(response)
             $('.productss').load('/contactUs/index .productss')
-            $('.spinner').hide();
+            // $('.spinner').hide();
+            $('.gif-loader').hide();
             swal("SENT!", "Mail has been sent!", "success");
 
         }

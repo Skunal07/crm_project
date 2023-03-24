@@ -5,11 +5,7 @@
                 <div class="card-header pb-0">
                     <h5>Contact Us Requests</h5>
                 </div>
-                <div class="text-center spinner" style="display: none;">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
+
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0 productss">
                         <table class="table align-items-center mb-0">
@@ -25,6 +21,9 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                                 </tr>
                             </thead>
+                            <div class="gif-loader text-center">
+                                <img src="/img/loading-gif.gif" alt="" width="80px">
+                            </div>
                             <tbody id="mytable">
                                 <!-- <pre> -->
                                 <?php

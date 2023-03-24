@@ -10,12 +10,15 @@ use Cake\I18n\FrozenTime;
 class LeadsController extends AppController
 
 {
-
-
+ 
     public function index($id = null)
     {
-        $user = $this->Authentication->getIdentity();
-        $uid = $user->id;
+        if( $this->Authentication->getIdentity()){
+            $user = $this->Authentication->getIdentity();
+            $uid = $user->id;
+        }else{
+          return  $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
         $companies = $this->Companies->find('all')->where(['delete_status' => 0]);
 
         // $id = $this->request->getQuery('user_id');
@@ -238,7 +241,7 @@ class LeadsController extends AppController
                 $counter--;
                 fclose($handle);
             }
-            // dd($data);
+            dd($data);
             $lead = $this->Leads->newEntities($data);
             // dd($lead->user_id);
             // foreach ($data as $val){

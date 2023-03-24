@@ -10,8 +10,12 @@ class ContactsController extends AppController
 
     public function index()
     {
-        $user = $this->Authentication->getIdentity();
-        $uid = $user->id;
+        if( $this->Authentication->getIdentity()){
+            $user = $this->Authentication->getIdentity();
+            $uid = $user->id;
+        }else{
+          return  $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        }
         // $this->paginate = [
         //     'contain' => ['Companies', 'Users.UserProfile'],
 

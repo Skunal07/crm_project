@@ -47,20 +47,20 @@ $(document).ready(function () {
     $("#newcompany").validate({
         rules: {
             company_name: {
-            required: true,
-            regex: ALPHA_REGEX,
-            noSpace:true,
+                required: true,
+                regex: ALPHA_REGEX,
+                noSpace: true,
             },
         },
         messages: {
             company_name: {
                 required: "Please enter company name ",
                 regex: "Please enter characters only",
-                
+
             },
         },
         submitHandler: function (form) {
-            
+
             var formData = $(form).serialize();
 
             // console.log(formData);
@@ -80,7 +80,7 @@ $(document).ready(function () {
                     } else {
                         $('#AddModal').modal('hide');
                         $('#company').load('/companies/index #company')
-            swal("Success!", "Company  Has been saved!", "success");
+                        swal("Success!", "Company  Has been saved!", "success");
 
                     }
                 },
@@ -94,7 +94,7 @@ $(document).ready(function () {
 
 $(document).on("click", ".editCompany", function () {
     var user_id = $(this).data("id");
-    
+
     $.ajax({
         url: "/companies/editCompany",
         data: { id: user_id },
@@ -243,7 +243,7 @@ $(document).ready(function () {
                     if (data["status"] == 0) {
                         alert(data["message"]);
                     } else {
-            swal("Success!", "Category  Has been Saved!", "success");
+                        swal("Success!", "Category  Has been Saved!", "success");
                         $('#AddcategoryModal').modal('hide');
                         $('#category').load('/categories/index #category')
                     }
@@ -370,28 +370,28 @@ $(document).ready(function () {
         rules: {
             product_name: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
 
             },
             category_id: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
             product_tags: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
             short_discription: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
             description: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
             product_image: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
         },
         messages: {
@@ -439,7 +439,7 @@ $(document).ready(function () {
                         $('#AddProductModal').modal('hide');
                         $('#AddProductModal form')[0].reset();
 
-            swal("Success!", "Product  Has been Saved!", "success");
+                        swal("Success!", "Product  Has been Saved!", "success");
                         $('.product').load('/products/index .product')
                     }
                 },
@@ -463,9 +463,9 @@ $(document).on("click", ".viewLead", function () {
             console.log(lead);
             var image = lead["user"]["user_profile"]["profile_image"];
             document
-            .querySelector("#userPic")
+                .querySelector("#userPic")
                 .setAttribute("src", "/img/" + image);
-            $("#addedby").html(lead['user']['user_profile']['first_name']+' '+lead['user']['user_profile']['last_name']);
+            $("#addedby").html(lead['user']['user_profile']['first_name'] + ' ' + lead['user']['user_profile']['last_name']);
             $("#conatct-name").html(lead['name']);
             $("#contact-price").html(lead['price']);
             $("#contact-title").html(lead['work_title']);
@@ -486,9 +486,9 @@ $(document).on("click", ".viewCategories", function () {
             category = $.parseJSON(response);
             var image = category["user"]["user_profile"]["profile_image"];
             document
-            .querySelector("#userPic")
+                .querySelector("#userPic")
                 .setAttribute("src", "/img/" + image);
-            $("#addedby").html(category['user']['user_profile']['first_name']+' '+category['user']['user_profile']['last_name']);
+            $("#addedby").html(category['user']['user_profile']['first_name'] + ' ' + category['user']['user_profile']['last_name']);
             $("#category-name").html(category['category_name']);
             $("#created").html(category['created_date']);
         },
@@ -507,9 +507,9 @@ $(document).on("click", ".viewUser", function () {
             user = $.parseJSON(response);
             var image = user["user_profile"]["profile_image"];
             document
-            .querySelector("#userPic")
-            .setAttribute("src", "/img/" + image);
-            $("#userName").html(user['user_profile']['first_name']+' '+user['user_profile']['last_name']);
+                .querySelector("#userPic")
+                .setAttribute("src", "/img/" + image);
+            $("#userName").html(user['user_profile']['first_name'] + ' ' + user['user_profile']['last_name']);
             $("#userPhone").html(user['user_profile']['contact']);
             $("#userEmail").html(user['email']);
             $("#usercreated").html(user['created_date']);
@@ -624,19 +624,19 @@ $(document).ready(function () {
         rules: {
             product_name: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
             short_discription: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
             description: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
             product_tags: {
                 required: true,
-                 noSpace: true,
+                noSpace: true,
             },
         },
         messages: {
@@ -715,15 +715,15 @@ $(document).on("click", ".deleteProducts", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-                    var data = JSON.parse(response);
-                    var status = data["status"];
+                        var data = JSON.parse(response);
+                        var status = data["status"];
                         if (status == "1") {
                             hide_tr.hide();
                             $('#data' + postdata).hide();
                             swal("Product Deleted Succesfully!", "success");
-                        }else {
-                        swal("Your product is not deleted");
-                    }
+                        } else {
+                            swal("Your product is not deleted");
+                        }
                     }
                 });
             }
@@ -811,6 +811,7 @@ $(document).ready(function () {
 
         },
         submitHandler: function (form) {
+            $('.gif-loader').show();
             var formData = $(form).serialize();
             $.ajax({
                 headers: {
@@ -828,8 +829,9 @@ $(document).ready(function () {
                         $('.modal-backdrop').remove();
                         $('#staff_update').load('/users/users_list  #staff_update');
                         swal("Success!", "Staff  Has been Saved!", "success");
-                    }else{
-                        $('#error_email').html("Email Already in Use"); 
+                        $('.gif-loader').hide();
+                    } else {
+                        $('#error_email').html("Email Already in Use");
                     }
                 },
             });
@@ -845,22 +847,22 @@ $(document).ready(function () {
 $(document).on("click", ".response", function () {
     // alert('dgkhdfhg');
     var user_id = $(this).data("id");
-                        $('.spinner').show();
-                        
-                        
-                        $.ajax({
-                            headers: {
-                                "X-CSRF-TOKEN": csrfToken,
-                            },
-                            url: "/contactUs/response/" + user_id,
-                            data: { user_id },
-                            type: "JSON",
-                            method: "post",
-                            success: function (response) {
-                                console.log(response)
-                                $('.productss').load('/contactUs/index .productss')
-                                $('.spinner').hide();
-                        swal("SENT!", "Mail has been sent!", "success");
+    $('.spinner').show();
+
+
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        url: "/contactUs/response/" + user_id,
+        data: { user_id },
+        type: "JSON",
+        method: "post",
+        success: function (response) {
+            console.log(response)
+            $('.productss').load('/contactUs/index .productss')
+            $('.spinner').hide();
+            swal("SENT!", "Mail has been sent!", "success");
 
         }
     });
@@ -1078,12 +1080,12 @@ $(document).ready(function () {
                 data: formData,
                 success: function (response) {
                     var data = JSON.parse(response);
-                    if(data['status']== 1){
+                    if (data['status'] == 1) {
                         swal("Updated!", "User details Has been updated Successfully!", "success");
                         $("#staff_update").load("/users/users_list #staff_update");
                         $('#updateDetails').hide();
                         $('.modal-backdrop').hide();
-                    }else{
+                    } else {
                         $("#email-error").html("Email Already in Use")
                     }
                 },
@@ -1154,7 +1156,7 @@ $(document).ready(function () {
                         swal("Error", "There is Some Problem to Save Contact!", "error");
                     } else {
                         $('#AddContact').modal('hide');
-                        
+
                         $('#contact').load('/contacts/index #contact')
                         $('#AddContact form')[0].reset();
                         swal("Success!", "Contact has been saved!", "success");
@@ -1314,12 +1316,12 @@ $(document).ready(function () {
             price: {
                 required: true,
                 noSpace: true,
-                
+
             },
             work_title: {
                 required: true,
                 noSpace: true,
-                
+
             },
             'lead_contact[contact]': {
                 required: true,
@@ -1426,7 +1428,7 @@ $(document).ready(function () {
             price: {
                 required: true,
                 noSpace: true,
-                
+
             },
             stages: {
                 required: true,
@@ -1434,7 +1436,7 @@ $(document).ready(function () {
             work_title: {
                 required: true,
                 noSpace: true,
-                
+
             },
             'lead_contact[contact]': {
                 required: true,
@@ -1540,97 +1542,98 @@ $(document).on("click", ".btn-delete-lead", function () {
 //------------------------------------- Localy Serch function Using Filter---------------------------------------//
 
 $(document).ready(function () {
-            
-        $("#key").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#mytable tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
+
+    $("#key").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#mytable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
     });
 
 });
 
 //------------------------------------- Globaly Serch function---------------------------------------//
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     //Global serch key send the local serch and filter the data
 
-    if($('input#key').length > 0 && $('input#key').val() != '') {
+    if ($('input#key').length > 0 && $('input#key').val() != '') {
         var value = $("#key").val().toLowerCase();
         $("#mytable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
-    }else{
-            $('.s_result').hide();
+    } else {
+        $('.s_result').hide();
     }
 
     //Global serch input box close button
 
-        $('.js-clearSearchBox').hide();
+    $('.js-clearSearchBox').hide();
 
-        $('.js-searchBox-input').focus(function() {
+    $('.js-searchBox-input').focus(function () {
         $('.searchBox-fakeInput').toggleClass("is-focussed");
-        });
+    });
 
-        $('.js-searchBox-input').keyup(function() {
-            if ($(this).val() !='' ) {
+    $('.js-searchBox-input').keyup(function () {
+        if ($(this).val() != '') {
             $('.js-clearSearchBox').show();
-            } else {
+        } else {
             $('.js-clearSearchBox').hide();
-            };
-  
-        $(window).bind('keydown', function(e)  {
-            if(e.keyCode === 27) {
-            $('.js-searchBox-input').val('');
+        };
+
+        $(window).bind('keydown', function (e) {
+            if (e.keyCode === 27) {
+                $('.js-searchBox-input').val('');
             };
         });
     });
 
     // click the button 
-    $('.js-clearSearchBox').click(function() {
-    $('.js-searchBox-input').val('');
-    $('.js-searchBox-input').focus();
-    $('.js-clearSearchBox').hide();
-    $('.s_result').hide();
+    $('.js-clearSearchBox').click(function () {
+        $('.js-searchBox-input').val('');
+        $('.js-searchBox-input').focus();
+        $('.js-clearSearchBox').hide();
+        $('.s_result').hide();
     });
 
     //Global serch List function Ajax call
 
-    $('#key1').keyup(function() {
+    $('#key1').keyup(function () {
         var key = $('#key1').val();
         var keys = key.trim();
-   
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken 
-                    }
-                });
-                // e.preventDefault();
-                $.ajax({
-                    url: "/Users/dashboard",
-                    type: "JSON",
-                    method: "GET",
-                    data: {
-                        'key1': keys,
-                    },
-                    success: function(response) {
-                        // console.log(response)
-                        if(response == '' ){
 
-                            $('.s_result').hide();
-                        }else{
-                        $('.s_result').show();
-                        $('.s_result').html('');
-                        $('.s_result').append(response);
-                    }}
-                });
-            
-            // }
-            })
-        })
-  
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            }
+        });
+        // e.preventDefault();
+        $.ajax({
+            url: "/Users/dashboard",
+            type: "JSON",
+            method: "GET",
+            data: {
+                'key1': keys,
+            },
+            success: function (response) {
+                // console.log(response)
+                if (response == '') {
+
+                    $('.s_result').hide();
+                } else {
+                    $('.s_result').show();
+                    $('.s_result').html('');
+                    $('.s_result').append(response);
+                }
+            }
+        });
+
+        // }
+    })
+})
+
 //-------------------------------------End Serch function---------------------------------------//
 
 $(document).ready(function () {
@@ -1639,7 +1642,7 @@ $(document).ready(function () {
             importcsv: {
                 required: true,
             },
-            
+
         },
         messages: {
             product_name: {
@@ -1665,13 +1668,13 @@ $(document).ready(function () {
                     var data = JSON.parse(response);
                     if (data["status"] == 0) {
                         // alert(data["message"]);
-                       swal ( "Error" ,  "please check your file before Uploading!" ,  "error" )
-                       // $('#csvModal').modal('hide');
-                    } else if(data["status"] == 2) {
-                        swal ( "Error" ,  "File Should not be empty" ,  "error" )
+                        swal("Error", "please check your file before Uploading!", "error")
+                        // $('#csvModal').modal('hide');
+                    } else if (data["status"] == 2) {
+                        swal("Error", "File Should not be empty", "error")
                         $('.lead').load('/leads/index .lead')
                     } else {
-                        swal("Success!", data['count']+" Leads  Has been Saved!", "success");
+                        swal("Success!", data['count'] + " Leads  Has been Saved!", "success");
                         $('.lead').load('/leads/index .lead')
                     }
                     $('#csvModal').modal('hide');

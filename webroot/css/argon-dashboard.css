@@ -26978,3 +26978,13 @@ button.text-dark.fw-bold.clear {
 }
 
 /* # sourceMappingURL=dashboard-free.css.map */
+
+.gif-loader img {
+  position: fixed !important;
+  z-index: 999 !important;
+  top: 400px !important;
+}
+
+.gif-loader {
+  display: none;
+}

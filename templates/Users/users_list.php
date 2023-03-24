@@ -9,7 +9,11 @@
          </button>
        </div>
        <?php echo $this->Form->create(null, ["id" => "staffAdd"], ['class' => 'd-flex']); ?>
+       <div class="gif-loader text-center">
+         <img src="/img/double Rings.gif" alt="" width="80px">
+       </div>
        <div class="modal-body">
+
          <?php echo $this->Flash->render() ?>
          <div class="mb-3 col-12">
            <?php echo $this->Form->control('user_profile.first_name', ['required' => false, 'class' => "form-control"]); ?>

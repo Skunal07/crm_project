@@ -50,11 +50,13 @@
                                             <span class="text-dark text-sm font-weight-bold"><?= h($contactU->query_type) ?></span>
                                         </td>
                                         <td class="">
-                                            <span class="text-dark text-sm font-weight-bold"><?php if ($contactU->message) {
-                                                                                                    echo $contactU->message;
-                                                                                                } else {
-                                                                                                    echo '--';
-                                                                                                } ?></span>
+                                            <span class="text-dark text-sm font-weight-bold">
+                                                <?php if ($contactU->message) {
+                                                    echo $contactU->message;
+                                                } else {
+                                                    echo '--';
+                                                } ?>
+                                            </span>
 
                                         </td>
                                         <td class="align-middle text-center">

@@ -167,6 +167,8 @@ $(document).ready(function () {
                             "success"
                         );
                         $("#loadDetails").load("/users/user_profile #loadDetails");
+                        $(".my-name").load("/users/user_profile .my-name");
+                        $(".user-name").load("/users/user_profile .user-name");
                         $("#updateDetails").hide();
                         $("div.modal-backdrop").remove();
                     }

@@ -10,14 +10,14 @@ use Cake\I18n\FrozenTime;
 class LeadsController extends AppController
 
 {
- 
+
     public function index($id = null)
     {
-        if( $this->Authentication->getIdentity()){
+        if ($this->Authentication->getIdentity()) {
             $user = $this->Authentication->getIdentity();
             $uid = $user->id;
-        }else{
-          return  $this->redirect(['controller' => 'Users', 'action' => 'login']);
+        } else {
+            return  $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
         $companies = $this->Companies->find('all')->where(['delete_status' => 0]);
 
@@ -25,11 +25,11 @@ class LeadsController extends AppController
         if ($user->role == 1) {
             if ($id != null) {
 
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies','LeadContacts'])->where(['stages' => $id])->order(['Leads.id' => 'DESC']);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies', 'LeadContacts'])->where(['stages' => $id])->order(['Leads.id' => 'DESC']);
 
                 // dd($leads);
             } else {
-                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies','LeadContacts'])->order(['Leads.id' => 'DESC']);
+                $leads = $this->Leads->find('all')->contain(['Users.UserProfile', 'Companies', 'LeadContacts'])->order(['Leads.id' => 'DESC']);
             }
         } else {
             if ($id != null) {
@@ -241,7 +241,7 @@ class LeadsController extends AppController
                 $counter--;
                 fclose($handle);
             }
-            dd($data);
+            // dd($data);
             $lead = $this->Leads->newEntities($data);
             // dd($lead->user_id);
             // foreach ($data as $val){

@@ -54,7 +54,8 @@ if ($countall != null) {
                                                 </td>
 
 
-                                                <td class="" m mb-0 <h6 class="mb-0 text-sm"><?= h($user->created_date) ?></h6>
+                                                <td class="mb-0">
+                                                    <h6 class="mb-0 text-sm"><?= h($user->created_date) ?></h6>
                                                 </td>
 
 

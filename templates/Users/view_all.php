@@ -54,8 +54,7 @@ if ($countall != null) {
                                                 </td>
 
 
-                                                <td class="">
-                                                    <h6 class="mb-0 text-sm"><?= h($user->created_date) ?></h6>
+                                                <td class="" m mb-0 <h6 class="mb-0 text-sm"><?= h($user->created_date) ?></h6>
                                                 </td>
 
 
@@ -109,84 +108,89 @@ if ($countall != null) {
                                     <tbody id="mytable">
                                         <!-- <pre> -->
                                         <?php
-                                        
+
 
                                         foreach ($countall['product'] as $product) :
-                                            
+
                                         ?>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex px-2 py-1">
-                                                            <div>
-                                                                <?= $this->Html->image($product->product_image, ['class' => "avatar avatar-sm me-3"]); ?>
-                                                            </div>
-                                                            <div class="text-capitalize d-flex flex-column justify-content-center">
-                                                                <h6 class="mb-0 text-sm"><?= h($product->product_name) ?></h6>
-                                                            </div>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div>
+                                                            <?= $this->Html->image($product->product_image, ['class' => "avatar avatar-sm me-3"]); ?>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="text-capitalize text-xs font-weight-bold mb-0"><?= ($product->user->user_profile['first_name']) ?> <?= ($product->user->user_profile['last_name']) ?></p>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold"><?= h($product->category->category_name) ?></span>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold"><?= h($product->short_discription) ?></span>
-                                                    </td>
-                                                    <!-- <?php if ($product->status == 1) : ?>
+                                                        <div class="text-capitalize d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm"><?= h($product->product_name) ?></h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-capitalize text-xm mb-0 font-weight-bold mb-0"><?= ($product->user->user_profile['first_name']) ?> <?= ($product->user->user_profile['last_name']) ?></p>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <span class="text-secondary text-xm mb-0 font-weight-bold"><?= h($product->category->category_name) ?></span>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <span class="text-secondary text-xm mb-0 font-weight-bold"><?= h($product->short_discription) ?></span>
+                                                </td>
+                                                <!-- <?php if ($product->status == 1) : ?>
                                                 <td class="align-middle text-center text-sm">
                                                     <?= $this->Form->postLink(
-                                                                    __("InActive"),
-                                                                    [
-                                                                        "action" => "productstatus",
-                                                                        $product->id,
-                                                                        $product->status,
-                                                                    ],
-                                                                    ["class" => "badge badge-sm bg-gradient-danger"],
-                                                                    [
-                                                                        "confirm" => __(
-                                                                            "Are you sure you want to Active # {0}?",
-                                                                            $product->id
-                                                                        ),
-                                                                    ]
-                                                                ) ?>
+                                                                __("InActive"),
+                                                                [
+                                                                    "action" => "productstatus",
+                                                                    $product->id,
+                                                                    $product->status,
+                                                                ],
+                                                                ["class" => "badge badge-sm bg-gradient-danger"],
+                                                                [
+                                                                    "confirm" => __(
+                                                                        "Are you sure you want to Active # {0}?",
+                                                                        $product->id
+                                                                    ),
+                                                                ]
+                                                            ) ?>
                                                 </td>
                                             <?php else : ?>
-                                                <td class="align-middle text-center text-sm"><?= $this->Form->postLink(
-                                                                                                    __("Active"),
-                                                                                                    [
-                                                                                                        "action" => "productstatus",
-                                                                                                        $product->id,
-                                                                                                        $product->status,
-                                                                                                    ],
-                                                                                                    ["class" => "badge badge-sm bg-gradient-success"],
-                                                                                                    [
-                                                                                                        "confirm" => __(
-                                                                                                            "Are you sure you want to InActive # {0}?",
-                                                                                                            $product->id
-                                                                                                        ),
-                                                                                                    ]
-                                                                                                ) ?>
+                                                <td class="align-middle text-center text-sm">
+                                                    <?= $this->Form->postLink(
+                                                                __("Active"),
+                                                                [
+                                                                    "action" => "productstatus",
+                                                                    $product->id,
+                                                                    $product->status,
+                                                                ],
+                                                                ["class" => "badge badge-sm bg-gradient-success"],
+                                                                [
+                                                                    "confirm" => __(
+                                                                        "Are you sure you want to InActive # {0}?",
+                                                                        $product->id
+                                                                    ),
+                                                                ]
+                                                            ) ?>
                                                 </td>
                                             <?php endif; ?> -->
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold"><?= h($product->created_date) ?></span>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <span class="text-secondary text-xs font-weight-bold"><?php
-                                                                                                                if ($product->modified_date == null) {
-                                                                                                                    echo '--';
-                                                                                                                } else {
-                                                                                                                    echo h($product->modified_date);
-                                                                                                                }
+                                                <td class="align-middle text-center">
+                                                    <span class="text-secondary text-xm mb-0 font-weight-bold">
+                                                        <?= h($product->created_date) ?>
+                                                    </span>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <span class="text-secondary text-xm mb-0 font-weight-bold">
+                                                        <?php
+                                                        if ($product->modified_date == null) {
+                                                            echo '--';
+                                                        } else {
+                                                            echo h($product->modified_date);
+                                                        }
 
-                                                                                                                ?></span>
-                                                    </td>
+                                                        ?>
+                                                    </span>
+                                                </td>
 
-                                                </tr>
-                                            <?php
-                                            
+                                            </tr>
+                                        <?php
+
                                         endforeach;
                                         ?>
                                     </tbody>
@@ -198,8 +202,8 @@ if ($countall != null) {
                 </div>
             </div>
         </div>
-        
-<!------------------------------------------------Lead List -------------------------------------------->
+
+        <!------------------------------------------------Lead List -------------------------------------------->
 
         <div class="container-fluid py-4">
             <div class="row">

@@ -12,8 +12,8 @@
             <?= $this->Html->image($user->user_profile->profile_image, ["class" => "w-100 border-radius-lg shadow-sm "]) ?>
           </div>
         </div>
-        <div class="col-auto my-auto">
-          <div class="h-100">
+        <div class="col-auto my-auto my-name">
+          <div class="h-100 ">
             <h5 class="mb-1">
               <?= ($user->user_profile['first_name']) ?> <?= ($user->user_profile['last_name']) ?>
             </h5>
@@ -106,8 +106,8 @@
               <a href="javascript:void(0)" class="btn btn-sm btn-primary mb-0 d-none d-lg-block" data-id="<?= $user->id ?>" id="imgUpload" data-toggle="modal" data-target="#ProfileImage">Update Image</a>
             </div>
           </div>
-          <div class="card-body pt-0">
-            <div class="text-center mt-4">
+          <div class="card-body pt-0 user-name">
+            <div class="text-center mt-4 ">
               <h5>
                 <?= ($user->user_profile['first_name']) ?> <?= ($user->user_profile['last_name']) ?>
               </h5>

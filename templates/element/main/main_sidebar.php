@@ -98,7 +98,7 @@
              <input type="hidden" id="payment" name="payment">
              <div class="modal-body">
                  <div class="gif-loader text-center">
-                     <img src="img/output-onlinegiftools.gif" alt="" width="80px">
+                     <img src="/img/output-onlinegiftools.gif" alt="" width="80px">
                  </div>
                  <style>
                      .modal-footer.pay {

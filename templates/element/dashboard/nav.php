@@ -240,7 +240,7 @@ if (isset($_REQUEST['key'])) {
     <style>
         ul.s_result.search.px-2.py-3.me-sm-n4 {
             background: white;
-            width: 100%;
+            width: 120%;
             display: none;
         }
 

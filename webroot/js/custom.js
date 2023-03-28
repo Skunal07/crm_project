@@ -826,10 +826,12 @@ $(document).ready(function () {
                     var data = JSON.parse(response);
                     if (data['status'] == '1') {
                         $('#addstaff').hide();
+                        
                         $('.modal-backdrop').remove();
                         $('#staff_update').load('/users/users_list  #staff_update');
                         swal("Success!", "Staff  Has been Saved!", "success");
                         $('.gif-loader').hide();
+                        $('#addstaff form')[0].reset();
                     } else {
                         $('#error_email').html("Email Already in Use");
                     }
@@ -1090,6 +1092,7 @@ $(document).ready(function () {
                     } else {
                         $("#email-error").html("Email Already in Use")
                     }
+
                 },
             });
             return false;

@@ -28,7 +28,7 @@ class ContactUsController extends AppController
 
     public function index()
     {
-        $contactUs = $this->ContactUs->find('all');
+        $contactUs = $this->ContactUs->find('all')->order(['id' => 'DESC']);
 
         $this->set(compact('contactUs'));
     }

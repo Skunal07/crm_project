@@ -70,7 +70,7 @@ class AppController extends Controller
             ]);
             $this->set(compact('contactus', 'count', 'user'));
         } else {
-            $this->redirect(['controller' => 'Users', 'action' => 'index']);
+            $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
     }
     public function beforeFilter(\Cake\Event\EventInterface $event)

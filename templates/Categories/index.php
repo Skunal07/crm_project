@@ -34,7 +34,7 @@
 
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0 ">
-            <table class="table align-items-center mb-0">
+            <table class="table align-items-center mb-0 category-tab">
               <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">Sr. No.</th>
@@ -77,15 +77,17 @@
                       <h6 class="mb-0 text-sm"><?= h($category->created_date) ?></h6>
                     </td>
                     <td class="align-middle text-center">
-                      <span class="text-secondary text-xs font-weight-bold"><?php
-                                                                            if ($category->modified_date == null) {
-                                                                              echo '--';
-                                                                            } else {
-                                                                            ?>
-                          <h6 class="mb-0 text-sm"><?= h($category->modified_date) ?></h6>
+                      <span class="text-secondary text-xs font-weight-bold">
                         <?php
-                                                                            }
-
+                        if ($category->modified_date == null) {
+                          echo '--';
+                        } else {
+                        ?>
+                          <h6 class="mb-0 text-sm">
+                            <?= h($category->modified_date) ?>
+                          </h6>
+                        <?php
+                        }
                         ?>
                       </span>
                     </td>

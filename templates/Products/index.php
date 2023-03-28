@@ -74,35 +74,40 @@
                                                     ) ?>
                                                 </td>
                                             <?php else : ?>
-                                                <td class="align-middle text-center text-sm"><?= $this->Form->postLink(
-                                                                                                    __("Active"),
-                                                                                                    [
-                                                                                                        "action" => "productstatus",
-                                                                                                        $product->id,
-                                                                                                        $product->status,
-                                                                                                    ],
-                                                                                                    ["class" => "badge badge-sm bg-gradient-success"],
-                                                                                                    [
-                                                                                                        "confirm" => __(
-                                                                                                            "Are you sure you want to InActive # {0}?",
-                                                                                                            $product->id
-                                                                                                        ),
-                                                                                                    ]
-                                                                                                ) ?>
+                                                <td class="align-middle text-center text-sm">
+                                                    <?= $this->Form->postLink(
+                                                        __("Active"),
+                                                        [
+                                                            "action" => "productstatus",
+                                                            $product->id,
+                                                            $product->status,
+                                                        ],
+                                                        ["class" => "badge badge-sm bg-gradient-success"],
+                                                        [
+                                                            "confirm" => __(
+                                                                "Are you sure you want to InActive # {0}?",
+                                                                $product->id
+                                                            ),
+                                                        ]
+                                                    )
+                                                    ?>
                                                 </td>
                                             <?php endif; ?> -->
                                         <td class="align-middle text-center">
-                                            <span class="text-dark text-sm font-weight-bold"><?= h($product->created_date) ?></span>
+                                            <span class="text-dark text-sm font-weight-bold">
+                                                <?= h($product->created_date) ?>
+                                            </span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-dark text-sm font-weight-bold"><?php
-                                                                                                if ($product->modified_date == null) {
-                                                                                                    echo '--';
-                                                                                                } else {
-                                                                                                    echo h($product->modified_date);
-                                                                                                }
-
-                                                                                                ?></span>
+                                            <span class="text-dark text-sm font-weight-bold">
+                                                <?php
+                                                if ($product->modified_date == null) {
+                                                    echo '--';
+                                                } else {
+                                                    echo h($product->modified_date);
+                                                }
+                                                ?>
+                                            </span>
                                         </td>
                                         <td class="align-middle">
                                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ViewProduct" class="btn btn-success productView" data-id="<?= $product->id ?>">View</a>

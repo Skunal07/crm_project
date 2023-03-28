@@ -195,7 +195,7 @@ $(document).on("click", ".btn-delete-company", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".company-div").load(location.href + " .company-div");
                         $('#data' + postdata).hide();
                         swal("Company data deleted succesfully!", "Success!", "success");
                     }
@@ -352,7 +352,7 @@ $(document).on("click", ".btn-delete-category", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".category-tab").load(location.href + " .category-tab");
                         $('#data' + postdata).hide();
                         swal("Category deleted succesfully!", "Success!", "success");
                     }
@@ -719,6 +719,7 @@ $(document).on("click", ".deleteProducts", function () {
                         var status = data["status"];
                         if (status == "1") {
                             hide_tr.hide();
+                            $(".product").load(location.href + " .product");
                             $('#data' + postdata).hide();
                             swal("Product Deleted Succesfully!", "success");
                         } else {
@@ -974,6 +975,7 @@ $(document).on("click", ".btn-delete-student", function () {
                     method: "post",
                     success: function (response) {
 
+                        $(".staff").load(location.href + " .staff");
                         $('#data' + postdata).hide();
                         swal("Staff data deleted succesfully!", "success!", "success");
                     }
@@ -1293,7 +1295,7 @@ $(document).on("click", ".btn-delete-contact", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".contact").load(location.href + " .contact");
                         $('#data' + postdata).hide();
                         swal("Contact deleted succesfully!", "Success!", "success");
                     }
@@ -1528,7 +1530,7 @@ $(document).on("click", ".btn-delete-lead", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".lead").load(location.href + " .lead");
                         $('#data' + postdata).hide();
                         swal("Lead deleted succesfully!", "success!", "success");
                     }

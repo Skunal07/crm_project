@@ -826,15 +826,21 @@ $(document).ready(function () {
                     console.log(response);
                     var data = JSON.parse(response);
                     if (data['status'] == '1') {
-                        $('#addstaff').hide();
                         
-                        $('.modal-backdrop').remove();
                         $('#staff_update').load('/users/users_list  #staff_update');
                         swal("Success!", "Staff  Has been Saved!", "success");
+                        $('#addstaff').hide();
+                        $('.modal-backdrop').remove();
                         $('.gif-loader').hide();
                         $('#addstaff form')[0].reset();
-                    } else {
+                    } else if(data['status'] == '2') {
+                        $('.gif-loader').hide();
                         $('#error_email').html("Email Already in Use");
+                    }else{
+                        swal("error!", "Staff  Has not been Saved!", "error");
+                        $('#addstaff').hide();
+                        $('.modal-backdrop').remove();
+                        $('.gif-loader').hide();
                     }
                 },
             });

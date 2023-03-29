@@ -56,6 +56,8 @@ class AppController extends Controller
         $this->loadModel('Categories');
         $this->loadModel('Products');
         $this->loadModel('Payments');
+        $this->loadModel('Task');
+        $this->loadModel('TaskAssigned');
         $contactus = $this->ContactUs->find('all')->where(['notification' => 2, 'delete_status' => 0]);
         $i = 0;
         foreach ($contactus as $a) {

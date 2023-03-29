@@ -12,6 +12,7 @@ $key = "";
 if (isset($_REQUEST['key'])) {
     $key = $_REQUEST['key'];
 }
+
 ?>
 
 <?= $page == "dashboard" ? 'active bg-gradient-primary' : ''; ?>
@@ -48,16 +49,22 @@ if (isset($_REQUEST['key'])) {
                                 echo 'Products';
                             } else if ($page == 'companies') {
                                 echo 'companies';
-                            } else if ($page == 'contacts') {
+                            } 
+                            else if ($page == 'contacts') {
                                 echo 'contacts';
-                            } else if ($url = 'leads/index?key=' . $key) {
+                            }
+                            else if ($page == 'task') {
+                                echo 'task';
+                            }
+                             else if ($url = 'leads/index?key=' . $key) {
                                 echo 'Leads';
                             } elseif ($url = 'users/usersList?key=' . $key) {
                                 echo 'Users';
                             } else if ($url = 'products/index?key=' . $key) {
 
                                 echo 'Products';
-                            } else {
+                            } 
+                            else {
                                 echo $page;
                             }
                             ?></li>

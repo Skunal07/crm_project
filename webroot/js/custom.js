@@ -833,6 +833,7 @@ $(document).ready(function () {
                     } else {
                         $('#error_email').html("Email Already in Use");
                     }
+                    $('#addstaff form')[0].reset();
                 },
             });
             return false;
@@ -1686,3 +1687,30 @@ $(document).ready(function () {
         },
     });
 });
+
+
+// $(document).on("click", ".add-task", function () {
+//     $.ajax({
+//         url: "/task/showUser",
+//         // data: data,
+//         type: "JSON",
+//         method: "get",
+//         success: function (response) {
+//             user = $.parseJSON(response);
+//             var userlist = "";
+//             $.each(user, function (k, v) {
+//                 // console.log(v['id']);
+//                 userlist += "<li class='list-group-item '><input class='mx-2' type='checkbox' value='" + v.id + "' name='userAssign' >" + v.user_profile.first_name + ' ' +v.user_profile.last_name + "</li>";
+//                 $('#example-multiple-selected').append("<option type='checkbox' value='" + v.id + "' name='user-name' id='user-name' >" + v.user_profile.first_name + "</option>");
+//                 // if (v == 'user_profile') {
+//                 //     $.each($(this), function(index, value) {
+//                 //         myproduct += "<li><input type='checkbox' value='" + value.id + "' name='product' >" + value.product_title + "</li>";
+//                 //         // console.log(value.product_title);
+//                 //     });
+//                 // }
+//             });
+
+//             $("#user-list").html(userlist);
+//         },
+//     });
+// });

@@ -293,6 +293,8 @@ class UsersController extends AppController
             $user->users_id = $uid;
             $name = $user->user_profile['first_name'] . ' ' . $user->user_profile['last_name'];
             $email = $user->email;
+            $checkemail=$this->Users->find('all')->where(['email'=>$email,'delete_status'=>0])->count();
+            if($checkemail == 0){
             $mailer = new Mailer('default');
             $mailer->setTransport('gmail'); //your email configuration name
             $mailer->setFrom(['kunal02chd@gmail.com' => 'Team Doors Dekho']);
@@ -309,7 +311,7 @@ class UsersController extends AppController
             <p>Click Here to <a href='http://localhost:8765/Users/login'>Login</a>.</p>
             ");
             if ($this->Users->save($user)) {
-
+                
                 echo json_encode(array(
                     "status" => 1,
                     "message" => "staff has been created"
@@ -322,6 +324,13 @@ class UsersController extends AppController
                 ));
                 die;
             }
+        }else{
+            echo json_encode(array(
+                "status" => 2,
+                "message" => "email in use"
+            ));
+            die;
+        }
         }
     }
     //----------------------------------------------Login--------------------------------------------//

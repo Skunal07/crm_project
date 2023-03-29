@@ -195,7 +195,7 @@ $(document).on("click", ".btn-delete-company", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".company-div").load(location.href + " .company-div");
                         $('#data' + postdata).hide();
                         swal("Company data deleted succesfully!", "Success!", "success");
                     }
@@ -352,7 +352,7 @@ $(document).on("click", ".btn-delete-category", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".category-tab").load(location.href + " .category-tab");
                         $('#data' + postdata).hide();
                         swal("Category deleted succesfully!", "Success!", "success");
                     }
@@ -719,6 +719,7 @@ $(document).on("click", ".deleteProducts", function () {
                         var status = data["status"];
                         if (status == "1") {
                             hide_tr.hide();
+                            $(".product").load(location.href + " .product");
                             $('#data' + postdata).hide();
                             swal("Product Deleted Succesfully!", "success");
                         } else {
@@ -825,13 +826,21 @@ $(document).ready(function () {
                     console.log(response);
                     var data = JSON.parse(response);
                     if (data['status'] == '1') {
-                        $('#addstaff').hide();
-                        $('.modal-backdrop').remove();
+                        
                         $('#staff_update').load('/users/users_list  #staff_update');
                         swal("Success!", "Staff  Has been Saved!", "success");
+                        $('#addstaff').hide();
+                        $('.modal-backdrop').remove();
                         $('.gif-loader').hide();
-                    } else {
+                        $('#addstaff form')[0].reset();
+                    } else if(data['status'] == '2') {
+                        $('.gif-loader').hide();
                         $('#error_email').html("Email Already in Use");
+                    }else{
+                        swal("error!", "Staff  Has not been Saved!", "error");
+                        $('#addstaff').hide();
+                        $('.modal-backdrop').remove();
+                        $('.gif-loader').hide();
                     }
                     $('#addstaff form')[0].reset();
                 },
@@ -975,6 +984,7 @@ $(document).on("click", ".btn-delete-student", function () {
                     method: "post",
                     success: function (response) {
 
+                        $(".staff").load(location.href + " .staff");
                         $('#data' + postdata).hide();
                         swal("Staff data deleted succesfully!", "success!", "success");
                     }
@@ -1091,6 +1101,7 @@ $(document).ready(function () {
                     } else {
                         $("#email-error").html("Email Already in Use")
                     }
+
                 },
             });
             return false;
@@ -1294,7 +1305,7 @@ $(document).on("click", ".btn-delete-contact", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".contact").load(location.href + " .contact");
                         $('#data' + postdata).hide();
                         swal("Contact deleted succesfully!", "Success!", "success");
                     }
@@ -1529,7 +1540,7 @@ $(document).on("click", ".btn-delete-lead", function () {
                     type: "JSON",
                     method: "post",
                     success: function (response) {
-
+                        $(".lead").load(location.href + " .lead");
                         $('#data' + postdata).hide();
                         swal("Lead deleted succesfully!", "success!", "success");
                     }

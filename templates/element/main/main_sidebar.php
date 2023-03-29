@@ -114,22 +114,22 @@
 
                  <div class='form-row row'>
                      <div class='col-xs-12 form-group card required'>
-                         <label class='control-label'>Card Number</label> <input autocomplete='off' class='form-control card-number' name="card-no" id="card-no" size='20' type='text'>
+                         <label class='control-label'>Card Number</label> <input autocomplete='off' class='form-control card-number'  maxlength="16" name="card-no" id="card-no" size='20' type='text'>
 
                      </div>
                  </div>
 
                  <div class='form-row row'>
                      <div class='col-xs-12 col-md-4 form-group cvc required'>
-                         <label class='control-label'>CVC</label> <input autocomplete='off' class='form-control card-cvc' placeholder='ex. 311' name="cvc" id="cvc" size='4' type='text'>
+                         <label class='control-label'>CVC</label> <input autocomplete='off' class='form-control card-cvc' maxlength="3" placeholder='ex. 311' name="cvc" id="cvc" size='4' type='text'>
 
                      </div>
                      <div class='col-xs-12 col-md-4 form-group expiration required'>
-                         <label class='control-label'>Expiration Month</label> <input class='form-control card-expiry-month' placeholder='MM' size='2' name="month" id="month" type='text'>
+                         <label class='control-label'>Expiration Month</label> <input class='form-control card-expiry-month' placeholder='MM' maxlength='2' name="month" id="month" type='text'>
 
                      </div>
                      <div class='col-xs-12 col-md-4 form-group expiration required'>
-                         <label class='control-label'>Expiration Year</label> <input class='form-control card-expiry-year' placeholder='YYYY' size='4' name="year" id="year" type='text'>
+                         <label class='control-label'>Expiration Year</label> <input class='form-control card-expiry-year' placeholder='YYYY' maxlength ='4' name="year" id="year" type='text'>
 
                      </div>
                  </div>

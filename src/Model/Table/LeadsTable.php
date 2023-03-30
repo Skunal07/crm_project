@@ -77,9 +77,9 @@ class LeadsTable extends Table
         //     ->requirePresence('name', 'create')
         //     ->notEmptyString('name');
 
-        // $validator
-        //     ->numeric('price')
-        //     ->notEmptyString('price');
+        $validator
+            ->numeric('price')
+            ->notEmptyString('price');
 
         // $validator
         //     ->scalar('work_title')

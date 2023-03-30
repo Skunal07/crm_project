@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\I18n\FrozenTime;
+use Cake\Core\Exception\Exception;
+
 // use Cake\Datasource\ConnectionManager;
 
 class LeadsController extends AppController
@@ -246,26 +248,57 @@ class LeadsController extends AppController
             // dd($lead->user_id);
             // foreach ($data as $val){
             // $lead = $this->Leads->patchEntities($lead, $data);
-            if ($this->Leads->saveMany($lead)) {
+           
+            try {
+                if ($this->Leads->saveMany($lead)) {
+                        echo json_encode(array(
+                            "status" => 1,
+                            "message" => "$counter Leads has been save.",
+                            "count" => $counter,
+                        ));
+                        exit;
+                    } elseif ($counter == 0) {
+                        echo json_encode(array(
+                            "status" => 2,
+                            "message" => "there is no lead in this file"
+                        ));
+                        exit;
+                    }
+                    else {
+                            echo json_encode(array(
+                                "status" => 0,
+                                "message" => " Lead has not been save."
+                            ));
+                            exit;
+                        }
+            } catch (\Exception $e) {
                 echo json_encode(array(
-                    "status" => 1,
-                    "message" => "$counter Leads has been save.",
-                    "count" => $counter,
+                    'error' => array(
+                        'msg' => $e->getMessage(),
+                    ),
                 ));
-                exit;
-            } elseif ($counter == 0) {
-                echo json_encode(array(
-                    "status" => 2,
-                    "message" => "there is no lead in this file"
-                ));
-                exit;
-            } else {
-                echo json_encode(array(
-                    "status" => 0,
-                    "message" => " Lead has not been save."
-                ));
-                exit;
             }
+
+            // if ($this->Leads->saveMany($lead)) {
+            //     echo json_encode(array(
+            //         "status" => 1,
+            //         "message" => "$counter Leads has been save.",
+            //         "count" => $counter,
+            //     ));
+            //     exit;
+            // } elseif ($counter == 0) {
+            //     echo json_encode(array(
+            //         "status" => 2,
+            //         "message" => "there is no lead in this file"
+            //     ));
+            //     exit;
+            // } else {
+            //     echo json_encode(array(
+            //         "status" => 0,
+            //         "message" => " Lead has not been save."
+            //     ));
+            //     exit;
+            // }
         }
     }
 }

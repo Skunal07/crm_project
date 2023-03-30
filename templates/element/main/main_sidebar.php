@@ -17,9 +17,9 @@
              <?= $this->Form->create(null, ['id' => 'contactusform']) ?>
              <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
              </script>
-             <?php echo $this->Form->control('name', ['class' => 'form-control mb-0', 'placeholder' => 'Enter your name', 'label' => false]); ?>
-             <?php echo $this->Form->control('email', ['class' => 'form-control mb-0 mt-3', 'placeholder' => 'Enter your email', 'label' => false]); ?>
-             <?php echo $this->Form->control('phone', ['class' => 'form-control mb-0 mt-3', 'placeholder' => 'Enter your mobile number', 'label' => false]); ?>
+             <?php echo $this->Form->control('name', ['class' => 'form-control mb-0','maxlength'=>"50", 'placeholder' => 'Enter your name', 'label' => false]); ?>
+             <?php echo $this->Form->control('email', ['class' => 'form-control mb-0 mt-3','maxlength'=>"50", 'placeholder' => 'Enter your email', 'label' => false]); ?>
+             <?php echo $this->Form->control('phone', ['class' => 'form-control mb-0 mt-3',  'maxlength'=>"10",'placeholder' => 'Enter your mobile number', 'label' => false]); ?>
              <!-- <label for="query_type">Query Type</label> -->
 
              <select class="form-select form-control mb-0 mt-3" name="query_type" id="query_type" aria-label="Default select">
@@ -38,7 +38,7 @@
                  <option class="bg-secondary" value="7">Medium ($7)</option>
                  <option class="bg-secondary" value="10">High ($10)</option>
              </select>
-             <?php echo $this->Form->control('message', ['rows' => '5', 'cols' => '30', 'type' => 'textarea', 'class' => 'form-control mb-0 mt-3', 'placeholder' => 'Write your message', 'label' => false]); ?>
+             <?php echo $this->Form->control('message', ['rows' => '5', 'cols' => '30', 'type' => 'textarea','maxlength'=>"500",  'class' => 'form-control mb-0 mt-3', 'placeholder' => 'Write your message', 'label' => false]); ?>
 
              <div class="mt-3" id="html_element"></div>
              <span id="cptcha-checkbox" class="error mb-0"></span>
@@ -107,7 +107,7 @@
                  </style>
                  <div class='form-row row'>
                      <div class='col-xs-12 form-group required'>
-                         <label class='control-label'>Name on Card</label> <input class='form-control' size='4' name="card-name" id="card-name" type='text'>
+                         <label class='control-label'>Name on Card</label> <input class='form-control' size='4' maxlength="50" name="card-name" id="card-name" type='text'>
 
                      </div>
                  </div>
@@ -203,6 +203,5 @@
                  $form.get(0).submit();
              }
          }
-
      });
  </script>

@@ -16,19 +16,19 @@
 
          <?php echo $this->Flash->render() ?>
          <div class="mb-3 col-12">
-           <?php echo $this->Form->control('user_profile.first_name', ['required' => false, 'class' => "form-control"]); ?>
+           <?php echo $this->Form->control('user_profile.first_name', ['required' => false, 'class' => "form-control",'maxlength'=>"50"]); ?>
          </div>
          <div class="mb-3 col-12">
-           <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => "form-control"]); ?>
+           <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => "form-control",'maxlength'=>"50"]); ?>
          </div>
          <div class="mb-3 col-12">
-           <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => "form-control"]); ?>
+           <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => "form-control",'maxlength'=>"100"]); ?>
          </div>
          <div class="mb-3 col-12">
-           <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'type' => 'number', 'class' => "form-control"]); ?>
+           <?php echo $this->Form->control('user_profile.contact', ['required' => false,'maxlength'=>"10",  'class' => "form-control"]); ?>
          </div>
          <div class="mb-3 col-12">
-           <?php echo $this->Form->control('email', ['required' => false, 'class' => "form-control"]); ?>
+           <?php echo $this->Form->control('email', ['required' => false,'maxlength'=>"50",'class' => "form-control"]); ?>
            <b><small class="text-danger error-message" id="error_email"></small></b>
 
          </div>
@@ -209,21 +209,21 @@
          <input type="hidden" id="iddd" name="iddd">
          <div class="modal-body">
            <div class="col-12 my-3">
-             <?php echo $this->Form->control("user_profile.first_name", ["required" => false, "class" => "form-control px-3", "id" => "firstname"]); ?>
+             <?php echo $this->Form->control("user_profile.first_name", ["required" => false, "class" => "form-control px-3",'maxlength'=>"50", "id" => "firstname"]); ?>
            </div>
            <div class="col-12 my-3">
-             <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control px-3', "id" => "lastname"]); ?>
+             <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control px-3','maxlength'=>"50", "id" => "lastname"]); ?>
            </div>
            <div class="col-12 my-3">
-             <?php echo $this->Form->control('user_profile.contact', ['required' => false,  'type' => 'number', 'class' => 'form-control px-3', "id" => "contact"]); ?>
-           </div>
-
-           <div class="col-12 my-3">
-             <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => 'form-control px-3', "id" => "address"]); ?>
+             <?php echo $this->Form->control('user_profile.contact', ['required' => false,  'maxlength'=>"10", 'class' => 'form-control px-3', "id" => "contact"]); ?>
            </div>
 
            <div class="col-12 my-3">
-             <?php echo $this->Form->control('email', ["type" => "email", 'required' => false, 'class' => 'form-control px-3', "id" => "editemail"]); ?>
+             <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => 'form-control px-3','maxlength'=>"100", "id" => "address"]); ?>
+           </div>
+
+           <div class="col-12 my-3">
+             <?php echo $this->Form->control('email', ["type" => "email", 'required' => false, 'class' => 'form-control px-3','maxlength'=>"50", "id" => "editemail"]); ?>
              <span id="email-error" class="text-danger"></span>
            </div>
          </div>

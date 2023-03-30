@@ -42,7 +42,7 @@
               <div class="modal-body">
 
                 <?php
-                echo $this->Form->control('name', ['class' => 'form-control']);
+                echo $this->Form->control('name', ['class' => 'form-control','maxlength'=>"50"]);
                 ?>
                 <br>
                 <label for="company_id" class="form-label">Company Name</label>
@@ -56,16 +56,16 @@
 
                 <br>
                 <?php
-                echo $this->Form->control('price', ['class' => 'form-control']);
+                echo $this->Form->control('price', ['class' => 'form-control','maxlength'=>"50"]);
                 ?>
                 <br>
                 <?php
-                echo $this->Form->control('work_title', ['class' => 'form-control']);
+                echo $this->Form->control('work_title', ['class' => 'form-control','maxlength'=>"150"]);
                 ?>
                 <br>
                 <!-- <label for="lead_contacts.contact" class="form-label">Contact</label> -->
                 <?php
-                echo $this->Form->control('lead_contact.contact', ['class' => 'form-control']);
+                echo $this->Form->control('lead_contact.contact', ['class' => 'form-control ','maxlength'=>"10"]);
                 ?>
                 <br>
 
@@ -230,7 +230,7 @@
                 "name",
                 [
                   "required" => false,
-                  "class" => "form-control name",
+                  "class" => "form-control name",'maxlength'=>"50"
                 ]
               ); ?>
             </div>
@@ -239,7 +239,7 @@
                 "price",
                 [
                   "required" => false,
-                  "class" => "form-control price",
+                  "class" => "form-control price",'maxlength'=>"10"
 
                 ]
               ); ?>
@@ -257,15 +257,15 @@
                 "work_title",
                 [
                   "required" => false,
-                  "class" => "form-control work_title",
+                  "class" => "form-control work_title",'maxlength'=>"150"
                 ]
               ); ?>
               <div class="col-12 my-3">
                 <?php echo $this->Form->control(
                   "lead_contact.contact",
                   [
-                    "required" => false, 'type' => 'number',
-                    "class" => "form-control contact",
+                    "required" => false, 
+                    "class" => "form-control contact",'maxlength'=>"10"
 
                   ]
                 ); ?>

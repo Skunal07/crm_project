@@ -28,6 +28,8 @@
                                 <!-- <pre> -->
                                 <?php
                                 $i = 1;
+                                $no = $contactUs->count();
+                                if($no > 0){
                                 foreach ($contactUs as $contactU) :
                                     if ($contactU->delete_status == 1) {
                                         continue;
@@ -76,7 +78,10 @@
                                             <?php } ?>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach; 
+                                }else{
+                                    echo '<td colspan="9"class="text-center fw-bold">No Results To Show</td>';
+                                } ?>
                             </tbody>
                         </table>
                     </div>

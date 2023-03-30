@@ -48,8 +48,8 @@ $(document).ready(function () {
         rules: {
             company_name: {
                 required: true,
-                regex: ALPHA_REGEX,
                 noSpace: true,
+                regex: ALPHA_REGEX,
             },
         },
         messages: {
@@ -123,8 +123,8 @@ $(document).ready(function () {
         rules: {
             company_name: {
                 required: true,
-                regex: ALPHA_REGEX,
                 noSpace: true,
+                regex: ALPHA_REGEX,
             },
 
         },
@@ -744,30 +744,32 @@ $(document).ready(function () {
         rules: {
             email: {
                 required: true,
-                email: true,
                 noSpace: true,
+                email: true,
             },
             password: {
                 required: true,
+                noSpace: true,
                 Uppercase: true,
                 Lowercase: true,
                 Specialcharacter: true,
                 Onedigit: true,
                 maxlength: 18,
                 minlength: 8,
-                noSpace: true,
             },
             'user_profile[first_name]': {
                 required: true,
-                minlength: 2,
-                regex: ALPHA_REGEX,
                 noSpace: true,
+                minlength: 2,
+                maxlength: 50,
+                regex: ALPHA_REGEX,
             },
             'user_profile[last_name]': {
                 required: true,
+                noSpace: true,
                 minlength: 2,
                 regex: ALPHA_REGEX,
-                noSpace: true,
+                maxlength: 50,
             },
             'user_profile[address]': {
                 required: true,
@@ -775,9 +777,10 @@ $(document).ready(function () {
             },
             'user_profile[contact]': {
                 required: true,
+                noSpace: true,
+                digits: true,
                 minlength: 10,
                 maxlength: 10,
-                noSpace: true,
             },
 
         },
@@ -792,11 +795,13 @@ $(document).ready(function () {
             },
             'user_profile[first_name]': {
                 required: " Please enter first Name",
+                maxlength: "Name need to be atleast  50 characters long",
                 minlength: "Name need to be at least 2 characters long",
                 regex: "Please enter characters only"
             },
             'user_profile[last_name]': {
                 minlength: "Name need to be at least 2 characters long",
+                maxlength: "Name need to be atleast  50 characters long",
                 required: " Please enter last Name",
                 regex: "Please enter characters only"
             },
@@ -805,6 +810,7 @@ $(document).ready(function () {
             },
             'user_profile[contact]': {
                 required: " Please enter Phone Number ",
+                digits: "Alphabates are not allowed",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only"
@@ -826,17 +832,17 @@ $(document).ready(function () {
                     console.log(response);
                     var data = JSON.parse(response);
                     if (data['status'] == '1') {
-                        
+
                         $('#staff_update').load('/users/users_list  #staff_update');
                         swal("Success!", "Staff  Has been Saved!", "success");
                         $('#addstaff').hide();
                         $('.modal-backdrop').remove();
                         $('.gif-loader').hide();
                         $('#addstaff form')[0].reset();
-                    } else if(data['status'] == '2') {
+                    } else if (data['status'] == '2') {
                         $('.gif-loader').hide();
                         $('#error_email').html("Email Already in Use");
-                    }else{
+                    } else {
                         swal("error!", "Staff  Has not been Saved!", "error");
                         $('#addstaff').hide();
                         $('.modal-backdrop').remove();
@@ -859,8 +865,6 @@ $(document).on("click", ".response", function () {
     var user_id = $(this).data("id");
     // $('.spinner').show();
     $('.gif-loader').show();
-
-
     $.ajax({
         headers: {
             "X-CSRF-TOKEN": csrfToken,
@@ -872,7 +876,6 @@ $(document).on("click", ".response", function () {
         success: function (response) {
             console.log(response)
             $('.productss').load('/contactUs/index .productss')
-            // $('.spinner').hide();
             $('.gif-loader').hide();
             swal("SENT!", "Mail has been sent!", "success");
 
@@ -917,20 +920,6 @@ $(document).on("click", ".delete", function () {
             }
         })
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 $(document).on("click", ".reject", function () {
     // alert('dgkhdfhg');
@@ -1027,21 +1016,20 @@ $(document).ready(function () {
         rules: {
             email: {
                 required: true,
+                noSpace: true,
                 email: true,
-                noSpace: true,
-                noSpace: true,
             },
             'user_profile[first_name]': {
                 required: true,
+                noSpace: true,
                 minlength: 2,
                 regex: ALPHA_REGEX,
-                noSpace: true,
             },
             'user_profile[last_name]': {
                 required: true,
+                noSpace: true,
                 minlength: 2,
                 regex: ALPHA_REGEX,
-                noSpace: true,
             },
             'user_profile[address]': {
                 required: true,
@@ -1049,9 +1037,10 @@ $(document).ready(function () {
             },
             'user_profile[contact]': {
                 required: true,
+                noSpace: true,
+                digits: true,
                 minlength: 10,
                 maxlength: 10,
-                noSpace: true,
             },
 
         },
@@ -1074,6 +1063,7 @@ $(document).ready(function () {
             },
             'user_profile[contact]': {
                 required: " Please enter Phone Number ",
+                digits: "Alphabates are not allowed",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only"
@@ -1121,8 +1111,8 @@ $(document).ready(function () {
         rules: {
             email: {
                 required: true,
-                email: true,
                 noSpace: true,
+                email: true,
 
             },
             address: {
@@ -1132,9 +1122,10 @@ $(document).ready(function () {
             },
             phone: {
                 required: true,
+                noSpace: true,
+                digits: true,
                 minlength: 10,
                 maxlength: 10,
-                noSpace: true,
             },
         },
         messages: {
@@ -1146,6 +1137,7 @@ $(document).ready(function () {
             },
             phone: {
                 required: " Please enter Phone Number ",
+                digits: "Alphabates are not allowed",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
             },
@@ -1219,8 +1211,8 @@ $(document).ready(function () {
         rules: {
             email: {
                 required: true,
-                email: true,
                 noSpace: true,
+                email: true,
 
             },
             address: {
@@ -1230,9 +1222,10 @@ $(document).ready(function () {
             },
             phone: {
                 required: true,
+                noSpace: true,
+                digits: true,
                 minlength: 10,
                 maxlength: 10,
-                noSpace: true,
             },
         },
         messages: {
@@ -1244,6 +1237,7 @@ $(document).ready(function () {
             },
             phone: {
                 required: " Please enter Phone Number ",
+                digits: "Alphabates are not allowed",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
             },
@@ -1324,8 +1318,8 @@ $(document).ready(function () {
         rules: {
             name: {
                 required: true,
-                regex: ALPHA_REGEX,
                 noSpace: true,
+                regex: ALPHA_REGEX,
             },
             price: {
                 required: true,
@@ -1339,9 +1333,10 @@ $(document).ready(function () {
             },
             'lead_contact[contact]': {
                 required: true,
+                noSpace: true,
+                digits: true,
                 minlength: 10,
                 maxlength: 10,
-                noSpace: true,
             },
         },
         messages: {
@@ -1359,6 +1354,7 @@ $(document).ready(function () {
             },
             'lead_contact[contact]': {
                 required: " Please enter Phone Number ",
+                digits: "Alphabates are not allowed",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only",
@@ -1436,8 +1432,8 @@ $(document).ready(function () {
         rules: {
             name: {
                 required: true,
-                regex: ALPHA_REGEX,
                 noSpace: true,
+                regex: ALPHA_REGEX,
             },
             price: {
                 required: true,
@@ -1450,13 +1446,13 @@ $(document).ready(function () {
             work_title: {
                 required: true,
                 noSpace: true,
-
             },
             'lead_contact[contact]': {
                 required: true,
+                noSpace: true,
+                digits: true,
                 minlength: 10,
                 maxlength: 10,
-                noSpace: true,
             },
         },
         messages: {
@@ -1478,6 +1474,7 @@ $(document).ready(function () {
             },
             'lead_contact[contact]': {
                 required: " Please enter Phone Number ",
+                digits: "Alphabates are not allowed",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
                 regexno: "please enter digits only",
@@ -1692,6 +1689,7 @@ $(document).ready(function () {
                         $('.lead').load('/leads/index .lead')
                     }
                     $('#csvModal').modal('hide');
+                        $('#csvModal form')[0].reset();
                 },
             });
             return false;

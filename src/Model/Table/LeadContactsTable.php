@@ -61,11 +61,12 @@ class LeadContactsTable extends Table
         //     ->integer('lead_id')
         //     ->notEmptyString('lead_id');
 
-        // $validator
-        //     ->scalar('contact')
-        //     ->maxLength('contact', 50)
-        //     ->requirePresence('contact', 'create')
-        //     ->notEmptyString('contact');
+        $validator
+            ->scalar('contact')
+            ->numeric('price')
+            ->maxLength('contact', 50)
+            ->requirePresence('contact', 'create')
+            ->notEmptyString('contact');
 
         // $validator
         //     ->dateTime('created_date')

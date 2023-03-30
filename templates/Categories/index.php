@@ -18,7 +18,7 @@
               <div class="modal-body">
                 <label for="category_name" class="form-label">Category Name</label>
                 <?php
-                echo $this->Form->input('category_name', ['class' => 'form-control']);
+                echo $this->Form->input('category_name', ['class' => 'form-control','maxlength'=>"100"]);
                 ?>
               </div>
               <div class="modal-footer">
@@ -50,6 +50,8 @@
 
                 <?php
                 $i = 1;
+                $no = $categories->count();
+                if($no > 0){
                 foreach ($categories as $category) :
 
                   if ($category->delete_status == 1) {
@@ -98,7 +100,10 @@
                       <a href="javascript:void(0)" class="btn-delete-category btn btn-danger" data-id="<?= $category->id ?>">Delete</a>
                     </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php endforeach; 
+                 }else{
+                  echo '<td colspan="9"class="text-center fw-bold">No Results To Show</td>';
+                }?>
               </tbody>
             </table>
           </div>
@@ -175,7 +180,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?php echo $this->Form->create(null, ["type" => "file", "id" => "editcat",]); ?>
+      <?php echo $this->Form->create(null, ["type" => "file", "id" => "editcat"]); ?>
       <div class="modal-body">
         <input type="hidden" id="catiddd" name="catiddd">
         <div class="col-12">
@@ -185,6 +190,7 @@
               "required" => false,
               "class" => "form-control",
               "id" => "name",
+              'maxlength'=>"100"
             ]
           ); ?>
 

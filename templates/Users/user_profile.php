@@ -171,23 +171,23 @@
       <div class="modal-body">
         <input type="hidden" id="userpid" name="userpid">
         <div class="col-12 my-3">
-          <?php echo $this->Form->control('user_profile.first_name', ['required' => false, 'class' => 'form-control']); ?>
+          <?php echo $this->Form->control('user_profile.first_name', ['required' => false, 'class' => 'form-control' ,'maxlength'=>"50"]); ?>
         </div>
 
         <div class="col-12 my-3">
-          <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control']); ?>
+          <?php echo $this->Form->control('user_profile.last_name', ['required' => false, 'class' => 'form-control' ,'maxlength'=>"50"]); ?>
         </div>
 
         <div class="col-12 my-3" style="display:none;">
-          <?php echo $this->Form->control('email', ['required' => false, 'class' => 'form-control']); ?>
+          <?php echo $this->Form->control('email', ['required' => false, 'class' => 'form-control' ,'maxlength'=>"50"]); ?>
         </div>
 
         <div class="col-12 my-3">
-          <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'class' => 'form-control']); ?>
+          <?php echo $this->Form->control('user_profile.contact', ['required' => false, 'class' => 'form-control' ,'maxlength'=>"10"]); ?>
         </div>
 
         <div class="col-12 my-3">
-          <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => 'form-control']); ?>
+          <?php echo $this->Form->control('user_profile.address', ['required' => false, 'class' => 'form-control' ,'maxlength'=>"100"]); ?>
         </div>
       </div>
       <div class="modal-footer">

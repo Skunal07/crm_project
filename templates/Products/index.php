@@ -26,7 +26,8 @@
                                 <!-- <pre> -->
                                 <?php
                                 $i = 1;
-
+                                $no = $products->count();
+                                if($no != 0 ){
                                 foreach ($products as $product) :
                                     if ($product->delete_status == 1) {
                                         continue;
@@ -119,6 +120,9 @@
                                     </tr>
                                 <?php
                                 endforeach;
+                            }else{
+                                echo '<td colspan="8"class="text-center fw-bold">No Results To Show</td>';
+                            }
                                 ?>
                             </tbody>
                         </table>
@@ -144,7 +148,7 @@
             <?= $this->Form->create(null, ['type' => 'file', 'id' => 'newproduct']) ?>
             <div class="modal-body">
                 <?php
-                echo $this->Form->control('product_name', ['class' => 'form-control']);
+                echo $this->Form->control('product_name', ['class' => 'form-control','maxlength'=>"100"]);
                 ?>
                 <br>
                 <label for="category_id" class="form-label">Category Name</label>
@@ -158,17 +162,17 @@
                 <br>
 
                 <?php
-                echo $this->Form->control('product_tags', ['class' => 'form-control']);
+                echo $this->Form->control('product_tags', ['class' => 'form-control','maxlength'=>"150"]);
                 ?>
                 <br>
                 <label for="short_discription" class="form-label">Product Short Discription</label>
                 <?php
-                echo $this->Form->textarea('short_discription', ['class' => 'form-control']);
+                echo $this->Form->textarea('short_discription', ['class' => 'form-control','maxlength'=>"150"]);
                 ?>
                 <br>
                 <label for="description" class="form-label">Product Discription</label>
                 <?php
-                echo $this->Form->textarea('description', ['class' => 'form-control']);
+                echo $this->Form->textarea('description', ['class' => 'form-control','maxlength'=>"500"]);
                 ?>
                 <br>
                 <label for="product_image" class="form-label">Product Images </label>
@@ -254,21 +258,21 @@
             <div class="modal-body">
                 <img src="" alt="" id='productImg' width="200px">
                 <div class="col-12 my-3">
-                    <?php echo $this->Form->control('product_image', ['type' => 'file', 'class' => 'form-control']); ?>
+                    <?php echo $this->Form->control('product_image', ['type' => 'file', 'class' => 'form-control' ]); ?>
                 </div>
                 <div class="col-12 my-3">
-                    <?php echo $this->Form->control('product_name', ['class' => 'form-control', 'id' => 'product_name']); ?>
+                    <?php echo $this->Form->control('product_name', ['class' => 'form-control', 'id' => 'product_name' ,'maxlength'=>"100"]); ?>
                 </div>
                 <div class="col-12 my-3">
                     <?php echo $this->Form->label('short_discription'); ?>
-                    <?php echo $this->Form->textarea('short_discription', ['class' => 'form-control', 'id' => 'short_discription']); ?>
+                    <?php echo $this->Form->textarea('short_discription', ['class' => 'form-control', 'id' => 'short_discription' ,'maxlength'=>"100"]); ?>
                 </div>
                 <div class="col-12 my-3">
                     <?php echo $this->Form->label('description'); ?>
-                    <?php echo $this->Form->textarea('description', ['class' => 'form-control', 'id' => 'long_description']); ?>
+                    <?php echo $this->Form->textarea('description', ['class' => 'form-control', 'id' => 'long_description' ,'maxlength'=>"500"]); ?>
                 </div>
                 <div class="col-12 my-3">
-                    <?php echo $this->Form->control('product_tags', ['class' => 'form-control', 'id' => 'product_tags']); ?>
+                    <?php echo $this->Form->control('product_tags', ['class' => 'form-control', 'id' => 'product_tags' ,'maxlength'=>"150"]); ?>
                 </div>
             </div>
             <div class="modal-footer">

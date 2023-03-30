@@ -208,7 +208,7 @@ class UsersController extends AppController
             $totalquilified = $this->Leads->find('all')->where(['stages' => 2, 'delete_status' => 0, 'user_id' => $uid]);
             $totallost = $this->Leads->find('all')->where(['stages' => 3, 'delete_status' => 0, 'user_id' => $uid]);
             $totallead = $this->Leads->find('all')->where(['delete_status' => 0, 'user_id' => $uid]);
-            $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0, 'user_id' => $uid]);
+            $category = $this->Categories->find('all')->contain('Products')->where(['Categories.delete_status' => 0]);
             $leads = $this->Leads->find('all', ['limit' => 5])->where(['delete_status' => 0, 'stages' => 4, 'user_id' => $uid])->order(['id' => 'DESC']);
         }
         $i = 0;

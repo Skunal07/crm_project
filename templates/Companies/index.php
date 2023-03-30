@@ -17,7 +17,8 @@
                 <div class="modal-body">
                   <label for="company_name" class="form-label">Company Name</label>
                   <?php
-                  echo $this->Form->input('company_name', ['class' => 'form-control']);
+                  echo $this->Form->input('company_name', ['class' => 'form-control','maxlength'=>"100"]);
+              
                   ?>
                 </div>
                 <div class="modal-footer">
@@ -47,6 +48,8 @@
               <tbody id="mytable">
                 <?php
                 $i = 1;
+                $no = $companies->count();
+                if($no > 0){
                 foreach ($companies as $company) :
                   if ($company->delete_status == 1) {
                     continue;
@@ -92,7 +95,10 @@
                       <a href="javascript:void(0)" class="btn-delete-company btn btn-danger" data-id="<?= $company->id ?>">Delete</a>
                     </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php endforeach; 
+                }else{
+                  echo '<td colspan="9"class="text-center fw-bold">No Results To Show</td>';
+                }?>
               </tbody>
             </table>
           </div>
@@ -180,6 +186,7 @@
               "required" => false,
               "class" => "form-control",
               "id" => "companyname",
+              'maxlength'=>"100"
             ]
           ); ?>
 

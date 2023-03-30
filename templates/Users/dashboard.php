@@ -8,10 +8,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Leads</p>
                                 <h5 class="font-weight-bolder">
-                                <?php $i = 0;
-                                    foreach ($totallead as $lead) {
-                                        $i++;
-                                    }
+                                    <?php $i = $totallead->count();
                                     echo $i; ?>
                                 </h5>
                                 <p class="mb-0">
@@ -37,10 +34,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Quilified</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $j = 0;
-                                    foreach ($totalquilified as $quilified) {
-                                        $j++;
-                                    }
+                                    <?php $j = $totalquilified->count();
                                     echo $j; ?>
                                 </h5>
                                 <p class="mb-0">
@@ -66,10 +60,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Lost</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $k = 0;
-                                    foreach ($totallost as $lost) {
-                                        $k++;
-                                    }
+                                    <?php $k = $totallost->count();
                                     echo $k; ?>
                                 </h5>
                                 <p class="mb-0">
@@ -95,10 +86,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Won</p>
                                 <h5 class="font-weight-bolder">
-                                    <?php $l = 0;
-                                    foreach ($totalwon as $won) {
-                                        $l++;
-                                    }
+                                    <?php $l = $totalwon->count();
                                     echo $l; ?>
                                 </h5>
                                 <p class="mb-0">
@@ -120,14 +108,18 @@
         <div class="col-lg-7 mb-lg-0 mb-4">
             <div class="card z-index-2 h-100">
                 <div class="card-header pb-0 pt-3 bg-transparent">
-                    <h6 class="text-capitalize">Sales overview</h6>
-                    <p class="text-sm mb-0">
-                        <i class="fa fa-arrow-up text-success"></i>
-                        <span class="font-weight-bold">4% more</span> in 2021
-                    </p>
+                    <h6 class="text-capitalize">Leads overview</h6>
                 </div>
                 <div class="card-body p-3">
-                    <div id="donutchart" style=" width:800px; height:500px; "></div>
+                    <?php
+                    if ($i > 0) { ?>
+                        <div id="donutchart" style=" width:800px; height:500px; "></div>
+                    <?php
+                    } else {
+                    ?>
+                        <h3>it's a good time to start</h3>
+                        <p>Daily leads activities is shown in this pie chart</p>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -191,39 +183,50 @@
                 <div class="table-responsive">
                     <table class="table align-items-center ">
                         <tbody>
-                            <?php foreach ($leads as $lead) {
-                                ?>
-                                <tr>
-                                    <td class="w-30">
-                                        <div class="d-flex px-2 py-1 align-items-center">
-                                            <div>
-                                                <img src="/img/yoo.jpg" width='50px' alt="Country flag">
+
+                            <?php
+                            $no = $leads->count();
+                            if ($no > 0) {
+                                foreach ($leads as $lead) {
+                            ?>
+                                    <tr>
+                                        <td class="w-30">
+                                            <div class="d-flex px-2 py-1 align-items-center">
+                                                <div>
+                                                    <img src="/img/yoo.jpg" width='50px' alt="Country flag">
+                                                </div>
+                                                <div class="ms-4">
+                                                    <p class="text-xs font-weight-bold mb-0">Name:</p>
+                                                    <h6 class="text-sm mb-0"><?= $lead->name ?></h6>
+                                                </div>
                                             </div>
-                                            <div class="ms-4">
-                                                <p class="text-xs font-weight-bold mb-0">Name:</p>
-                                                <h6 class="text-sm mb-0"><?= $lead->name ?></h6>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <p class="text-xs font-weight-bold mb-0">Work Title:</p>
+                                                <h6 class="text-sm mb-0"><?= $lead->work_title ?></h6>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">Work Title:</p>
-                                            <h6 class="text-sm mb-0"><?= $lead->work_title ?></h6>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">Price:</p>
-                                            <h6 class="text-sm mb-0"><?= $lead->price ?></h6>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-sm">
-                                        <div class="col text-center">
-                                            <p class="text-xs font-weight-bold mb-0">Created At:</p>
-                                            <h6 class="text-sm mb-0"><?= $lead->created_date ?></h6>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <div class="text-center">
+                                                <p class="text-xs font-weight-bold mb-0">Price:</p>
+                                                <h6 class="text-sm mb-0"><?= $lead->price ?></h6>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-sm">
+                                            <div class="col text-center">
+                                                <p class="text-xs font-weight-bold mb-0">Created At:</p>
+                                                <h6 class="text-sm mb-0"><?= $lead->created_date ?></h6>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            } else { ?>
+                                <td>
+                                    <div class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">No data to Show</p>
+                                    </div>
+                                </td>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -264,12 +267,9 @@
             </div>
         </div>
     </div>
-
-                                        <?php $m = 0;
-                                        foreach ($totalawerness as $aw) {
-                                            $m++;
-                                        }
-                                       ?>
+</div>
+    <?php $m = $totalawerness->count();
+    ?>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">

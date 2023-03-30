@@ -18,6 +18,8 @@
     <?php
     // print_r($products);die;
     $i = 1;
+    $no=$leads->count();
+    if($no > 0 ){
     foreach ($leads as $lead) :
       if ($lead->delete_status == 1) {
         continue;
@@ -98,7 +100,10 @@
           <a href="javascript:void(0)" class="btn-delete-lead btn btn-danger" data-id="<?= $lead->id ?>">Delete</a>
         <?php }?></td>
       </tr>
-    <?php endforeach; ?>
+    <?php endforeach;
+    }else{
+      echo '<td colspan="11" class="text-center fw-bold">No Results To Show</td>';
+    } ?>
   </tbody>
 </table>
 

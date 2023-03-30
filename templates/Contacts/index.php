@@ -23,15 +23,15 @@
 
 
         <?php
-        echo $this->Form->control('address', ['class' => 'form-control']);
+        echo $this->Form->control('address', ['class' => 'form-control','maxlength'=>"100"]);
         ?>
         <br>
         <?php
-        echo $this->Form->control('email', ['class' => 'form-control']);
+        echo $this->Form->control('email', ['class' => 'form-control','maxlength'=>"50"]);
         ?>
         <br>
         <?php
-        echo $this->Form->control('phone', ['class' => 'form-control']);
+        echo $this->Form->control('phone', ['class' => 'form-control','maxlength'=>"10"]);
         ?>
         <br>
 
@@ -73,6 +73,8 @@
               </thead>
               <tbody id="mytable">
                 <?php $i = 1;
+                $no=$contacts->count();
+                if($no > 0){
                 foreach ($contacts as $contact) :
                   if ($contact->delete_status == 1) {
                     continue;
@@ -129,7 +131,11 @@
                       <a href="javascript:void(0)" class="btn-delete-contact btn btn-danger" data-id="<?= $contact->id ?>">Delete</a>
                     </td>
                   </tr>
-                <?php endforeach; ?>
+                <?php endforeach;
+                }else{
+                  echo '<td colspan="9"class="text-center fw-bold">No Results To Show</td>';
+                  
+                } ?>
               </tbody>
             </table>
           </div>
@@ -236,7 +242,7 @@
             [
               "required" => false,
               "class" => "form-control",
-              "id" => "addresss",
+              "id" => "addresss",'maxlength'=>"100"
             ]
           ); ?>
         </div>
@@ -246,7 +252,7 @@
             [
               "required" => false,
               "class" => "form-control",
-              "id" => "emails",
+              "id" => "emails",'maxlength'=>"50"
             ]
           ); ?>
         </div>
@@ -256,7 +262,7 @@
             [
               "required" => false,
               "class" => "form-control",
-              "id" => "phones",
+              "id" => "phones",'maxlength'=>"10"
             ]
           ); ?>
         </div>

@@ -91,11 +91,13 @@ $(document).ready(function () {
     $("#contactusform").validate({
         rules: {
             email: {
-                email: true,
                 required: true,
+                noSpace: true,
+                email: true,
             },
             name: {
                 required: true,
+                noSpace: true,
                 regex: ALPHA_REGEX,
             },
             query_type: {
@@ -108,13 +110,12 @@ $(document).ready(function () {
             },
             phone: {
                 required: true,
+                noSpace: true,
+                digits: true,
                 minlength: 10,
                 maxlength: 10,
             },
-
-
-
-        },
+       },
         messages: {
             email: {
                 required: " Please enter email",
@@ -131,6 +132,7 @@ $(document).ready(function () {
             },
             phone: {
                 required: " Please enter phone number ",
+                digits: "Alphabates are not allowed",
                 minlength: "phone number must be 10 digits",
                 maxlength: "phone number must be 10 digits",
             },

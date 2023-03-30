@@ -249,7 +249,7 @@ return [
             'host' => 'smtp.gmail.com',
             'port' => 587,
             'username' => 'kunal02chd@gmail.com', //eg: sample[at]gmail.com
-            'password' => 'jsjlnewfgxpwpbyz', //email password
+            'password' => 'ovszgkrnlinngpgx', //email password
             'className' => 'Smtp',
             'tls' => true,
             'client' => null,

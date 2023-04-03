@@ -67,6 +67,10 @@ class UsersTable extends Table
         $this->hasMany('Products', [
             'foreignKey' => 'user_id',
         ]);
+        // $this->hasMany('Task', [
+            
+        //     'foreignKey' => 'assigned_by',
+        // ]);
         $this->hasOne('UserProfile', [
             'foreignKey' => 'user_id',
         ]);

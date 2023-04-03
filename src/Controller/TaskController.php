@@ -10,39 +10,56 @@ class TaskController extends AppController
 
     public function index()
     {
-        // $this->paginate = [
-        //     'contain' => ['Users'],
-        // ];
-        $task = $this->paginate($this->Task);
+       
+        $task =$this->Task->find('all')->contain(['Users.UserProfile', 'Assigned.UserProfile','TaskAssigned'])->order(["Task.id"=>"DESC"])->all();
 
         $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0]));
-
+        
+        // dd($task);
         $this->set(compact('task','users'));
 
     }
 
-    // public function showUser()
-    // {
-    //     if ($this->request->is('ajax')) {
-    //         $this->autoRender = false;
-    //         $users = $this->paginate($this->Users->find('all')->contain(['UserProfile'])->where(['role' => 0, 'status' => 0, 'delete_status' => 0]));
-    //         echo json_encode($users);
-    //         // $this->set(compact('users'));
-    //     }
-    //     // dd($users);
-    //     // exit;
-    // }
-
     public function addTask()
     {
         $user = $this->Authentication->getIdentity();
-        $uid = $user->id;
-        $task = $this->Task->newEmptyEntity();
-        if ($this->request->is('ajax')) {
-            $task = $this->Task->patchEntity($task, $this->request->getData());
-            $task->user_id = $uid;
-            if ($this->Task->save($task)) {
 
+        $uid = $user->id;
+        if ($this->request->is('ajax')) {
+            $data = $this->request->getData();
+            
+            $data_save= array();
+            
+            foreach($data['user_id'] as $datas){
+                $data_save[] += $datas;
+            }
+
+            $i = 0;
+            foreach($data_save as $datass){
+                $task = $this->Task->newEmptyEntity();
+                $task->user_id = $datass;
+                $task->assigned_by = $uid;
+                $this->Task->save($task);
+                
+                $taskassigned = $this->TaskAssigned->newEmptyEntity();
+                $taskassigned->task_id = $task->id;
+                $taskassigned->task_name = $data['task_assigned']['task_name'];
+                if(!$data['task_assigned']['due_date'] == ''){
+
+                    $taskassigned->due_date = $data['task_assigned']['due_date'];
+                }
+                $this->TaskAssigned->save($taskassigned);
+                $i++;
+            }
+            if($i=0){
+                $this->Flash->error(__('Failed to save company name'));
+                
+                echo json_encode(array(
+                    "status" => 0,
+                    "message" => "Failed to create"
+                ));
+                die;
+            }else{
 
                 $this->Flash->success(__('company has been created'));
 
@@ -52,14 +69,7 @@ class TaskController extends AppController
                 ));
                 die;
             }
-
-            $this->Flash->error(__('Failed to save company name'));
-
-            echo json_encode(array(
-                "status" => 0,
-                "message" => "Failed to create"
-            ));
-            die;
+        
         }
     }
 
@@ -69,6 +79,8 @@ class TaskController extends AppController
     {
         $task = $this->Task->newEmptyEntity();
         if ($this->request->is('post')) {
+
+            dd($this->request->getData());
             $task = $this->Task->patchEntity($task, $this->request->getData());
             if ($this->Task->save($task)) {
                 $this->Flash->success(__('The task has been saved.'));

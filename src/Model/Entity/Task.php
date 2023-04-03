@@ -31,13 +31,8 @@ class Task extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'user_id' => true,
-        'assigned_by' => true,
-        'status' => true,
-        'delete_status' => true,
-        'created_date' => true,
-        'modified_date' => true,
-        'user' => true,
-        'task_assigned' => true,
+       
+        '*'=>true,
+        
     ];
 }

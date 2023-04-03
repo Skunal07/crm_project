@@ -28,22 +28,22 @@ class TaskAssignedTable extends Table
    
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('task_id')
-            ->allowEmptyString('task_id');
+        // $validator
+        //     ->integer('task_id')
+        //     ->allowEmptyString('task_id');
 
-        $validator
-            ->scalar('task_name')
-            ->maxLength('task_name', 250)
-            ->allowEmptyString('task_name');
+        // $validator
+        //     ->scalar('task_name')
+        //     ->maxLength('task_name', 250)
+        //     ->allowEmptyString('task_name');
 
-        $validator
-            ->dateTime('due_date')
-            ->allowEmptyDateTime('due_date');
+        // $validator
+        //     ->dateTime('due_date')
+        //     ->allowEmptyDateTime('due_date');
 
-        $validator
-            ->dateTime('create_at')
-            ->notEmptyDateTime('create_at');
+        // $validator
+        //     ->dateTime('create_at')
+        //     ->notEmptyDateTime('create_at');
 
         return $validator;
     }

@@ -1723,3 +1723,62 @@ $(document).ready(function () {
 //         },
 //     });
 // });
+
+
+
+
+
+//----------------------------------- Add Staff using ajax -------------------------//
+
+// $(document).on("click", ".harsh", function () {
+
+// alert('dvhdhvd');
+ 
+//                 var formData = $('#assignetask').serialize();
+//                 $.ajax({
+//                     headers: {
+//                         "X-CSRF-TOKEN": csrfToken,
+//                     },
+//                     url: "/task/addTask",
+//                     type: "JSON",
+//                     method: "POST",
+//                     data: formData,
+//                             success: function (response) {
+//                                 alert(response);
+                            
+//                             },
+//                         });
+                    
+//                     },
+//     );
+
+
+
+
+$(document).on("click", ".harsh", function (e) {
+    e.preventDefault();
+    
+                alert('vcdgd');
+                var formData = $('#assigntask').serialize();
+
+                // alert(formData);
+                $.ajax({
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    url: "/task/addTask",
+                    type: "JSON",
+                    method: "POST",
+                    data: formData,
+                    success: function (response) {
+                        
+                        
+                    },
+                });
+            
+
+        });
+    
+        
+    
+

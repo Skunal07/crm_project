@@ -1697,63 +1697,7 @@ $(document).ready(function () {
     });
 });
 
-
-// $(document).on("click", ".add-task", function () {
-//     $.ajax({
-//         url: "/task/showUser",
-//         // data: data,
-//         type: "JSON",
-//         method: "get",
-//         success: function (response) {
-//             user = $.parseJSON(response);
-//             var userlist = "";
-//             $.each(user, function (k, v) {
-//                 // console.log(v['id']);
-//                 userlist += "<li class='list-group-item '><input class='mx-2' type='checkbox' value='" + v.id + "' name='userAssign' >" + v.user_profile.first_name + ' ' +v.user_profile.last_name + "</li>";
-//                 $('#example-multiple-selected').append("<option type='checkbox' value='" + v.id + "' name='user-name' id='user-name' >" + v.user_profile.first_name + "</option>");
-//                 // if (v == 'user_profile') {
-//                 //     $.each($(this), function(index, value) {
-//                 //         myproduct += "<li><input type='checkbox' value='" + value.id + "' name='product' >" + value.product_title + "</li>";
-//                 //         // console.log(value.product_title);
-//                 //     });
-//                 // }
-//             });
-
-//             $("#user-list").html(userlist);
-//         },
-//     });
-// });
-
-
-
-
-
-//----------------------------------- Add Staff using ajax -------------------------//
-
-// $(document).on("click", ".harsh", function () {
-
-// alert('dvhdhvd');
- 
-//                 var formData = $('#assignetask').serialize();
-//                 $.ajax({
-//                     headers: {
-//                         "X-CSRF-TOKEN": csrfToken,
-//                     },
-//                     url: "/task/addTask",
-//                     type: "JSON",
-//                     method: "POST",
-//                     data: formData,
-//                             success: function (response) {
-//                                 alert(response);
-                            
-//                             },
-//                         });
-                    
-//                     },
-//     );
-
-
-
+//-------------------------------------Add Task---------------------------------------//
 
 $(document).on("click", ".harsh", function (e) {
     e.preventDefault();
@@ -1771,6 +1715,11 @@ $(document).on("click", ".harsh", function (e) {
                     method: "POST",
                     data: formData,
                     success: function (response) {
+
+                        $('.mytable').load('/task/index .mytable');
+                        swal("Success!", "Task Has been added Successfully!", "success");
+                        $('#AddTaskModal').hide();
+                        $('.modal-backdrop').hide();
                         
                         
                     },

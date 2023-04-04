@@ -100,6 +100,7 @@
                     <span class="nav-link-text ms-1">Leads</span>
                 </a>
             </li>
+            <?php if ($user->role == 1) { ?>
             <li class="nav-item">
                 <a class="nav-link  <?php echo $page == "task"?'active bg-gradient-secondary':'';?>" href="/task">
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -108,6 +109,18 @@
                     <span class="nav-link-text ms-1">Assigned Task</span>
                 </a>
             </li>
+            <?php }?>
+            <?php if ($user->role == 0) { ?>
+            <li class="nav-item">
+                <a class="nav-link  <?php echo $page == "task"?'active bg-gradient-secondary':'';?>" href="/task">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa-sharp fa-solid fa-file text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">My Task</span>
+                </a>
+            </li>
+            <?php }?>
+
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">My Profile / logout</h6>
             </li>

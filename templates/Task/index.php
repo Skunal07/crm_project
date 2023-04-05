@@ -15,7 +15,7 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0 product">
-                        <table class="table align-items-center mb-0 mytable">
+                        <table class="table align-items-center mb-0 mytabletask">
                         <?php  if ($user->role == 1) {?>
                             <thead>
                                
@@ -31,7 +31,7 @@
                                 </tr>
                              
                             </thead>
-                            <tbody >
+                            <tbody id="mytable">
                                 <!-- <pre> -->
                                 <?php
                                 $i = 1;
@@ -107,7 +107,7 @@
                                 </tr>
                              
                             </thead>
-                            <tbody >
+                            <tbody id="mytable">
                                 <?php
                                 $i = 1;
 
@@ -204,10 +204,8 @@
 
                 <label for="due_date" class="form-label">Due Date</label>
                 <?php
-                echo $this->Form->dateTime('task_assigned.due_date', ['class' => 'form-control']);
+                echo $this->Form->date('task_assigned.due_date', ['id'=>'datefield','class' => 'form-control']);
                 ?>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -224,4 +222,20 @@
     $(document).ready(function() {
         $("#multiple-select").select2({});
     });
+
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+ if(dd<10){
+        dd='0'+dd
+    } 
+    if(mm<10){
+        mm='0'+mm
+    } 
+
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById("datefield").setAttribute("min", today);
+
 </script>

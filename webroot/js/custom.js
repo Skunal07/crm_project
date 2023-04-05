@@ -1553,10 +1553,10 @@ $(document).on("click", ".btn-delete-lead", function () {
 //------------------------------------- Localy Serch function Using Filter---------------------------------------//
 
 $(document).ready(function () {
-
     $("#key").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#mytable tr").filter(function () {
+            // alert(value);
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
@@ -1702,7 +1702,7 @@ $(document).ready(function () {
 $(document).on("click", ".harsh", function (e) {
     e.preventDefault();
     
-                alert('vcdgd');
+                // alert('vcdgd');
                 var formData = $('#assigntask').serialize();
 
                 // alert(formData);
@@ -1716,7 +1716,7 @@ $(document).on("click", ".harsh", function (e) {
                     data: formData,
                     success: function (response) {
 
-                        $('.mytable').load('/task/index .mytable');
+                        $('.mytabletask').load('/task/index .mytabletask');
                         swal("Success!", "Task Has been added Successfully!", "success");
                         $('#AddTaskModal').hide();
                         $('.modal-backdrop').hide();

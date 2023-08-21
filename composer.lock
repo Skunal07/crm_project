@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "479bc4abc0feb6f10a0ef0289e3fb0c6",
+    "content-hash": "066d678eb93c06bd5eb4f8872c27c835",
     "packages": [
         {
             "name": "cakephp/authentication",
@@ -1481,16 +1481,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v10.10.0",
+            "version": "v12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "2c641079093167c2e448d82bd0bd02160e20fec1"
+                "reference": "732996be0714154716f19f73f956d77bafc99334"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/2c641079093167c2e448d82bd0bd02160e20fec1",
-                "reference": "2c641079093167c2e448d82bd0bd02160e20fec1",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/732996be0714154716f19f73f956d77bafc99334",
+                "reference": "732996be0714154716f19f73f956d77bafc99334",
                 "shasum": ""
             },
             "require": {
@@ -1534,7 +1534,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2023-03-17T01:59:34+00:00"
+            "time": "2023-08-18T18:55:28+00:00"
         },
         {
             "name": "symfony/config",
